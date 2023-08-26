@@ -1,0 +1,116 @@
+
+.loginComponents{
+    padding: 30px 80px;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    
+}
+.activeBtn{
+    color: orange;
+}
+.btnGroup{
+   width: 100%;
+}
+
+.btnGroup button{
+    background: rgb(127, 126, 126,0.3);
+    width: 50%;
+   
+   border-left: 2px solid rgb(88, 86, 86);
+   font-size: 16px;
+   font-weight: 600;
+   padding: 10px;
+}
+.btnGroup button:active{
+    color: orange;
+}
+.MobileInputDiv{
+    width: 100%;
+    margin-top: 40px;
+}
+
+.MobileInputDiv input{
+    width: 100%;
+    background:  rgb(127, 126, 126,0.3);
+    padding: 10px;
+    color:orange;
+}
+
+.mobileInput::placeholder{
+    color: orange;
+    font-size: 14px;
+    font-weight:600;
+}
+.loginBtn{
+    width: 100%;
+    background: rgb(127, 126, 126,0.3);
+    margin-top: 40px;
+   
+    font-size: 24px;
+    font-weight: 700;
+    color: orange;
+}
+.loginBtn button{
+    width: 100%;
+    padding: 10px;
+}
+.ggloginBtn{
+    width: 100%;
+    background: rgb(127, 126, 126,0.3);
+    margin-top: 40px;
+    
+    font-size: 24px;
+    font-weight: 700;
+    color: orange;
+    margin-bottom: 20px;
+}
+.ggloginBtn button{
+    width: 100%;
+    padding: 10px;
+   text-align: center;
+justify-content: center;
+padding-right: 140px;
+}
+.ggloginBtn button img{
+    vertical-align: middle;
+    float: left;
+   margin-left: 150px;
+   
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 40px;
+    padding-left: 5px;
+}
+.flex p{
+    margin-top: -10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.underline{
+    border: 1px solid orange;
+    height:  1px;
+    width: 45%;
+}
+.signUp{
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    padding-bottom: 20px;
+}
+.signUp h4{
+    color: white;
+}
+.signUp button{
+    color: orange;
+}
+.googleicon{
+    width: 28px;
+}
+button:hover{
+    background: black;
+    opacity: 0.5;
+}

@@ -1,0 +1,57 @@
+.FooterBackground{
+    background: rgb(41, 41, 41);
+}
+.FooterContent{
+    display: flex;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: orange;
+    padding-top: 50px;
+    padding-bottom: 10px;
+}
+.FooterContent p{
+    color: rgb(198, 189, 189);
+    padding-top: 40px;
+    font-size: 14px;
+    line-height: 1.4rem;
+}
+.FooterContent h3{
+    font-size: 24px;
+    font-weight: 600;
+}
+.FooterContent h4{
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 24px;
+}
+.FooterContent h5{
+   color:  rgb(198, 189, 189);
+   font-size: larger;
+   padding-top: 70px;
+}
+.FooterContent li{
+    padding-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.FooterContent li:hover{
+    color: orangered;
+}
+.about{
+    width: 30%;
+}
+.importantLinks{
+    text-align: start;
+    padding-left: 200px;
+    width: 35%;
+}
+.usefulLinks{
+    text-align: start;
+    padding-left: 200px;
+    width: 35%;
+}
+.h{
+    display: flex;
+    justify-content:space-evenly;
+    cursor: pointer;
+}
