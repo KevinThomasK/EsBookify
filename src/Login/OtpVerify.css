@@ -1,0 +1,14 @@
+.maindiv-otp{
+    height: 350px;
+    display: flex;
+    flex-direction:column;;
+    justify-content: center;
+    align-items: center;
+}
+.subdiv-resend{
+   margin-top: 40px;
+}
+.subdiv-verify{
+    width:435px;
+    margin-top: 3%;
+}

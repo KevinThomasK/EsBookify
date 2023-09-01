@@ -15,7 +15,7 @@ function App() {
   const hideLoginHandler = () => {
     setLoginIsShown(false)
   }
-
+console.log("loginIsShown",loginIsShown)
   return (
   <>
     {loginIsShown && <Login onClose={hideLoginHandler}/>}
