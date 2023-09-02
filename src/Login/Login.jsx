@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./Login.module.css";
 import LoginModal from "./LoginModal";
 import googeleimage from '../assets/google-icon-logo-png-transparent.png';
 import OtpVerify from "./OtpVerify";
 import PhoneInput from "react-phone-input-2";
-import { auth } from "../firebase"
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from "@firebase/auth";
+import { auth,provider } from "../firebase";
+import { RecaptchaVerifier, getAuth, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
+import HomePage from "../HomePage";
+
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
   const [ph, setph] = useState("")
@@ -13,6 +15,16 @@ function Login(props) {
   const [loading, setLoading] = useState(false);
   const [phoneerror, setphoneerror] = useState(false);
   const [ValidPhoneNumber,setValidPhoneNumber]= useState (false);
+  const [value, setValue] =useState('')
+  const  handleClick =()=>{
+    signInWithPopup(auth,provider).then((data)=>{
+      setValue(data.user.email)
+      localStorage.setItem("email",data.user.email)
+    })
+  }
+  useEffect(()=>{
+    setValue(localStorage.getItem('email'))
+  })
   function onCaptchVerify() {
     if (!window.recaptchaVerifier) {
       // const auth = getAuth();
@@ -95,7 +107,8 @@ function Login(props) {
                   <div className={classes.underline}></div>
                 </div>
                 <div className={classes.ggloginBtn}>
-                  <button><img src={googeleimage} alt="google" className={classes.googleicon} />Google</button>
+                  {value?<HomePage/>:null}
+                  <button onClick={handleClick}><img src={googeleimage} alt="google" className={classes.googleicon} />Google</button>
                 </div>
               </div>
               <div className={classes.signUp}>
