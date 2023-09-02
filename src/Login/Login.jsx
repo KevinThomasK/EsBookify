@@ -4,8 +4,8 @@ import LoginModal from "./LoginModal";
 import googeleimage from '../assets/google-icon-logo-png-transparent.png';
 import OtpVerify from "./OtpVerify";
 import PhoneInput from "react-phone-input-2";
-import { auth } from "../firebase";
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from "firebase/auth";
+import { auth } from "../firebase"
+import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from "@firebase/auth";
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
   const [ph, setph] = useState("")

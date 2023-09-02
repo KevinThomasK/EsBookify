@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import OTPInput from "otp-input-react";
+import OTPInput from 'react-otp-input';
 import classes from "./Login.module.css";
 import '../Login/OtpVerify.css'
 function OtpVerify() {
