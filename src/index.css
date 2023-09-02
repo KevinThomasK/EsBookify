@@ -11,3 +11,17 @@ body{
     height: 100%;
     font-family: 'poppins';
 }
+.otpcontainer{
+    @apply flex  ;
+}
+.otp-container input {
+    @apply  flex     rounded-full border-orange-500 border text-yellow-600 bg-black !w-14 !h-14 ;
+
+}
+.bordercolor{
+    outline-style: solid;
+    outline-color: red;
+}
+.react-tel-input .special-label{
+    display: none;
+}
