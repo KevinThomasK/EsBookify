@@ -107,7 +107,7 @@ function Login(props) {
                   <div className={classes.underline}></div>
                 </div>
                 <div className={classes.ggloginBtn}>
-                  {value?<HomePage/>:null}
+                 
                   <button onClick={handleClick}><img src={googeleimage} alt="google" className={classes.googleicon} />Google</button>
                 </div>
               </div>
