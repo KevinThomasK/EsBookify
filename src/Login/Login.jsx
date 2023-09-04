@@ -17,16 +17,17 @@ function Login(props) {
   const [loading, setLoading] = useState(false);
   const [phoneerror, setphoneerror] = useState(false);
   const [ValidPhoneNumber,setValidPhoneNumber]= useState (false);
-  const [value, setValue] =useState('')
+  // const [value, setValue] =useState('')
   const  handleClick =()=>{
     signInWithPopup(auth,provider).then((data)=>{
-      setValue(data.user.email)
-      localStorage.setItem("email",data.user.email)
+      // setValue(data.user.email)
+      props.onClose()
+      // localStorage.setItem("email",data.user.email)
     })
   }
-  useEffect(()=>{
-    setValue(localStorage.getItem('email'))
-  })
+  // useEffect(()=>{
+  //   setValue(localStorage.getItem('email'))
+  // })
   function onCaptchVerify() {
     if (!window.recaptchaVerifier) {
       // const auth = getAuth();
@@ -114,7 +115,7 @@ function Login(props) {
                 </div>
 
                 <div className={classes.ggloginBtn}>
-                  {value?<HomePage/>:null}
+                  {/* {value?<HomePage/>:null} */}
                   <button onClick={handleClick}><img src={googeleimage} alt="google" className={classes.googleicon} />Google</button>
                 </div>
               </div>
@@ -123,7 +124,7 @@ function Login(props) {
                 <button>Sign Up</button>
               </div>
             </div>
-            : <OtpVerify />}
+            : <OtpVerify onCloseOTP={props.onClose} />}
 
 
       </div>

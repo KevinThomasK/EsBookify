@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import OTPInput from "otp-input-react";
 import classes from "./Login.module.css";
 import '../Login/OtpVerify.css'
-function OtpVerify() {
+function OtpVerify(props) {
   const [otp, setOtp] = useState("")
   const [OtpError, setOtpError] = useState (false);
   const [OtpValid, setOtpValid] = useState (false);
@@ -25,6 +25,7 @@ function OtpVerify() {
       setOtpError(false) 
       window.confirmationResult.confirm(otp).then(async(res)=>{
         console.log(res)
+        props.onCloseOTP()
       }) .catch((error) => {
         // Error; SMS not sent        // ...  
       console.log(error)
