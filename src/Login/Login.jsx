@@ -5,7 +5,7 @@ import googeleimage from '../assets/google-icon-logo-png-transparent.png';
 import OtpVerify from "./OtpVerify";
 import PhoneInput from "react-phone-input-2";
 import { auth,provider } from "../firebase";
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
+import { RecaptchaVerifier, getAuth, signInWithPhoneNumber, signInWithPopup } from "@firebase/auth";
 import HomePage from "../HomePage";
 
 // import 'react-phone-input-2/lib/style.css'
