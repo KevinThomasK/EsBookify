@@ -4,9 +4,14 @@ import LoginModal from "./LoginModal";
 import googeleimage from '../assets/google-icon-logo-png-transparent.png';
 import OtpVerify from "./OtpVerify";
 import PhoneInput from "react-phone-input-2";
+// import PhoneInput, { formatPhoneNumber } from 'react-phone-number-input';
 import { auth,provider } from "../firebase";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
 import HomePage from "../HomePage";
+import 'react-phone-input-2/lib/style.css'
+import { parsePhoneNumber } from "libphonenumber-js";
+import { formatPhoneNumber } from "react-phone-number-input";
+import { isValidPhoneNumber } from "libphonenumber-js/core";
 
 // import 'react-phone-input-2/lib/style.css'
 
@@ -18,6 +23,7 @@ function Login(props) {
   const [phoneerror, setphoneerror] = useState(false);
   const [ValidPhoneNumber,setValidPhoneNumber]= useState (false);
   // const [value, setValue] =useState('')
+  const [CountryCode, setCountryCode]=useState("");
   const  handleClick =()=>{
     signInWithPopup(auth,provider).then((data)=>{
       // setValue(data.user.email)
@@ -47,6 +53,9 @@ function Login(props) {
     }
   }
   const onSignup = () => {
+    // const isValidCountryCallingCode = PhoneNumber.isValidCountryCallingCode(value);
+    // const formattedPhoneNumber = formatPhoneNumber(ph, CountryCode);
+    // console.log("formattedPhoneNumber" ,formattedPhoneNumber);
     if (!ph) {
       setphoneerror(true)
     }
@@ -74,7 +83,29 @@ function Login(props) {
         });
     }
   }
-
+  const handlePhonechange = (e,country) => {
+    
+    console.log(e,country);
+    setph(e)
+    setCountryCode(country.countryCode)
+    // try {      
+    //   const parsedNumber = parsePhoneNumber(e);  
+    //   console.log(parsedNumber, "parsed");   
+    //    if (parsedNumber) {        
+    //   setCountryCode(parsedNumber.countryCallingCode);      } 
+    //   else {        
+    //     setCountryCode('');     
+    //    }    
+    //   } catch (error) {    
+    //     // Handle parsing errors (invalid phone numbers)      
+    //     setCountryCode('');    }
+  }
+  console.log("CountryCode",CountryCode) ;
+  // Number will be with country code
+  // function isValidNumber(number) 
+  // {   
+  //   console.log(number)  
+  //  return parsePhoneNumber(number).isValid()}
   return (
     <LoginModal onClose={props.onClose}>
       <div className={classes.loginmainDiv}>
@@ -88,7 +119,24 @@ function Login(props) {
                   <button type="button">Org</button>
                 </div>
                 <div className={classes.MobileInputDiv}>
-                  <PhoneInput req country={"in"} value={ph} onChange={setph} placeholder="Mobile Number" />
+                  <PhoneInput
+                //   isValid={(value, country) => {   
+                //     console.log("value",value);
+                //      if (value.match(/12345/)) {    
+
+                //       return 'Invalid value: '+value+', '+country.name;   
+                //  } 
+                //   else if (value.match(/1234/)) 
+                //   {     
+                //      return false;   
+                //      } 
+                //      else {    
+                //       return true;   
+                //      }  
+                //     }}
+                  countryCodeEditable={false} 
+                  req country={"in"} value={ph} onChange={handlePhonechange} 
+                  placeholder="Mobile Number" />
                   {/* <input
               type="text"
               placeholder="Mobile"
@@ -124,7 +172,7 @@ function Login(props) {
                 <button>Sign Up</button>
               </div>
             </div>
-            : <OtpVerify onCloseOTP={props.onClose} />}
+            : <OtpVerify phoneNumber={ph} onCloseOTP={props.onClose} />}
 
 
       </div>
