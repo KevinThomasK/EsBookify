@@ -5,13 +5,14 @@ import googeleimage from '../assets/google-icon-logo-png-transparent.png';
 import OtpVerify from "./OtpVerify";
 import PhoneInput from "react-phone-input-2";
 // import PhoneInput, { formatPhoneNumber } from 'react-phone-number-input';
-import { auth,provider } from "../firebase";
+import { auth, provider } from "../firebase";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
 import HomePage from "../HomePage";
 import 'react-phone-input-2/lib/style.css'
 import { parsePhoneNumber } from "libphonenumber-js";
 import { formatPhoneNumber } from "react-phone-number-input";
-import { isValidPhoneNumber } from "libphonenumber-js/core";
+import { isValidPhoneNumber } from "libphonenumber-js";
+import { FirebaseError } from "@firebase/util";
 
 // import 'react-phone-input-2/lib/style.css'
 
@@ -21,11 +22,12 @@ function Login(props) {
   const [showOTP, setShowOTP] = useState(false);
   const [loading, setLoading] = useState(false);
   const [phoneerror, setphoneerror] = useState(false);
-  const [ValidPhoneNumber,setValidPhoneNumber]= useState (false);
+  const [ValidPhoneNumber, setValidPhoneNumber] = useState(false);
+  const [ErrorMessage, setErrorMessage] =useState("")
   // const [value, setValue] =useState('')
-  const [CountryCode, setCountryCode]=useState("");
-  const  handleClick =()=>{
-    signInWithPopup(auth,provider).then((data)=>{
+  const [CountryCode, setCountryCode] = useState("");
+  const handleClick = () => {
+    signInWithPopup(auth, provider).then((data) => {
       // setValue(data.user.email)
       props.onClose()
       // localStorage.setItem("email",data.user.email)
@@ -59,9 +61,9 @@ function Login(props) {
     if (!ph) {
       setphoneerror(true)
     }
-    else if(ph.length<12 ){
-      setValidPhoneNumber(true)  
-      setphoneerror(false)  
+    else if (ph.length < 12) {
+      setValidPhoneNumber(true)
+      setphoneerror(false)
     }
     else {
       setValidPhoneNumber(false)
@@ -70,42 +72,36 @@ function Login(props) {
       const appVerifier = window.recaptchaVerifier;
       const phoneNumber = '+' + ph
       console.log(phoneNumber, appVerifier);
-      setShowOTP(true)
+      
       // const auth = getAuth();    
       signInWithPhoneNumber(auth, phoneNumber, appVerifier)
         .then((confirmationResult) => {
-          console.log(confirmationResult);        // SMS sent. Prompt user to type the code from the message, then sign the     
+          console.log(confirmationResult);  
+          setShowOTP(true)      // SMS sent. Prompt user to type the code from the message, then sign the     
           // user in with confirmationResult.confirm(code).  
 
           window.confirmationResult = confirmationResult;        // ... 
         }).catch((error) => {
-          // Error; SMS not sent        // ...  
+          if (error instanceof FirebaseError) {
+            console.log(error,error.code,error.message);
+          console.log(error.code);
+          console.log(error.message);
+          if (error.code=== 'auth/invalid-phone-number' ) {         
+          setErrorMessage("Invalid Phone Number ") 
+         } else {    
+            // Handle other Firebase errors     
+            setErrorMessage('Other Firebase error:', error.message);    }
+         setShowOTP(false)
+          }
         });
+        
     }
   }
-  const handlePhonechange = (e,country) => {
-    
-    console.log(e,country);
+  const handlePhonechange = (e, country) => {
     setph(e)
     setCountryCode(country.countryCode)
-    // try {      
-    //   const parsedNumber = parsePhoneNumber(e);  
-    //   console.log(parsedNumber, "parsed");   
-    //    if (parsedNumber) {        
-    //   setCountryCode(parsedNumber.countryCallingCode);      } 
-    //   else {        
-    //     setCountryCode('');     
-    //    }    
-    //   } catch (error) {    
-    //     // Handle parsing errors (invalid phone numbers)      
-    //     setCountryCode('');    }
-  }
-  console.log("CountryCode",CountryCode) ;
-  // Number will be with country code
-  // function isValidNumber(number) 
-  // {   
-  //   console.log(number)  
-  //  return parsePhoneNumber(number).isValid()}
+
+ }
   return (
     <LoginModal onClose={props.onClose}>
       <div className={classes.loginmainDiv}>
@@ -120,23 +116,10 @@ function Login(props) {
                 </div>
                 <div className={classes.MobileInputDiv}>
                   <PhoneInput
-                //   isValid={(value, country) => {   
-                //     console.log("value",value);
-                //      if (value.match(/12345/)) {    
-
-                //       return 'Invalid value: '+value+', '+country.name;   
-                //  } 
-                //   else if (value.match(/1234/)) 
-                //   {     
-                //      return false;   
-                //      } 
-                //      else {    
-                //       return true;   
-                //      }  
-                //     }}
-                  countryCodeEditable={false} 
-                  req country={"in"} value={ph} onChange={handlePhonechange} 
-                  placeholder="Mobile Number" />
+                    type="tel"
+                    countryCodeEditable={false}
+                    req country={"in"} value={ph} onChange={handlePhonechange}
+                    placeholder="Mobile Number" />
                   {/* <input
               type="text"
               placeholder="Mobile"
@@ -146,10 +129,13 @@ function Login(props) {
                 {phoneerror ?
                   <span className={classes.text_color_error}>
                     Please Enter Mobile Number
-                  </span>: ValidPhoneNumber? 
-                  <span  className={classes.text_color_error}>
-                    Please enter valid Mobile Number
-                  </span>: null
+                  </span> : ValidPhoneNumber ?
+                    <span className={classes.text_color_error}>
+                      Please enter valid Mobile Number
+                    </span> : ErrorMessage?
+                     <span className={classes.text_color_error}>
+                      {ErrorMessage}
+                     </span>:null
                 }
 
                 <div className={classes.loginBtn}>
