@@ -20,7 +20,7 @@
 }
 
 .logo a {
-    color: orange;
+    color: #ff8a01;
     text-decoration: none;
     font-size: 28px;
     font-weight: 600;
@@ -38,7 +38,7 @@ nav {
 
 .searchInput {
     background: transparent;
-    color: orange;
+    color: #ff8a01;
     border: none;
     width: 90%;
     padding-left: 10px;
@@ -50,13 +50,13 @@ input:focus {
 }
 
 .searchInput::placeholder {
-    color: orange;
+    color: #ff8a01;
     padding-left: 2px;
 }
 
 .LoginButton {
-    color: orange;
-    border: 1px solid orange;
+    color: #ff8a01;
+    border: 1px solid #ff8a01;
     width: 90px;
     height: 30px;
     background: rgb(80, 78, 78);
@@ -65,18 +65,18 @@ input:focus {
 
 .LoginButton:hover {
     cursor: pointer;
-    border: 2px solid orange;
+    border: 2px solid #ff8a01;
 }
 
 .searchicon {
-    color: orange;
+    color: #ff8a01;
     padding-top: 7px;
     font-size: 20px;
     
 }
 
 .searchbarDiv {
-    border: 1px solid orange;
+    border: 1px solid #ff8a01;
     width: 330px;
     height: 30px;
     position: relative;
@@ -97,7 +97,7 @@ input:focus {
   text-align: center;
 }
 .animationSpan{
-    color: orange;
+    color: #ff8a01;
     padding-left: 3px;
 }
 .MainList{

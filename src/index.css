@@ -25,3 +25,21 @@ body{
 .react-tel-input .special-label{
     display: none;
 }
+.react-tel-input .form-control{
+    @apply !w-full py-6 !text-base;
+    @apply bg-[#272727];
+    @apply border-transparent;
+   
+}
+.react-tel-input .country-list .country.highlight {
+    @apply  flex;
+    @apply justify-evenly;
+}
+.react-tel-input .country-list {
+    @apply flex flex-col
+    text-black;
+}
+.react-tel-input .flag-dropdown{
+    @apply bg-[#303131];
+    @apply border-transparent;
+}

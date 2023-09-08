@@ -1,17 +1,70 @@
-import React, { useState } from 'react';
-import OTPInput from 'react-otp-input';
+import React, { useEffect, useState } from 'react';
+import OTPInput from "otp-input-react";
 import classes from "./Login.module.css";
 import '../Login/OtpVerify.css'
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { auth } from '../firebase';
 function OtpVerify(props) {
   const [otp, setOtp] = useState("")
   const [OtpError, setOtpError] = useState (false);
   const [OtpValid, setOtpValid] = useState (false);
-  // function handleOTP(e) 
-  // {
-  //   console.log ("otpvalue", e)
-  //   // setOtp (e.target.value)
-  // }
+  const [countdown, setCountdown] = useState(15); // Initial countdown time in seconds
+  const [isDisabled, setIsDisabled] = useState(false);
   const handleOTP = (otpValue) => { setOtp(otpValue); };
+  useEffect(() => {
+    // var button = document.getElementById("myButton"); // Disable the buttonbutton.disabled = true;
+    // button.disabled=(true);
+    let timer;
+    setIsDisabled(true);
+    console.log("countdown",countdown)
+    if (countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+    } else {
+      setIsDisabled(false); // Enable the button when the countdown reaches 0
+    }
+
+    return () => {
+      clearInterval(timer); // Clear the interval when the component unmounts
+    };
+  }, [countdown]);
+  function onCaptchVerify() {
+    if (!window.recaptchaVerifier) {
+      // const auth = getAuth();
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible',
+        'callback': (response) => {
+          console.log(response);
+          handleResendClick()
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          // ...
+        },
+        'expired-callback': () => {
+          // Response expired. Ask user to solve reCAPTCHA again.
+          // ...
+        }
+      })
+    }
+  }
+  const handleResendClick = () => {
+    setCountdown(15); // Reset the countdown
+    setIsDisabled(true); // Disable the button
+    onCaptchVerify()
+      const appVerifier = window.recaptchaVerifier;
+      const phoneNumber = '+' + props.phoneNumber
+      console.log(phoneNumber, appVerifier)
+      // const auth = getAuth();    
+      signInWithPhoneNumber(auth,phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          console.log(confirmationResult);        // SMS sent. Prompt user to type the code from the message, then sign the     
+          // user in with confirmationResult.confirm(code).  
+
+          window.confirmationResult = confirmationResult;        // ... 
+        }).catch((error) => {
+          // Error; SMS not sent        // ...  
+        });
+  };
   const VerifierOtp = () => {
     if (!otp) {
       setOtpError(true)
@@ -25,14 +78,17 @@ function OtpVerify(props) {
       setOtpError(false) 
       window.confirmationResult.confirm(otp).then(async(res)=>{
         console.log(res)
+        console.log("LoggedInSuccessfully")
         props.onCloseOTP()
       }) .catch((error) => {
         // Error; SMS not sent        // ...  
       console.log(error)
+      console.log("error")
       });  
     }
   }
-    
+ 
+    console.log(isDisabled);
   return (
 
     <div className='maindiv-otp'>
@@ -61,10 +117,15 @@ function OtpVerify(props) {
         </button>
       </div>
       <div className= {`${classes.signUp} subdiv-resend`}>
-        <h4>Didn't receive OTP?</h4>
-        <button>Resend</button>
+        <h4>Didn't receive OTP?</h4><br/> 
+        <button 
+        onClick={()=>handleResendClick()} 
+         disabled={isDisabled}  >
+        Resend {isDisabled ? `(${countdown}s)` : ''}
+      </button>
       </div>
-      </div>
+      </div> 
+      <div id="recaptcha-container" style={{ display: "none" }}>  </div>
     </div>
   )
 }
