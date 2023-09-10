@@ -3,10 +3,11 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import Login from "./Login/Login";
+import PrivateRoute from "./PrivateRoute";
 import CreateTournament from "./pages/CreateTournament";
 import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -28,7 +29,9 @@ function App() {
             path="/"
             element={<HomePage onShowLogin={showLoginHandler} />}
           ></Route>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
           <Route path="/create-tournament" element={<CreateTournament />} />
         </Routes>
       </Router>
