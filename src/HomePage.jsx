@@ -10,7 +10,7 @@ function HomePage(props) {
   const navigate = useNavigate();
   return (
     <>
-      <nav className="bg-black">
+      {/* <nav className="bg-black">
           <h2 className="text-orange-500 font-semibold text-2xl cursor-pointer" onClick={() => {navigate("/")}}>
            EsBookify
           </h2>
@@ -25,8 +25,9 @@ function HomePage(props) {
               <FaMagnifyingGlass className={classes.searchicon} />
             </a>
           </div>
-          <button className={classes.LoginButton} onClick={props.onShowLogin}>Login</button>
-        </nav>
+          <button className={classes.LoginButton} onClick={props.onShowLogin} >Login</button>
+        </nav> */}
+        
     <div className={classes.MainBackground}>
       <div className={classes.gradient}>
     

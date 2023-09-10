@@ -8,6 +8,7 @@ import CreateTournament from "./pages/CreateTournament";
 import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./Header";
 
 function App() {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -22,8 +23,10 @@ function App() {
   console.log("loginIsShown", loginIsShown);
   return (
     <>
+    
       {loginIsShown && <Login onClose={hideLoginHandler} />}
       <Router>
+      <Header onShowLogin={showLoginHandler}/>
         <Routes>
           <Route
             path="/"

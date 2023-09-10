@@ -43,6 +43,7 @@ function Login(props) {
         })
       }
 
+      toast.success("Signed In")
     } catch (err) {
       toast.error("something went wrong");
     }
