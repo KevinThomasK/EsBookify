@@ -1,18 +1,18 @@
 import React from "react";
 import classes from "./HomePage.module.css";
+import { useNavigate } from "react-router";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Slider from "./Slider/Slider";
 import Matches from "./Matches/Matches";
 import Footer from "./Footer/Footer";
 
 function HomePage(props) {
+  const navigate = useNavigate();
   return (
     <>
-    <div className={classes.MainBackground}>
-      <div className={classes.gradient}>
-        <nav>
-          <h2 className={classes.logo}>
-            <a href="#">EsBookify</a>
+      <nav className="bg-black">
+          <h2 className="text-orange-500 font-semibold text-2xl cursor-pointer" onClick={() => {navigate("/")}}>
+           EsBookify
           </h2>
           <div className={classes.searchbarDiv}>
             {" "}
@@ -27,6 +27,9 @@ function HomePage(props) {
           </div>
           <button className={classes.LoginButton} onClick={props.onShowLogin}>Login</button>
         </nav>
+    <div className={classes.MainBackground}>
+      <div className={classes.gradient}>
+    
         <Slider />
         <div className={classes.headingAnimationDiv}>
           <h1 className={classes.animationHeader}>

@@ -5,13 +5,16 @@ import googeleimage from '../assets/google-icon-logo-png-transparent.png';
 import OtpVerify from "./OtpVerify";
 import PhoneInput from "react-phone-input-2";
 // import PhoneInput, { formatPhoneNumber } from 'react-phone-number-input';
-import { auth,provider } from "../firebase";
+import { auth,db,provider } from "../firebase";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber, signInWithPopup } from "@firebase/auth";
 import HomePage from "../HomePage";
 import 'react-phone-input-2/lib/style.css'
 import { parsePhoneNumber } from "libphonenumber-js";
 import { formatPhoneNumber } from "react-phone-number-input";
 import { isValidPhoneNumber } from "libphonenumber-js/core";
+import { toast } from "react-toastify";
+import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
@@ -22,12 +25,32 @@ function Login(props) {
   const [ValidPhoneNumber,setValidPhoneNumber]= useState (false);
   // const [value, setValue] =useState('')
   const [CountryCode, setCountryCode]=useState("");
-  const  handleClick =()=>{
-    signInWithPopup(auth,provider).then((data)=>{
-      // setValue(data.user.email)
-      props.onClose()
-      // localStorage.setItem("email",data.user.email)
-    })
+  const  handleClick = async ()=>{
+    try {
+      const result = await signInWithPopup(auth,provider)
+      const user = result.user
+
+      // check for the user
+
+      const docRef = doc(db, "users", user.uid)
+      const docSnap = await getDoc(docRef)
+
+      if(!docSnap.exists()){
+        await setDoc(docRef,{
+          name:user.displayName,
+          email:user.email,
+          timestamp:serverTimestamp(),
+        })
+      }
+
+    } catch (err) {
+      toast.error("something went wrong");
+    }
+    // signInWithPopup(auth,provider).then((data)=>{
+    //   // setValue(data.user.email)
+    //   props.onClose()
+    //   // localStorage.setItem("email",data.user.email)
+    // })
   }
   // useEffect(()=>{
   //   setValue(localStorage.getItem('email'))
