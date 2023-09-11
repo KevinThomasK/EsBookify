@@ -22,7 +22,7 @@ export default function Header(props) {
     },[auth])
   return (
     <nav className="bg-black pb-[30px]">
-    <h2 className="text-orange-500 font-semibold text-2xl cursor-pointer" onClick={() => {navigate("/")}}>
+    <h2 className="text-orange-500 font-semibold text-3xl cursor-pointer" onClick={() => {navigate("/")}}>
      EsBookify
     </h2>
     <div className='w-[330px] h-[30px] relative flex rounded-md border border-[#ff8a01]'>
