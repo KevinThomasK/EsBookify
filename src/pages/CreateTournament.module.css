@@ -1,0 +1,14 @@
+.formDiv{
+    
+    height:100%;
+    background-image: url("../assets/pubg-background-main.jpg");
+    background-position: center;
+    background-size:cover;
+    background-repeat: no-repeat;
+    padding-top: 120px;
+
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.9), /* Start color with alpha (transparency) */
+        rgba(0, 0, 0, 0.9)
+    ), url("../assets/pubg-background-main.jpg");
+}

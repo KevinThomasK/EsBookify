@@ -4,7 +4,7 @@
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
+  
    border-radius: 25px;
 }
 .slide{
@@ -21,3 +21,17 @@
     opacity: 1;
     transform: translateX(0);
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 2px;
+    filter: invert(0.6) sepia(100%) saturate(1000%) hue-rotate(340deg);
+  }
+
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 2px;
+    filter: invert(0.6) sepia(100%) saturate(1000%) hue-rotate(340deg);
+  }
