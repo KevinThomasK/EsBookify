@@ -6,20 +6,26 @@ import Footer from "../Footer/Footer";
 export default function CreateTournament() {
   const [formData, setFormData] = useState({
     tournamentName: "",
-    tournamentDate: {},
+    tournamentDate: new Date(),
     tournamentTime: {},
-    prizePool: 0,
+    prizePool: "",
     rules: "",
   });
 
+
+
   const { tournamentName, tournamentDate, tournamentTime, prizePool, rules } =
     formData;
+
+    function onChange(){
+      
+    };
 
   return (
     <>
       <div className="bg-black relative w-full">
         <img
-          className="w-[90%] mx-auto pb-10 pt-10"
+          className="w-[95%] mx-auto pb-10 pt-10"
           src={createTournamentPageImg}
           alt="backgorund"
         />
@@ -28,7 +34,7 @@ export default function CreateTournament() {
         </h2>
       </div>
 
-      <h3 className="bg-black text-white px-[40%] text-3xl font-semibold pb-10 pt-10">Fill Match Details</h3>
+      <h3 className="bg-black text-white px-[40%] text-3xl font-semibold pt-14">Fill Match Details</h3>
       <div className={classes.formDiv}>
         <form className="flex flex-col w-[40%] mx-auto bg-transparent">
           <input
@@ -38,6 +44,7 @@ export default function CreateTournament() {
             value={tournamentName}
             placeholder="Tounrament Name"
             required
+            onChange={onChange}
           />
           <input
            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
@@ -46,7 +53,9 @@ export default function CreateTournament() {
             value={tournamentDate}
             placeholder="Date of Match"
             required
+            onChange={onChange}
           />
+
           <input
           className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="time"
@@ -54,15 +63,17 @@ export default function CreateTournament() {
             value={tournamentTime}
             placeholder="IDP Time"
             required
+            onChange={onChange}
           />
           <input
           className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
-            type="number"
+            type="text"
             id="prizePool"
             value={prizePool}
             placeholder="Prize Pool"
+            onChange={onChange}
           />
-          <textarea className="bg-gray-800/80 h-52 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]" type="text" id="rules" value={rules} placeholder="Rules" />
+          <textarea className="bg-gray-800/80 h-52 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]" type="text" id="rules" value={rules} placeholder="Rules" onChange={onChange}/>
           <button type="submit" className="w-full text-[#ff8a01] bg-gray-800/80 py-4 font-bold text-3xl mb-60">Register</button>
         </form>
       </div>
