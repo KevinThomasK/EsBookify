@@ -1,32 +1,23 @@
 import React, { useEffect, useState } from "react";
-import classes from "./Login.module.css";
-import LoginModal from "./LoginModal";
+import classes from "../Login/Login.module.css";
 import googeleimage from '../assets/google-icon-logo-png-transparent.png';
-import OtpVerify from "./OtpVerify";
+import OtpVerify from "../Login/OtpVerify";
 import PhoneInput from "react-phone-input-2";
-// import PhoneInput, { formatPhoneNumber } from 'react-phone-number-input';
 import { auth,db,provider } from "../firebase";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber, signInWithPopup } from "@firebase/auth";
-import HomePage from "../HomePage";
 import 'react-phone-input-2/lib/style.css'
-import { parsePhoneNumber } from "libphonenumber-js";
-import { formatPhoneNumber } from "react-phone-number-input";
-import { isValidPhoneNumber } from "libphonenumber-js/core";
 import { toast } from "react-toastify";
 import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
-import { func } from "prop-types";
-import UserSignUp from "../SignUp/UserSignUp";
 
 // import 'react-phone-input-2/lib/style.css'
-function Login(props) {
+function UserSignUp(props) {
   const [ph, setph] = useState("")
   const [showOTP, setShowOTP] = useState(false);
   const [loading, setLoading] = useState(false);
   const [phoneerror, setphoneerror] = useState(false);
   const [ValidPhoneNumber, setValidPhoneNumber] = useState(false);
   const [ErrorMessage, setErrorMessage] =useState("")
-  const [IsSignUp, setIsSignUp] =useState (false);
   // const [value, setValue] =useState('')
   const [CountryCode, setCountryCode]=useState("");
   const  handleClick = async ()=>{
@@ -126,15 +117,9 @@ function Login(props) {
     setCountryCode(country.countryCode)
 
  }
- function handleSignUp (){
-  setIsSignUp(true)
- }
- function handleLogin(){
-  setIsSignUp(false)
- }
+ 
   return (
-    <LoginModal onClose={props.onClose}>
-      {!IsSignUp?
+    
       <div className={classes.loginmainDiv}>
         <div id="recaptcha-container" style={{ display: "none" }}>  </div>
         {
@@ -169,7 +154,7 @@ function Login(props) {
                      </span>:null
                 }
                 <div className={classes.loginBtn}>
-                  <button onClick={() => onSignup()}>Login</button>
+                  <button onClick={() => onSignup()}>Sign Up</button>
                 </div>
                 <div className={classes.flex}>
                   <div className={classes.underline}></div>
@@ -182,14 +167,15 @@ function Login(props) {
                 </div>
               </div>
               <div className={classes.signUp}>
-                <h4>Don't have an account?</h4>
-                <button onClick={handleSignUp}>Sign Up</button>
+                <h4>Already have an account?</h4>
+                <button onClick={props.handleLogin}>Login</button>
               </div>
             </div>
             : <OtpVerify phoneNumber={ph} onCloseOTP={props.onClose} />}
+
+
       </div>
-      : <UserSignUp handleLogin={handleLogin}/> }
-    </LoginModal>
+    
   );
 }
-export default Login;
+export default UserSignUp;
