@@ -9,8 +9,9 @@ import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
+import OrgHome from "./OrgHome";
 
-function App() {
+function App(props)  {
   const [loginIsShown, setLoginIsShown] = useState(false);
 
   const showLoginHandler = () => {
@@ -24,7 +25,7 @@ function App() {
   return (
     <>
     
-      {loginIsShown && <Login onClose={hideLoginHandler} />}
+      {loginIsShown && <Login onClose={hideLoginHandler} {...props} />}
       <Router>
       <Header onShowLogin={showLoginHandler}/>
         <Routes>
@@ -36,6 +37,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/create-tournament" element={<CreateTournament />} />
+          <Route path="/Organization" element={<OrgHome />} />
         </Routes>
       </Router>
 

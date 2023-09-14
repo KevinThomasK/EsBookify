@@ -20,6 +20,7 @@ import UserSignUp from "../SignUp/UserSignUp";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
+  console.log(props);
   const [ph, setph] = useState("")
   const [showOTP, setShowOTP] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ function Login(props) {
   const [IsSignUp, setIsSignUp] =useState (false);
   // const [value, setValue] =useState('')
   const [CountryCode, setCountryCode]=useState("");
+  const [section, setSection] = useState ("user")
   const  handleClick = async ()=>{
     try {
       const result = await signInWithPopup(auth,provider)
@@ -132,6 +134,9 @@ function Login(props) {
  function handleLogin(){
   setIsSignUp(false)
  }
+ function handleSection(item){
+  setSection(item)
+ }
   return (
     <LoginModal onClose={props.onClose}>
       {!IsSignUp?
@@ -142,8 +147,8 @@ function Login(props) {
             <div>
               <div className={classes.loginComponents}>
                 <div className={classes.btnGroup}>
-                  <button type="button" className={classes.activeBtn}>User</button>
-                  <button type="button">Org</button>
+                  <button onClick={()=>handleSection("user")} type="button" className={section=="user"?classes.activeBtn:""}>User</button>
+                  <button onClick={()=>handleSection("org")} type="button" className={section=="org"?classes.activeBtn:""} >Org</button>
                 </div>
                 <div className={classes.MobileInputDiv}>
                   <PhoneInput
@@ -186,7 +191,7 @@ function Login(props) {
                 <button onClick={handleSignUp}>Sign Up</button>
               </div>
             </div>
-            : <OtpVerify phoneNumber={ph} onCloseOTP={props.onClose} />}
+            : <OtpVerify phoneNumber={ph} section={section} onCloseOTP={props.onClose} />}
       </div>
       : <UserSignUp handleLogin={handleLogin}/> }
     </LoginModal>

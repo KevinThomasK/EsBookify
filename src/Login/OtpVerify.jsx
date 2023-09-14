@@ -4,6 +4,10 @@ import classes from "./Login.module.css";
 import '../Login/OtpVerify.css'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../firebase';
+import {useLocation} from 'react-router-dom';
+
+
+
 function OtpVerify(props) {
   const [otp, setOtp] = useState("")
   const [OtpError, setOtpError] = useState (false);
@@ -11,6 +15,10 @@ function OtpVerify(props) {
   const [countdown, setCountdown] = useState(15); // Initial countdown time in seconds
   const [isDisabled, setIsDisabled] = useState(false);
   const handleOTP = (otpValue) => { setOtp(otpValue); };
+  const location = useLocation();
+console.log(location);
+
+
   useEffect(() => {
     // var button = document.getElementById("myButton"); // Disable the buttonbutton.disabled = true;
     // button.disabled=(true);
@@ -80,6 +88,9 @@ function OtpVerify(props) {
         console.log(res)
         console.log("LoggedInSuccessfully")
         props.onCloseOTP()
+        if (props.section=="org"){
+          console.log(props.history);
+        }
       }) .catch((error) => {
         // Error; SMS not sent        // ...  
       console.log(error)
@@ -130,4 +141,4 @@ function OtpVerify(props) {
   )
 }
 
-export default OtpVerify
+export default OtpVerify;
