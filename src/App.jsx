@@ -12,26 +12,18 @@ import Header from "./Header";
 import OrgHome from "./OrgHome";
 
 function App(props)  {
-  const [loginIsShown, setLoginIsShown] = useState(false);
+ 
 
-  const showLoginHandler = () => {
-    setLoginIsShown(true);
-  };
-
-  const hideLoginHandler = () => {
-    setLoginIsShown(false);
-  };
-  console.log("loginIsShown", loginIsShown);
   return (
     <>
     
-      {loginIsShown && <Login onClose={hideLoginHandler} {...props} />}
+    
       <Router>
-      <Header onShowLogin={showLoginHandler}/>
+     
         <Routes>
           <Route
             path="/"
-            element={<HomePage onShowLogin={showLoginHandler} />}
+            element={<HomePage  />}
           ></Route>
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />

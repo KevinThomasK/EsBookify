@@ -17,6 +17,7 @@ import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import { func } from "prop-types";
 import UserSignUp from "../SignUp/UserSignUp";
+import { FirebaseError } from "firebase/app";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
