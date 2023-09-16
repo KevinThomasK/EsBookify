@@ -194,7 +194,7 @@ function Login(props) {
             </div>
             : <OtpVerify phoneNumber={ph} section={section} onCloseOTP={props.onClose} />}
       </div>
-      : <UserSignUp handleLogin={handleLogin}/> }
+      : <UserSignUp onCloseOTP={props.onClose} handleLogin={handleLogin}/> }
     </LoginModal>
   );
 }

@@ -18,6 +18,7 @@ function UserSignUp(props) {
   const [phoneerror, setphoneerror] = useState(false);
   const [ValidPhoneNumber, setValidPhoneNumber] = useState(false);
   const [ErrorMessage, setErrorMessage] =useState("")
+  const [section, setSection] = useState ("user")
   // const [value, setValue] =useState('')
   const [CountryCode, setCountryCode]=useState("");
   const  handleClick = async ()=>{
@@ -69,6 +70,9 @@ function UserSignUp(props) {
       })
     }
   }
+  function handleSection(item){
+    setSection(item)
+   }
   const onSignup = () => {
     // const isValidCountryCallingCode = PhoneNumber.isValidCountryCallingCode(value);
     // const formattedPhoneNumber = formatPhoneNumber(ph, CountryCode);
@@ -127,8 +131,8 @@ function UserSignUp(props) {
             <div>
               <div className={classes.loginComponents}>
                 <div className={classes.btnGroup}>
-                  <button type="button" className={classes.activeBtn}>User</button>
-                  <button type="button">Org</button>
+                <button onClick={()=>handleSection("user")} type="button" className={section=="user"?classes.activeBtn:""}>User</button>
+                  <button onClick={()=>handleSection("org")} type="button" className={section=="org"?classes.activeBtn:""} >Org</button>
                 </div>
                 <div className={classes.MobileInputDiv}>
                   <PhoneInput
@@ -171,7 +175,7 @@ function UserSignUp(props) {
                 <button onClick={props.handleLogin}>Login</button>
               </div>
             </div>
-            : <OtpVerify phoneNumber={ph} onCloseOTP={props.onClose} />}
+            : <OtpVerify phoneNumber={ph} onCloseOTP={props.onCloseOTP} />}
 
 
       </div>
