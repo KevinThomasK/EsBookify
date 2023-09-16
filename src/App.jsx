@@ -21,14 +21,14 @@ function App(props)  {
       <Router>
      
         <Routes>
-          <Route
-            path="/"
-            element={<HomePage  />}
-          ></Route>
+          <Route path="/"element={
+          <HomePage  />}></Route>
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
           </Route>
+          <Route path="create-tournament" element={<PrivateRoute/>}>
           <Route path="/create-tournament" element={<CreateTournament />} />
+          </Route>
           <Route path="/Organization" element={<OrgHome />} />
         </Routes>
       </Router>
