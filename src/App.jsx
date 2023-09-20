@@ -29,7 +29,7 @@ function App(props)  {
           <Route path="create-tournament" element={<PrivateRoute/>}>
           <Route path="/create-tournament" element={<CreateTournament />} />
           </Route>
-          <Route path="/Organization" element={<OrgHome />} />
+          <Route path="/Organization" element={<OrgHome/>}/>
         </Routes>
       </Router>
 
