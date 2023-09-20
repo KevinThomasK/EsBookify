@@ -9,20 +9,11 @@ import Header from "./Header";
 import Login from "./Login/Login";
 
 function HomePage(props) {
-  const [loginIsShown, setLoginIsShown] = useState(false);
-
-  const showLoginHandler = () => {
-    setLoginIsShown(true);
-  };
-
-  const hideLoginHandler = () => {
-    setLoginIsShown(false);
-  };
+ 
   const navigate = useNavigate();
   return (
     <>
-      {loginIsShown && <Login onClose={hideLoginHandler} {...props} />}
-     <Header onShowLogin={showLoginHandler}/>
+   
       <div className={classes.MainBackground}>
         <div className={classes.gradient}>
           <Slider />
