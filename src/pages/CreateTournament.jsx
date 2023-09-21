@@ -96,7 +96,7 @@ export default function CreateTournament() {
           onSubmit={handleSubmit}
         >
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-4  placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4  placeholder:text-[#ff8a01] text-[#ff8a01]"
             type="text"
             name="tournamentName"
             value={formData.tournamentName}
