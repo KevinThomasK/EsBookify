@@ -36,7 +36,7 @@ function Login(props) {
     try {
       const result = await signInWithPopup(auth,provider)
       const user = result.user
-
+      console.log(user);
       // check for the user
 
       const docRef = doc(db, "users", user.uid)

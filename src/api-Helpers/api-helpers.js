@@ -1,5 +1,6 @@
 // api-helpers.js
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export const newTournament = async (data) => {
   console.log(data);
