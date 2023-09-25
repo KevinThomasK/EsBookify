@@ -4,9 +4,7 @@ import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 import { newTournament } from "../api-Helpers/api-helpers";
-import toast from "react-hot-toast";
-
-
+import { toast } from "react-toastify";
 
 export default function CreateTournament() {
   const [formData, setFormData] = useState({
@@ -20,17 +18,16 @@ export default function CreateTournament() {
   //date validation frontend
   let date = new Date();
   let tdate = date.getDate();
-  let month = date.getMonth()+1;
-  if(tdate<10){
-    tdate='0'+tdate;
+  let month = date.getMonth() + 1;
+  if (tdate < 10) {
+    tdate = "0" + tdate;
   }
-  if(month < 10){
-    month = "0"+month;
+  if (month < 10) {
+    month = "0" + month;
   }
   let year = date.getFullYear();
   let minDate = year + "-" + month + "-" + tdate;
-console.log(minDate)
-
+  console.log(minDate);
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -41,7 +38,6 @@ console.log(minDate)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
 
     // Ensure that the "tournamentTime" field is in the 24-hour format (HH:mm)
     const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
@@ -60,9 +56,16 @@ console.log(minDate)
     const formattedName = formData.tournamentName.trim();
 
     // Send the formatted data to the newTournament function
-    newTournament({ ...formData, tournamentDate: formattedDate, tournamentTime: formattedTime,tournamentName:formattedName })
+    newTournament({
+      ...formData,
+      tournamentDate: formattedDate,
+      tournamentTime: formattedTime,
+      tournamentName: formattedName,
+    })
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .catch(err=>console.log(err));
+
+      
   };
 
   // Function to format the date as "dd-mm-yyyy"
@@ -148,8 +151,8 @@ console.log(minDate)
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="number"
-           min="1"
-           max="1000000"
+            min="1"
+            max="1000000"
             name="prizePool"
             value={formData.prizePool}
             placeholder="Prize Pool"

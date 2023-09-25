@@ -30,6 +30,9 @@
     gap: 10px;
     padding-left: 9px;
 }
+.popuplist:hover{
+  cursor: pointer;
+}
 .profileButton{
   margin-right: 5%;
   color: #FF8A01;

@@ -1,6 +1,18 @@
 import React from 'react'
 import classes from '../src/ProfilePopUp.module.css'
+import { useNavigate } from "react-router";
+import { getAuth } from "firebase/auth";
+import { toast } from 'react-toastify';
+
 function ProfilePopUp(props) {
+    const navigate = useNavigate();
+    const auth = getAuth();
+
+    function onLogout() {
+        auth.signOut();
+        toast.error("Logged out")
+        navigate("/");
+      }
     return (
 
     <div onMouseLeave={props.handleMouseEnter} 
@@ -15,15 +27,15 @@ function ProfilePopUp(props) {
                 {/*body*/}
 
                 <ul className={classes.popuptext}>
-                    <li className={classes.popuplist}> 
+                    <li className={classes.popuplist} onClick={() => { navigate("/Organization") }}> 
                         <img src='../src/assets/YourmatchesIcon.png'/>
                         Your Matches
                     </li>
-                    <li className={classes.popuplist}>
+                    <li className={classes.popuplist} onClick={() => { navigate("/profile") }}>
                     <img src='../src/assets/EditProfileicon.png'/>
                         Edit Profile
                     </li>
-                    <li className={classes.popuplist}>
+                    <li className={classes.popuplist} onClick={onLogout}>
                     <img src='../src/assets/LogoutIcon.png'/>
                         Logout
                     </li>
