@@ -53,9 +53,34 @@ background: url('../src/assets/ListLogo.png'), lightgray 50% / cover no-repeat;
     display: flex;
     justify-content: start;
     padding-left: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
 }
 .edittext{
     color: white;
     font-weight: 800;
     font-size: x-large;
+}
+.scrimlistcontet{
+    font-family: 'Poppins';
+    line-height: 21px;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    justify-content: space-around;
+    align-items: end;
+    width: 100%;
+    margin-top: 91px;
+    font-weight: 800;
+}
+.UserScrimListDateandTime{
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: start;
+    padding-left: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
 }
