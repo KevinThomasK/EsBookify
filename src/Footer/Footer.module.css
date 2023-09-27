@@ -55,3 +55,17 @@
     justify-content:space-evenly;
     cursor: pointer;
 }
+@media (min-width: 300px ) and (max-width:768px){
+   .FooterContent{flex-direction: column !important;}
+   .importantLinks {
+    padding: unset;
+    width: unset;
+   }
+   .usefulLinks{
+    padding: unset;
+    width: unset;
+   }
+   .about{
+    width: unset;
+   }
+  }
