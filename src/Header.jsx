@@ -29,7 +29,7 @@ export default function Header(props) {
       }
     })
   }, [auth])
-  console.log(isHovered);
+  //console.log(isHovered);
   return (
     <div>
       <nav className="bg-black pb-[30px]">

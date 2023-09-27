@@ -11,6 +11,7 @@ function ProfilePopUp(props) {
     function onLogout() {
         auth.signOut();
         toast.error("Logged out")
+        localStorage.removeItem("email");
         navigate("/");
       }
     return (

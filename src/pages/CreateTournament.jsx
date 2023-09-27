@@ -6,6 +6,9 @@ import axios from "axios";
 import { newTournament } from "../api-Helpers/api-helpers";
 import { toast } from "react-toastify";
 
+
+
+
 export default function CreateTournament() {
   const [formData, setFormData] = useState({
     tournamentName: "",
@@ -65,6 +68,12 @@ export default function CreateTournament() {
       .then((res) => console.log(res))
       .catch(err=>console.log(err));
 
+      document.getElementById("tournamentName").value = "";
+document.getElementById("rules").value = "";
+document.getElementById("prizePool").value = "";
+document.getElementById("tournamentTime").value = "";
+document.getElementById("tournamentDate").value = "";
+
       
   };
 
@@ -121,6 +130,7 @@ export default function CreateTournament() {
         >
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4  placeholder:text-[#ff8a01] text-[#ff8a01]"
+            id="tournamentName"
             type="text"
             name="tournamentName"
             value={formData.tournamentName}
@@ -130,6 +140,7 @@ export default function CreateTournament() {
           />
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            id="tournamentDate"
             type="date"
             name="tournamentDate"
             min={minDate}
@@ -142,6 +153,7 @@ export default function CreateTournament() {
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="time"
+            id="tournamentTime"
             name="tournamentTime"
             value={formData.tournamentTime}
             placeholder="IDP Time (HH:mm)"
@@ -151,6 +163,7 @@ export default function CreateTournament() {
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="number"
+            id="prizePool"
             min="1"
             max="1000000"
             name="prizePool"
@@ -161,6 +174,7 @@ export default function CreateTournament() {
           <textarea
             className="bg-gray-800/80 h-52 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="text"
+            id="rules"
             name="rules"
             value={formData.rules}
             placeholder="Rules"
