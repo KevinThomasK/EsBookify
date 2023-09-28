@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const baseUrl = "http://localhost:4000/";
 
 export const newTournament = async (data) => {
-  console.log(data);
+ // console.log(data);
 
   const res = await axios
     .post("http://localhost:4000/tournaments/createtournament/", {
@@ -37,3 +37,16 @@ export const validateOrg = async (token) => {
   });
   return res.data;
 };
+
+
+//get all tournaments
+export const allTournaments = async () =>{
+  const res = await axios.get(`${baseUrl}tournaments`).catch(err=>console.log(err));
+  if(res.status !== 200){
+    return console.log("no data");
+  }
+  const data = await res.data;
+  const x = await data.tournaments;
+  return x;
+  //console.log(data);
+}
