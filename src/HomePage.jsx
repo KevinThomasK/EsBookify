@@ -7,6 +7,7 @@ import Matches from "./Matches/Matches";
 import Footer from "./Footer/Footer";
 import Header from "./Header";
 import Login from "./Login/Login";
+import { SliderData } from "./Slider/SliderData";
 
 function HomePage(props) {
  
@@ -16,7 +17,7 @@ function HomePage(props) {
    
       <div className={classes.MainBackground}>
         <div className={classes.gradient}>
-          <Slider />
+          <Slider SliderData ={SliderData} />
           <div className={classes.headingAnimationDiv}>
             <h1 className={classes.animationHeader}>
               "JOIN THE ULTIMATE BGMI TOURNAMENTS :
@@ -31,7 +32,7 @@ function HomePage(props) {
               START YOUR <span className={classes.animationSpan}> BATTLE</span>
             </h3>
           </div>
-          <Matches />
+          <Matches isHome={true} />
         </div>
       </div>
       <Footer />

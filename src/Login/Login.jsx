@@ -19,6 +19,7 @@ import { doc } from "firebase/firestore";
 import UserSignUp from "../SignUp/UserSignUp";
 import { FirebaseError } from "firebase/app";
 import { validateOrg } from "../api-Helpers/api-helpers";
+import { useNavigate } from "react-router";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
@@ -31,10 +32,11 @@ function Login(props) {
   const [ErrorMessage, setErrorMessage] = useState("");
   const [IsSignUp, setIsSignUp] = useState(false);
   // const [value, setValue] =useState('')
-  const [CountryCode, setCountryCode] = useState("");
-  const [section, setSection] = useState("user");
+  const [CountryCode, setCountryCode]=useState("");
   const [org, setOrg] = useState(null);
-  const handleClick = async () => {
+  const location = useNavigate();
+  const [section, setSection] = useState ("user")
+  const  handleClick = async ()=>{
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -52,8 +54,10 @@ function Login(props) {
           timestamp: serverTimestamp(),
         });
       }
-
-      toast.success("Signed In");
+        if (section == 'org')  {
+          location("/OrganizationHomepage")
+        }
+      toast.success("Signed In")
     } catch (err) {
       toast.error("something went wrong");
     }

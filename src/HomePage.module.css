@@ -87,7 +87,7 @@ input:focus {
 .animationHeader {
     color: rgb(198, 189, 189);
    font-family: 'Bebas Neue';
-   font-size: 40px;
+   font-size: 64px;
    font-weight: 400;
    margin: 0px;
   
@@ -126,4 +126,25 @@ input:focus {
     padding-top: 65px;
     word-spacing: 2px;
     font-weight: 500;
+}
+.matchdiv{
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+.matchheading{
+    color: var(--primary-colur, #FF8A01);
+    font-family: Poppins;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+.createheading{
+    color: var(--secondary-colur, #f5f0f0);
+    font-family: Poppins;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
 }

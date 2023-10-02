@@ -5,7 +5,7 @@ import Slider from './Slider/Slider'
 import Org  from '../src/OrgHome.module.css'
 import TournamentList from './Organization/TournamentList'
 import Footer from './Footer/Footer'
-function OrgHome() {
+function UserTournamentList() {
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -23,4 +23,4 @@ function OrgHome() {
   )
 }
 
-export default OrgHome
+export default UserTournamentList
