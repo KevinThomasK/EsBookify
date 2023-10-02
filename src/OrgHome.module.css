@@ -84,3 +84,36 @@ background: url('../src/assets/ListLogo.png'), lightgray 50% / cover no-repeat;
     font-size: 14px;
     line-height: 21px;
 }
+.mainslot{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 93px;
+    display: flex;
+    justify-content: center;
+
+}
+.slotbox{
+    height: 240px;
+    width: 240px;
+    background-color: black;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    box-shadow: 1px 1px 7px orange;
+    position: relative;
+}
+.gradient {
+    opacity: 0.89;
+    height: 100%;
+    width: 100%;
+    background: black;
+}
+.span{
+    position: absolute;
+    color: #f18104;
+    top: 43%;
+    font-weight: 900;
+    font-size: xxx-large;
+    transform: translate(0px, 0px);
+}

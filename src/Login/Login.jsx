@@ -18,6 +18,7 @@ import { doc } from "firebase/firestore";
 import { func } from "prop-types";
 import UserSignUp from "../SignUp/UserSignUp";
 import { FirebaseError } from "firebase/app";
+import { useNavigate } from "react-router";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
@@ -31,6 +32,7 @@ function Login(props) {
   const [IsSignUp, setIsSignUp] =useState (false);
   // const [value, setValue] =useState('')
   const [CountryCode, setCountryCode]=useState("");
+  const location = useNavigate();
   const [section, setSection] = useState ("user")
   const  handleClick = async ()=>{
     try {
@@ -49,7 +51,9 @@ function Login(props) {
           timestamp:serverTimestamp(),
         })
       }
-
+        if (section == 'org')  {
+          location("/OrganizationHomepage")
+        }
       toast.success("Signed In")
     } catch (err) {
       toast.error("something went wrong");

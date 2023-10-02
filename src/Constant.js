@@ -79,7 +79,44 @@ export const TournamentListDetails = [{
     Delete: 'Delete',
     Register: 'Register'
 }
+]
 
 
-
+export const UserSlotListDetails =[
+    {
+        content: '1'
+    },
+    {
+        content: '2'
+    },
+    {
+        content: '3'
+    },
+    {
+        content: '4'
+    },
+    {
+        content: '5'
+    },
+    {
+        content: '6'
+    },
+    {
+        content: '7'
+    },
+    {
+        content: '8'
+    },
+    {
+        content: '9'
+    },
+    {
+        content: '10'
+    },
+    {
+        content: '11'
+    },
+    {
+        content: '12'
+    },
 ]
