@@ -4,7 +4,7 @@ import classes from './Slider.module.css';
 import { SliderData } from "./SliderData";
 
 
-const Slider = () => {
+const Slider = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderLength = SliderData.length;
 
@@ -43,7 +43,7 @@ const Slider = () => {
       {/* <ArrowBackIosIcon className="arrow prev" onClick={prevSlide}/>
       <ArrowForwardIosIcon className="arrow next" onClick={nextSlide} /> */}
 
-      {SliderData.map((slide, index) => {
+      {props.SliderData.map((slide, index) => {
         return (
           <div
             className={index === currentSlide ? "slide current" : "slide"}

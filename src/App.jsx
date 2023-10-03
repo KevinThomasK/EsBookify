@@ -9,11 +9,13 @@ import Profile from "./pages/Profile";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
-import OrgHome from "./OrgHome";
 import UserScrimList from "./User/UserScrimList";
 import UserDailyMatch from "./User/UserDailymatch";
 import UserOpenRoom from "./User/UserOpenRoom";
 import EditTournament from "./pages/EditTournament";
+import UserSlotList from "./User/UserSlotList";
+import OrganizationHomepage from "./Organization/OrganizatiomHomepage";
+import UserTournamentList from "./UserTournamentList";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -49,6 +51,11 @@ function App(props) {
           <Route path="/UserScrimList" element={<UserScrimList />} />
           <Route path="/UserDailyMatch" element={<UserDailyMatch />} />
           <Route path="/UserOpenRoom" element={<UserOpenRoom />} />
+          <Route path="/UserSlotList" element={<UserSlotList />} />
+          <Route
+            path="/OrganizationHomepage"
+            element={<OrganizationHomepage />}
+          />
         </Routes>
       </Router>
 

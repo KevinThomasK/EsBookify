@@ -90,7 +90,7 @@ console.log(location);
         props.onCloseOTP()
         if (props.section=="org"){
           console.log(props.history);
-          location("/Organization")
+          location("/OrganizationHomepage")
         }
       }) .catch((error) => {
         // Error; SMS not sent        // ...  
