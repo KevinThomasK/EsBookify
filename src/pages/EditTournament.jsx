@@ -3,10 +3,12 @@ import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
 import axios from "axios";
-import { newTournament } from "../api-Helpers/api-helpers";
+import { newTournament, updateTournament } from "../api-Helpers/api-helpers";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-export default function CreateTournament() {
+export default function EditTournament() {
   const [formData, setFormData] = useState({
     tournamentName: "",
     tournamentDate: "", // Keep the date field as a string
@@ -28,6 +30,8 @@ export default function CreateTournament() {
   let year = date.getFullYear();
   let minDate = year + "-" + month + "-" + tdate;
   console.log(minDate);
+
+  const params = useParams();
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -56,11 +60,12 @@ export default function CreateTournament() {
     const formattedName = formData.tournamentName.trim();
 
     // Send the formatted data to the newTournament function
-    newTournament({
+    updateTournament({
       ...formData,
       tournamentDate: formattedDate,
       tournamentTime: formattedTime,
       tournamentName: formattedName,
+      id: params.tournamentId,
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
@@ -111,7 +116,7 @@ export default function CreateTournament() {
           alt="background"
         />
         <h2 className="text-white absolute top-[45%] left-[40%] text-4xl font-bold">
-          Create <span className="text-[#ff8a01]">Tournament</span>
+          Edit <span className="text-[#ff8a01]">Tournament</span>
         </h2>
       </div>
 
@@ -179,7 +184,7 @@ export default function CreateTournament() {
             type="submit"
             className="w-full text-[#ff8a01] bg-gray-800/80 py-4 font-bold text-3xl mb-60"
           >
-            Register
+            Edit Tournament
           </button>
         </form>
       </div>

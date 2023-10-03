@@ -2,14 +2,15 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import classes from "../OrgHome.module.css";
 import { TournamentListDetails } from "../Constant";
-import { allTournaments } from "../api-Helpers/api-helpers";
+import { allTournaments, deleteTournament } from "../api-Helpers/api-helpers";
 import { useState } from "react";
 import { data } from "autoprefixer";
+import imge from "../assets/ListLogo.png";
+import { toast } from "react-toastify";
 
 function TournamentList() {
   const navigate = useNavigate();
-  const [tournaments, setTournaments] = useState({});
-  
+  const [tournaments, setTournaments] = useState();
 
   useEffect(() => {
     allTournaments()
@@ -21,35 +22,52 @@ function TournamentList() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(tournaments);
+  // console.log(tournaments);
+
+  const handleDelete = (id) => {
+    deleteTournament(id)
+      .then(toast.success("Tournament deleted"))
+      .then(navigate("/"))
+      .catch((err) => console.log(err));
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/updatetournament/${id}`);
+    console.log("first");
+  };
 
   return (
-    <section id="matches" class=" mx-auto">
+    <section id="matches" class=" mx-auto pb-[100px]">
       <ul class="list-none mx-auto mt-10 flex flex-row flex-wrap  justify-center gap-10 ">
-        {TournamentListDetails.map((item) => {
-          return (
-            <li
-              className={classes.listbox}
-              onClick={() => {
-                navigate("      ");
-              }}
-            >
-              <div className={classes.dateandtime}>{item.dateAndTime}</div>
-              <img className={classes.ListLogo} src={item.image} />
-              <h3 class="text-2xl text-center mt-2 text-orange-500">
-                <div>{item.title}</div>
-              </h3>
-              <div className={classes.listboxContent}>
-                <div className={classes.price}>{item.price}</div>
-                <div className={classes.edittext}> {item.Edit} </div>
+        {tournaments &&
+          tournaments.map((item) => {
+            return (
+              <li className={classes.listbox}>
+                <div className={classes.dateandtime}>{item.dateOfMatch}</div>
+                <img className={classes.ListLogo} src={imge} />
+                <h3 class="text-2xl text-center mt-2 text-orange-500">
+                  <div>{item.name}</div>
+                </h3>
+                <div className={classes.listboxContent}>
+                  <div className={classes.price}>${item.prizePool}</div>
+                  <div
+                    className={classes.edittext}
+                    onClick={() => handleEdit(item._id)}
+                  >
+                    {" "}
+                    Edit{" "}
+                  </div>
 
-                <div class=" text-center mt-2 text-orange-500">
-                  {item.Delete}
+                  <div
+                    class=" text-center mt-2 text-orange-500 cursor-pointer"
+                    onClick={() => handleDelete(item._id)}
+                  >
+                    Delete
+                  </div>
                 </div>
-              </div>
-            </li>
-          );
-        })}
+              </li>
+            );
+          })}
       </ul>
     </section>
   );
