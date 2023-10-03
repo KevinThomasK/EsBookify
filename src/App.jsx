@@ -16,6 +16,7 @@ import EditTournament from "./pages/EditTournament";
 import UserSlotList from "./User/UserSlotList";
 import OrganizationHomepage from "./Organization/OrganizatiomHomepage";
 import UserTournamentList from "./UserTournamentList";
+import OrgHome from "./OrgHome";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
