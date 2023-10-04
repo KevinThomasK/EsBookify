@@ -12,12 +12,14 @@ import Header from "./Header";
 import UserScrimList from "./User/UserScrimList";
 import UserDailyMatch from "./User/UserDailymatch";
 import UserOpenRoom from "./User/UserOpenRoom";
+import EditTournament from "./pages/EditTournament";
 import UserSlotList from "./User/UserSlotList";
 import OrganizationHomepage from "./Organization/OrganizatiomHomepage";
 import UserTournamentList from "./UserTournamentList";
 import OrgCreateScrims from "./Organization/OrgCreateScrims";
 import OrgCreateDailyMatch from "./Organization/OrgDailymatch";
 import OrgCreateOpenRoom from "./Organization/OrgOpenRoom";
+import OrgHome from "./OrgHome";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -43,15 +45,18 @@ function App(props) {
           <Route path="/create-tournament" element={<PrivateRoute />}>
             <Route path="/create-tournament" element={<CreateTournament />} />
           </Route>
-          <Route path="/UserTournamentList" element={<PrivateRoute />}>
-            <Route path="/UserTournamentList" element={<UserTournamentList />} />
+          <Route path="/updatetournament" element={<PrivateRoute />}>
+            <Route
+              path="/updatetournament/:tournamentId"
+              element={<EditTournament />}
+            />
           </Route>
-     
-          <Route path="/UserScrimList" element={<UserScrimList/>} />
-          <Route path="/UserDailyMatch" element={<UserDailyMatch/>} />
+          <Route path="/Organization" element={<OrgHome />} />
+          <Route path="/UserScrimList" element={<UserScrimList />} />
+          <Route path="/UserDailyMatch" element={<UserDailyMatch />} />
           <Route path="/UserOpenRoom" element={<UserOpenRoom />} />
           <Route path="/UserSlotList" element={<UserSlotList />} />
-          <Route path="/OrganizationHomepage" element={<OrganizationHomepage />} />
+         
           <Route path="/OrgCreateScrims" element={<PrivateRoute />}>
             <Route path="/OrgCreateScrims" element={<OrgCreateScrims />} />
           </Route>
@@ -61,10 +66,11 @@ function App(props) {
           <Route path="/OrgCreateOpenRoom" element={<PrivateRoute />}>
             <Route path="/OrgCreateOpenRoom" element={<OrgCreateOpenRoom />} />
           </Route>
+          <Route
+            path="/OrganizationHomepage"
+            element={<OrganizationHomepage />}
+          />
         </Routes>
-       
-          
-        
       </Router>
 
       <ToastContainer

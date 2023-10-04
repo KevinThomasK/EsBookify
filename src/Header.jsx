@@ -29,7 +29,7 @@ export default function Header(props) {
       }
     })
   }, [auth])
-  console.log(isHovered);
+  //console.log(isHovered);
   return (
     <div>
       <nav className="bg-black pb-[30px]">
@@ -50,7 +50,7 @@ export default function Header(props) {
         <div className={classes.popupdiv} onMouseEnter={handleMouseEnter}>
           
             {isLogged && <button  data-modal-target="defaultModal" data-modal-toggle="defaultModal"
-              onClick={() => { navigate("/profile") }} className={classes.profileButton}>
+               className={classes.profileButton}>
               <img className='w-[36px]' src={logoImg} alt='logo' />  </button>}
             {isHovered && <ProfilePopUp  handleMouseEnter={handleMouseLeave} />}
           
