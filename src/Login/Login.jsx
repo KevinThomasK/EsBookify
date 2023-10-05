@@ -24,17 +24,15 @@ import { storeIdentifier } from "../Redux/Action";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
-  console.log(props);
+ // console.log(props);
   const [ph, setph] = useState("");
   const [showOTP, setShowOTP] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [phoneerror, setphoneerror] = useState(false);
   const [ValidPhoneNumber, setValidPhoneNumber] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
   const [IsSignUp, setIsSignUp] = useState(false);
-  // const [value, setValue] =useState('')
   const [CountryCode, setCountryCode]=useState("");
-  const [org, setOrg] = useState(null);
+  const [org, setOrg] = useState(false);
   const location = useNavigate();
   const [section, setSection] = useState ("user")
   const  handleClick = async ()=>{
@@ -78,7 +76,7 @@ function Login(props) {
           });
         });
       } else {
-        setOrg(null)
+        //setOrg(null)
         window.localStorage.setItem("auth", "false");
       }
     });
@@ -93,7 +91,7 @@ function Login(props) {
         {
           size: "invisible",
           callback: (response) => {
-            console.log(response);
+           // console.log(response);
             onSignup();
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             // ...
@@ -121,12 +119,12 @@ function Login(props) {
       onCaptchVerify();
       const appVerifier = window.recaptchaVerifier;
       const phoneNumber = "+" + ph;
-      console.log(phoneNumber, appVerifier);
+     // console.log(phoneNumber, appVerifier);
 
       // const auth = getAuth();
       signInWithPhoneNumber(auth, phoneNumber, appVerifier)
         .then((confirmationResult) => {
-          console.log(confirmationResult);
+          //console.log(confirmationResult);
           setShowOTP(true); // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
 

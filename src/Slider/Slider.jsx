@@ -1,8 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import classes from './Slider.module.css';
 import { SliderData } from "./SliderData";
-
 
 const Slider = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -20,8 +18,8 @@ const Slider = (props) => {
     setCurrentSlide(currentSlide === 0 ? sliderLength - 1 : currentSlide - 1);
   };
 
-  function auto(){
-    slideInterval = setInterval(nextSlide, intervalTime)
+  function auto() {
+    slideInterval = setInterval(nextSlide, intervalTime);
   }
 
   useEffect(() => {
@@ -33,10 +31,9 @@ const Slider = (props) => {
       auto();
     }
     return () => {
-        clearInterval(slideInterval)
-    }
+      clearInterval(slideInterval);
+    };
   }, [currentSlide]);
-
 
   return (
     <div className="slider">
@@ -52,7 +49,6 @@ const Slider = (props) => {
             {index === currentSlide && (
               <div>
                 <img src={slide.image} alt="slide" className="slideimage" />
-              
               </div>
             )}
           </div>

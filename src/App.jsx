@@ -19,7 +19,9 @@ import UserTournamentList from "./UserTournamentList";
 import OrgCreateScrims from "./Organization/OrgCreateScrims";
 import OrgCreateDailyMatch from "./Organization/OrgDailymatch";
 import OrgCreateOpenRoom from "./Organization/OrgOpenRoom";
-import OrgHome from "./OrgHome";
+
+import OrgHome from "./Organization/OrgHome";
+import UnAuthorized from "./pages/UnAuthorized";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -39,6 +41,7 @@ function App(props) {
         <Header onShowLogin={showLoginHandler} />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
+          <Route path="/unauthorized" element={<UnAuthorized />} />
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
           </Route>

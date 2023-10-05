@@ -2,7 +2,7 @@
 
 .Orgbackground{
     height: 100%;
-    background-image: url("./assets/ListBackground.png");
+    background-image: url("../assets/ListBackground.png");
     background-position:center;
     background-attachment: fixed;
     background-size: cover;

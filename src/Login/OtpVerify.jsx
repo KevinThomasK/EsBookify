@@ -16,7 +16,7 @@ function OtpVerify(props) {
   const [isDisabled, setIsDisabled] = useState(false);
   const handleOTP = (otpValue) => { setOtp(otpValue); };
   const location = useNavigate();
-console.log(location);
+//console.log(location);
 
 
   useEffect(() => {
@@ -24,7 +24,7 @@ console.log(location);
     // button.disabled=(true);
     let timer;
     setIsDisabled(true);
-    console.log("countdown",countdown)
+   // console.log("countdown",countdown)
     if (countdown > 0) {
       timer = setInterval(() => {
         setCountdown((prevCountdown) => prevCountdown - 1);
@@ -65,7 +65,7 @@ console.log(location);
       // const auth = getAuth();    
       signInWithPhoneNumber(auth,phoneNumber, appVerifier)
         .then((confirmationResult) => {
-          console.log(confirmationResult);        // SMS sent. Prompt user to type the code from the message, then sign the     
+         // console.log(confirmationResult);        // SMS sent. Prompt user to type the code from the message, then sign the     
           // user in with confirmationResult.confirm(code).  
 
           window.confirmationResult = confirmationResult;        // ... 
@@ -89,7 +89,7 @@ console.log(location);
         console.log("LoggedInSuccessfully")
         props.onCloseOTP()
         if (props.section=="org"){
-          console.log(props.history);
+        //  console.log(props.history);
           location("/OrganizationHomepage")
         }
       }) .catch((error) => {

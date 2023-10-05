@@ -27,7 +27,7 @@ export default function CreateTournament() {
   }
   let year = date.getFullYear();
   let minDate = year + "-" + month + "-" + tdate;
-  console.log(minDate);
+  //console.log(minDate);
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -63,7 +63,7 @@ export default function CreateTournament() {
       tournamentName: formattedName,
     })
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error('something went wrong'));
 
     document.getElementById("tournamentName").value = "";
     document.getElementById("rules").value = "";
@@ -120,11 +120,11 @@ export default function CreateTournament() {
       </h3>
       <div className={classes.formDiv}>
         <form
-          className="flex flex-col w-[40%] mx-auto bg-transparent"
+          className="flex flex-col w-[33%] mx-auto bg-transparent"
           onSubmit={handleSubmit}
         >
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-4  placeholder:text-[#ff8a01] text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-2  placeholder:text-[#ff8a01] text-[#ff8a01]"
             id="tournamentName"
             type="text"
             name="tournamentName"
@@ -132,9 +132,10 @@ export default function CreateTournament() {
             placeholder="Tournament Name"
             required
             onChange={handleChange}
+            autoFocus
           />
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             id="tournamentDate"
             type="date"
             name="tournamentDate"
@@ -146,7 +147,7 @@ export default function CreateTournament() {
           />
 
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="time"
             id="tournamentTime"
             name="tournamentTime"
@@ -156,7 +157,7 @@ export default function CreateTournament() {
             onChange={handleChange}
           />
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="number"
             id="prizePool"
             min="1"
@@ -167,7 +168,7 @@ export default function CreateTournament() {
             onChange={handleChange}
           />
           <textarea
-            className="bg-gray-800/80 h-52 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 h-52 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="text"
             id="rules"
             name="rules"
@@ -177,7 +178,7 @@ export default function CreateTournament() {
           />
           <button
             type="submit"
-            className="w-full text-[#ff8a01] bg-gray-800/80 py-4 font-bold text-3xl mb-60"
+            className="w-full text-[#ff8a01] bg-gray-800/80 py-3 font-bold text-2xl mb-60"
           >
             Register
           </button>
