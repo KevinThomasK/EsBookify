@@ -20,6 +20,7 @@ import UserSignUp from "../SignUp/UserSignUp";
 import { FirebaseError } from "firebase/app";
 import { validateOrg } from "../api-Helpers/api-helpers";
 import { useNavigate } from "react-router";
+import { storeIdentifier } from "../Redux/Action";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
@@ -57,6 +58,7 @@ function Login(props) {
         if (section == 'org')  {
           location("/OrganizationHomepage")
         }
+       store.dispatch ( storeIdentifier (section) )
       toast.success("Signed In")
     } catch (err) {
       toast.error("something went wrong");
