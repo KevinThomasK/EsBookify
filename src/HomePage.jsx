@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router";
-import { FaMagnifyingGlass } from "react-icons/fa6";
 import Slider from "./Slider/Slider";
 import Matches from "./Matches/Matches";
 import Footer from "./Footer/Footer";
-import Header from "./Header";
-import Login from "./Login/Login";
 import { SliderData } from "./Slider/SliderData";
 
 function HomePage(props) {
- 
   const navigate = useNavigate();
   return (
     <>
-   
       <div className={classes.MainBackground}>
         <div className={classes.gradient}>
-          <Slider SliderData ={SliderData} />
+          <Slider SliderData={SliderData} />
           <div className={classes.headingAnimationDiv}>
             <h1 className={classes.animationHeader}>
               "JOIN THE ULTIMATE BGMI TOURNAMENTS :

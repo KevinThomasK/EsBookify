@@ -13,6 +13,7 @@ export default function Profile() {
 
   function onLogout() {
     auth.signOut();
+    localStorage.removeItem("email");
     navigate("/");
   }
 

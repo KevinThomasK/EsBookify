@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
-import classes from "../OrgHome.module.css";
-import { TournamentListDetails } from "../Constant";
+import classes from "./OrgHome.module.css";
 import { allTournaments, deleteTournament } from "../api-Helpers/api-helpers";
 import { useState } from "react";
-import { data } from "autoprefixer";
 import imge from "../assets/ListLogo.png";
 import { toast } from "react-toastify";
 
@@ -37,15 +35,15 @@ function TournamentList() {
   };
 
   return (
-    <section id="matches" class=" mx-auto pb-[100px]">
-      <ul class="list-none mx-auto mt-10 flex flex-row flex-wrap  justify-center gap-10 ">
+    <section id="matches" className=" mx-auto pb-[100px]">
+      <ul className="list-none mx-auto mt-10 flex flex-row flex-wrap  justify-center gap-10 ">
         {tournaments &&
           tournaments.map((item) => {
             return (
               <li className={classes.listbox}>
                 <div className={classes.dateandtime}>{item.dateOfMatch}</div>
                 <img className={classes.ListLogo} src={imge} />
-                <h3 class="text-2xl text-center mt-2 text-orange-500">
+                <h3 className="text-2xl text-center mt-2 text-orange-500">
                   <div>{item.name}</div>
                 </h3>
                 <div className={classes.listboxContent}>
@@ -59,7 +57,7 @@ function TournamentList() {
                   </div>
 
                   <div
-                    class=" text-center mt-2 text-orange-500 cursor-pointer"
+                    className=" text-center mt-2 text-orange-500 cursor-pointer"
                     onClick={() => handleDelete(item._id)}
                   >
                     Delete

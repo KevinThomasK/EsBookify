@@ -15,8 +15,8 @@ import UserOpenRoom from "./User/UserOpenRoom";
 import EditTournament from "./pages/EditTournament";
 import UserSlotList from "./User/UserSlotList";
 import OrganizationHomepage from "./Organization/OrganizatiomHomepage";
-import UserTournamentList from "./UserTournamentList";
-import OrgHome from "./OrgHome";
+import OrgHome from "./Organization/OrgHome";
+import UnAuthorized from "./pages/UnAuthorized";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -36,6 +36,7 @@ function App(props) {
         <Header onShowLogin={showLoginHandler} />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
+          <Route path="/unauthorized" element={<UnAuthorized />} />
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
           </Route>

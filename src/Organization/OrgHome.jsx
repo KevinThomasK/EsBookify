@@ -1,10 +1,8 @@
 import React from "react";
-import classes from "./HomePage.module.css";
-import Matches from "./Matches/Matches";
-import Slider from "./Slider/Slider";
-import Org from "../src/OrgHome.module.css";
-import TournamentList from "./Organization/TournamentList";
-import Footer from "./Footer/Footer";
+import classes from "../HomePage.module.css";
+import Org from "./OrgHome.module.css";
+import TournamentList from "./TournamentList";
+import Footer from "../Footer/Footer";
 function OrgHome() {
   return (
     <div className={Org.Orgbackground}>

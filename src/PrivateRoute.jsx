@@ -8,5 +8,5 @@ export default function PrivateRoute() {
     if(checkingStatus){
         return <h2>Loading...</h2>
     }
-  return  loggedIn ? <Outlet /> : <Navigate to="/" />  ;
+  return  loggedIn ? <Outlet /> : <Navigate to="/unauthorized" />  ;
 }
