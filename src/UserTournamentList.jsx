@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./HomePage.module.css";
-import Org from "../src/OrgHome.module.css";
+import Org from "./Organization/OrgHome.module.css";
 import TournamentList from "./Organization/TournamentList";
 import Footer from "./Footer/Footer";
 function UserTournamentList() {

@@ -6,14 +6,20 @@ import { onAuthStateChanged } from 'firebase/auth';
 import logoImg from "../src/assets/DROBEDOWN.png";
 import ProfilePopUp from './ProfilePopUp';
 import classes from '../src/ProfilePopUp.module.css';
+import store from './Store';
+import { connect } from 'react-redux'
 
-export default function Header(props) {
+function Header(props) {
   const navigate = useNavigate();
 
   const [isLogged, setIsLogged] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  useEffect(()=> {
+    console.log("Use effect",props.transfer);
+  },[props.transfer])
   const handleMouseEnter = () => {
+
     setIsHovered(true);
   };
 
@@ -33,7 +39,8 @@ export default function Header(props) {
   return (
     <div>
       <nav className="bg-black pb-[30px]">
-        <h2 className="text-orange-500 font-semibold text-3xl cursor-pointer" onClick={() => { navigate("/") }}>
+        <h2 className="text-orange-500 font-semibold text-3xl cursor-pointer" 
+        onClick={() => {console.log('redux vlaue', props.transfer); props.transfer== "org" ?   navigate("/OrganizationHomepage") :navigate ("/") }}>
           EsBookify
         </h2>
         <div className='w-[330px] h-[30px] relative flex rounded-md border border-[#ff8a01]'>
@@ -61,3 +68,10 @@ export default function Header(props) {
     </div>
   )
 }
+const mapStateToProps = (HomeReducer) => {
+  console.log("Cart", HomeReducer)
+  return {
+   transfer: HomeReducer.selectedItems.IdentifiedItem
+  }
+}
+export default connect (mapStateToProps,null )(Header)

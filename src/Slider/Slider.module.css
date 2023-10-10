@@ -1,0 +1,17 @@
+.sliderdiv{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.leftarrow{
+    position: absolute;
+    z-index: 1;
+}
+.rightarrow{
+    /* position: relative; */
+    z-index: 1;
+}
+.subsliderdiv{
+    position: relative;
+    z-index: 0;
+}

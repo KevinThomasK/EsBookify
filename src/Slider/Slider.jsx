@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { SliderData } from "./SliderData";
+import LeftArrow from ".././assets/LeftArrow.png"
+import RightArrow from ".././assets/RightArrow.png"
+import classes  from "./Slider.module.css"
+// import  Carousel  from "@material-tailwind/react";
 
 const Slider = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -36,10 +40,11 @@ const Slider = (props) => {
   }, [currentSlide]);
 
   return (
-    <div className="slider">
-      {/* <ArrowBackIosIcon className="arrow prev" onClick={prevSlide}/>
-      <ArrowForwardIosIcon className="arrow next" onClick={nextSlide} /> */}
-
+   
+    <div className= {`${classes.sliderdiv} slider `}  >
+      {/* <img src={LeftArrow} className= {`${classes.leftarrow} arrow prev `} onClick={prevSlide}/> */}
+      
+<div >
       {props.SliderData.map((slide, index) => {
         return (
           <div
@@ -47,13 +52,18 @@ const Slider = (props) => {
             key={index}
           >
             {index === currentSlide && (
-              <div>
-                <img src={slide.image} alt="slide" className="slideimage" />
+              <div className= {classes.subsliderdiv}>
+                <img src={slide.image} alt="slide" className="slideimage " />
               </div>
             )}
           </div>
         );
       })}
+      
+    </div>
+    {/* <div>
+    <img src ={RightArrow} className= {`${classes.rightarrow} arrow next `} onClick={nextSlide} />
+    </div> */}
     </div>
   );
 };

@@ -21,6 +21,7 @@ import { FirebaseError } from "firebase/app";
 import { validateOrg } from "../api-Helpers/api-helpers";
 import { useNavigate } from "react-router";
 import { storeIdentifier } from "../Redux/Action";
+import { connect } from "react-redux";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
@@ -39,7 +40,7 @@ function Login(props) {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log(user.email);
+      console.log(user.email);    
       localStorage.setItem("email",user.email);
       // check for the user
 
@@ -56,9 +57,10 @@ function Login(props) {
         if (section == 'org')  {
           location("/OrganizationHomepage")
         }
-       store.dispatch ( storeIdentifier (section) )
+        props.storeIdentifier(section) 
       toast.success("Signed In")
     } catch (err) {
+      props.storeIdentifier(section) 
       toast.error("something went wrong");
     }
   };
@@ -253,4 +255,9 @@ function Login(props) {
     </LoginModal>
   );
 }
-export default Login;
+const mapDispatchToProps= (dispatch) => {
+  return { 
+    storeIdentifier: (s) => {dispatch(storeIdentifier(s))} 
+  }
+}
+export default connect (null, mapDispatchToProps) (Login);

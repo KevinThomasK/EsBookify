@@ -5,6 +5,9 @@ import '../Login/OtpVerify.css'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../firebase';
 import {useNavigate} from 'react-router-dom';
+import store from '../Store';
+import { storeIdentifier } from '../Redux/Action';
+import { connect } from 'react-redux';
 
 
 
@@ -88,6 +91,7 @@ function OtpVerify(props) {
         console.log(res)
         console.log("LoggedInSuccessfully")
         props.onCloseOTP()
+        props.storeIdentifier(props.section) 
         if (props.section=="org"){
         //  console.log(props.history);
           location("/OrganizationHomepage")
@@ -141,5 +145,10 @@ function OtpVerify(props) {
     </div>
   )
 }
+const mapDispatchToProps= (dispatch) => {
+  return { 
+    storeIdentifier: (s) => {dispatch(storeIdentifier(s))} 
+  }
+}
 
-export default OtpVerify;
+export default connect (null, mapDispatchToProps) (OtpVerify);
