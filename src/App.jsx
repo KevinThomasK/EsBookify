@@ -19,9 +19,9 @@ import UserTournamentList from "./UserTournamentList";
 import OrgCreateScrims from "./Organization/OrgCreateScrims";
 import OrgCreateDailyMatch from "./Organization/OrgDailymatch";
 import OrgCreateOpenRoom from "./Organization/OrgOpenRoom";
-
 import OrgHome from "./Organization/OrgHome";
 import UnAuthorized from "./pages/UnAuthorized";
+import UserTournaments from "./User/UserTournaments";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -59,12 +59,16 @@ function App(props) {
           <Route path="/UserDailyMatch" element={<UserDailyMatch />} />
           <Route path="/UserOpenRoom" element={<UserOpenRoom />} />
           <Route path="/UserSlotList" element={<UserSlotList />} />
-         
+          <Route path="/UserTournaments" element={<UserTournaments />} />
+
           <Route path="/OrgCreateScrims" element={<PrivateRoute />}>
             <Route path="/OrgCreateScrims" element={<OrgCreateScrims />} />
           </Route>
           <Route path="/OrgCreateDailyMatch" element={<PrivateRoute />}>
-            <Route path="/OrgCreateDailyMatch" element={<OrgCreateDailyMatch />} />
+            <Route
+              path="/OrgCreateDailyMatch"
+              element={<OrgCreateDailyMatch />}
+            />
           </Route>
           <Route path="/OrgCreateOpenRoom" element={<PrivateRoute />}>
             <Route path="/OrgCreateOpenRoom" element={<OrgCreateOpenRoom />} />
