@@ -41,7 +41,9 @@ function TournamentList() {
           tournaments.map((item) => {
             return (
               <li className={classes.listbox}>
-                <div className={classes.dateandtime}>{item.dateOfMatch}</div>
+                <div className={classes.dateandtime}>
+                  {item.dateOfMatch} {item.idpTime}
+                </div>
                 <img className={classes.ListLogo} src={imge} />
                 <h3 className="text-2xl text-center mt-2 text-orange-500">
                   <div>{item.name}</div>

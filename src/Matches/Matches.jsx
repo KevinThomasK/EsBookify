@@ -9,7 +9,9 @@ function Matches(props) {
       <ul className="list-none mx-auto mt-10 flex flex-col sm:flex-row items-center gap-12">
         <li
           onClick={() => {
-            navigate("/create-tournament");
+            props.isHome
+              ? navigate("/UserTournaments")
+              : navigate("/create-tournament");
           }}
           className="w-1/3 h-80 justify-center sm:w-5/6  flex flex-col items-center border border-solid rounded-md border-orange-500 hover:border-blue-500 hover:cursor-pointer"
         >
@@ -19,7 +21,9 @@ function Matches(props) {
         </li>
         <li
           onClick={() => {
-            props.isHome ? navigate("/UserScrimList") :  navigate("/OrgCreateScrims")
+            props.isHome
+              ? navigate("/UserScrimList")
+              : navigate("/OrgCreateScrims");
           }}
           className="w-1/3 h-80 justify-center sm:w-5/6  flex flex-col items-center border rounded-md border-solid border-orange-500 hover:border-blue-500 hover:cursor-pointer"
         >
@@ -31,7 +35,9 @@ function Matches(props) {
       <ul className="list-none pb-32 mx-auto mt-10 flex flex-col sm:flex-row items-center gap-8">
         <li
           onClick={() => {
-            props.isHome ? navigate("/UserDailyMatch") :navigate("/OrgCreateDailyMatch")
+            props.isHome
+              ? navigate("/UserDailyMatch")
+              : navigate("/OrgCreateDailyMatch");
           }}
           className="w-1/3 h-80 justify-center sm:w-5/6  flex flex-col items-center border rounded-md border-solid border-orange-500 hover:border-blue-500 hover:cursor-pointer"
         >
@@ -41,7 +47,9 @@ function Matches(props) {
         </li>
         <li
           onClick={() => {
-            props.isHome ? navigate("/UserOpenRoom") : navigate("/OrgCreateOpenRoom")
+            props.isHome
+              ? navigate("/UserOpenRoom")
+              : navigate("/OrgCreateOpenRoom");
           }}
           className="w-1/3 h-80 justify-center sm:w-5/6  flex flex-col items-center border rounded-md border-solid border-orange-500 hover:border-blue-500 hover:cursor-pointer"
         >
@@ -52,8 +60,6 @@ function Matches(props) {
       </ul>
     </section>
   );
-
- 
 }
 
 export default Matches;

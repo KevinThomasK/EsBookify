@@ -2,32 +2,26 @@ import React, { useState } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
-import axios from "axios";
 import { newTournament } from "../api-Helpers/api-helpers";
+import useMinDate from "../hooks/useMinDate";
+import useFormatTime from "../hooks/useFormatTime";
+import useFormatDate from "../hooks/useFormatDate";
 import { toast } from "react-toastify";
 
 export default function CreateTournament() {
   const [formData, setFormData] = useState({
     tournamentName: "",
-    tournamentDate: "", // Keep the date field as a string
+    tournamentDate: "",
     tournamentTime: "",
     prizePool: "",
     rules: "",
   });
 
-  //date validation frontend
-  let date = new Date();
-  let tdate = date.getDate();
-  let month = date.getMonth() + 1;
-  if (tdate < 10) {
-    tdate = "0" + tdate;
-  }
-  if (month < 10) {
-    month = "0" + month;
-  }
-  let year = date.getFullYear();
-  let minDate = year + "-" + month + "-" + tdate;
-  //console.log(minDate);
+  let minDate = useMinDate();
+
+  const formatDate = useFormatDate();
+
+  const formatTime = useFormatTime();
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -46,13 +40,10 @@ export default function CreateTournament() {
       return;
     }
 
-    // Format the date in "dd-mm-yyyy" before sending it to the server
     const formattedDate = formatDate(formData.tournamentDate);
 
-    // Format the time in "hh:mm AM/PM" before sending it to the server
     const formattedTime = formatTime(formData.tournamentTime);
 
-    //format name
     const formattedName = formData.tournamentName.trim();
 
     // Send the formatted data to the newTournament function
@@ -63,43 +54,13 @@ export default function CreateTournament() {
       tournamentName: formattedName,
     })
       .then((res) => console.log(res))
-      .catch((err) => toast.error('something went wrong'));
+      .catch((err) => toast.error("something went wrong"));
 
     document.getElementById("tournamentName").value = "";
     document.getElementById("rules").value = "";
     document.getElementById("prizePool").value = "";
     document.getElementById("tournamentTime").value = "";
     document.getElementById("tournamentDate").value = "";
-  };
-
-  // Function to format the date as "dd-mm-yyyy"
-  const formatDate = (date) => {
-    const parts = date.split("-");
-    if (parts.length === 3) {
-      const [year, month, day] = parts;
-      return `${day}-${month}-${year}`;
-    }
-    return date; // Return as-is if not in the expected format
-  };
-
-  // Function to format the time as "hh:mm AM/PM"
-  const formatTime = (time) => {
-    const parts = time.split(":");
-    if (parts.length === 2) {
-      const [hour, minute] = parts;
-      let period = "AM";
-      let formattedHour = parseInt(hour, 10);
-
-      if (formattedHour >= 12) {
-        period = "PM";
-        if (formattedHour > 12) {
-          formattedHour -= 12;
-        }
-      }
-
-      return `${formattedHour}:${minute} ${period}`;
-    }
-    return time; // Return as-is if not in the expected format
   };
 
   return (
