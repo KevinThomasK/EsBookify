@@ -14,6 +14,8 @@ export default function CreateTournament() {
     prizePool: "",
     rules: "",
   });
+  const [DateType,setDateType] = useState("text")
+  const [TimeType,setTimeType] = useState("text")
 
   //date validation frontend
   let date = new Date();
@@ -137,22 +139,26 @@ export default function CreateTournament() {
           <input
             className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             id="tournamentDate"
-            type="date"
+            type={DateType}
+            onFocus={(e)=>setDateType("date")}
+            onBlur={(e)=>setDateType("text")}
             name="tournamentDate"
             min={minDate}
             value={formData.tournamentDate}
-            placeholder="Date of Match (DD-MM-YYYY)"
+            placeholder="Date of Match"
             required
             onChange={handleChange}
           />
 
           <input
             className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
-            type="time"
+            type={TimeType}
+            onFocus={(e)=>setTimeType("time")}
+            onBlur={(e)=>setTimeType("text")}
             id="tournamentTime"
             name="tournamentTime"
             value={formData.tournamentTime}
-            placeholder="IDP Time (HH:mm)"
+            placeholder="IDP Time "
             required
             onChange={handleChange}
           />

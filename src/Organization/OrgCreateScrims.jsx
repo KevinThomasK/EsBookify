@@ -47,7 +47,7 @@ function OrgCreateScrims() {
             type="text"
             id="tournamentName"
             value={ScrimName}
-            placeholder="Tounrament Name"
+            placeholder="Tournament Name"
             required
             onChange={(e)=>setScrimName(e.target.value)}
           />
