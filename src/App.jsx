@@ -54,12 +54,23 @@ function App(props) {
               element={<EditTournament />}
             />
           </Route>
-          <Route path="/Organization" element={<OrgHome />} />
-          <Route path="/UserScrimList" element={<UserScrimList />} />
-          <Route path="/UserDailyMatch" element={<UserDailyMatch />} />
-          <Route path="/UserOpenRoom" element={<UserOpenRoom />} />
-          <Route path="/UserSlotList" element={<UserSlotList />} />
-          <Route path="/UserTournaments" element={<UserTournaments />} />
+          <Route path="/Organization" element={<PrivateRoute />}>
+          <Route path="/Organization" element={<OrgHome />} /> </Route>
+
+          <Route path="/UserScrimList" element={<PrivateRoute />}>
+          <Route path="/UserScrimList" element={<UserScrimList />} />  </Route>
+
+          <Route path="/UserDailyMatch" element={<PrivateRoute />}>
+          <Route path="/UserDailyMatch" element={<UserDailyMatch />} /> </Route>
+
+          <Route path="/UserOpenRoom" element={<PrivateRoute />}> 
+          <Route path="/UserOpenRoom" element={<UserOpenRoom />} /> </Route>
+
+          <Route path="/UserSlotList" element={<PrivateRoute />}> 
+          <Route path="/UserSlotList" element={<UserSlotList />} /> </Route>
+          
+          <Route path="/UserTournaments" element={<PrivateRoute />}> 
+          <Route path="/UserTournaments" element={<UserTournaments />} />  </Route>
 
           <Route path="/OrgCreateScrims" element={<PrivateRoute />}>
             <Route path="/OrgCreateScrims" element={<OrgCreateScrims />} />
