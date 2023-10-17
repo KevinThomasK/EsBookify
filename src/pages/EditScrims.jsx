@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import banner from "../assets/CreateScrim.png";
-import classes from "../pages/CreateTournament.module.css";
-import useMinDate from "../hooks/useMinDate";
+import createTournamentPageImg from "../assets/Rectangle 25.png";
+import classes from "./CreateTournament.module.css";
+import Footer from "../Footer/Footer";
+import { updateScrims } from "../api-Helpers/api-helpers";
+import { useParams } from "react-router-dom";
 import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
-import Footer from "../Footer/Footer";
-import { toast } from "react-toastify";
-import { newScrims } from "../api-Helpers/api-helpers";
+import useMinDate from "../hooks/useMinDate";
 
-const OrgCreateScrims = () => {
-  const [scrimsData, setScrimsData] = useState({
+export default function EditScrims() {
+  const [formData, setFormData] = useState({
     scrimsName: "",
-    scrimsDate: "",
+    scrimsDate: "", // Keep the date field as a string
     scrimsTime: "",
     scrimsPrize: "",
     scrimsRules: "",
@@ -19,12 +19,10 @@ const OrgCreateScrims = () => {
 
   let minDate = useMinDate();
 
-  const formatDate = useFormatDate();
-
-  const formatTime = useFormatTime();
+  const params = useParams();
 
   const handleChange = (e) => {
-    setScrimsData((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -33,26 +31,29 @@ const OrgCreateScrims = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Ensure that the "tournamentTime" field is in the 24-hour format (HH:mm)
     const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-    if (!timePattern.test(scrimsData.scrimsTime)) {
+    if (!timePattern.test(formData.scrimsTime)) {
       alert("Invalid time format. Please use HH:mm format (24-hour).");
       return;
     }
 
-    const formattedDate = formatDate(scrimsData.scrimsDate);
+    const formattedDate = formatDate(formData.scrimsDate);
 
-    const formattedTime = formatTime(scrimsData.scrimsTime);
+    const formattedTime = formatTime(formData.scrimsTime);
 
-    const formattedName = scrimsData.scrimsName.trim();
-    newScrims({
-      ...scrimsData,
+    const formattedName = formData.scrimsName.trim();
+
+    // Send the formatted data to the newTournament function
+    updateScrims({
+      ...formData,
       scrimsDate: formattedDate,
       scrimsTime: formattedTime,
       scrimsName: formattedName,
+      id: params.scrimsId,
     })
       .then((res) => console.log(res))
-      .catch((err) => toast.error("something went wrong"));
-    console.log("hi there");
+      .catch((err) => console.log(err));
 
     document.getElementById("scrimsName").value = "";
     document.getElementById("scrimsRules").value = "";
@@ -61,16 +62,22 @@ const OrgCreateScrims = () => {
     document.getElementById("scrimsDate").value = "";
   };
 
+  // Function to format the date as "dd-mm-yyyy"
+  const formatDate = useFormatDate();
+
+  // Function to format the time as "hh:mm AM/PM"
+  const formatTime = useFormatTime();
+
   return (
     <>
       <div className="bg-black relative w-full">
         <img
           className="w-[95%] mx-auto pb-10 pt-10"
-          src={banner}
+          src={createTournamentPageImg}
           alt="background"
         />
         <h2 className="text-white absolute top-[45%] left-[40%] text-4xl font-bold">
-          Create <span className="text-[#ff8a01]">Scrims</span>
+          Edit <span className="text-[#ff8a01]">Scrims</span>
         </h2>
       </div>
 
@@ -79,73 +86,70 @@ const OrgCreateScrims = () => {
       </h3>
       <div className={classes.formDiv}>
         <form
-          className="flex flex-col w-[33%] mx-auto bg-transparent"
+          className="flex flex-col w-[40%] mx-auto bg-transparent"
           onSubmit={handleSubmit}
         >
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2  placeholder:text-[#ff8a01] text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4  placeholder:text-[#ff8a01] text-[#ff8a01]"
             id="scrimsName"
             type="text"
             name="scrimsName"
-            value={scrimsData.scrimsName}
-            placeholder="Scrims Name"
+            value={formData.scrimsName}
+            placeholder="Tournament Name"
             required
             onChange={handleChange}
-            autoFocus
           />
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             id="scrimsDate"
             type="date"
             name="scrimsDate"
             min={minDate}
-            value={scrimsData.scrimsDate}
+            value={formData.scrimsDate}
             placeholder="Date of Match (DD-MM-YYYY)"
             required
             onChange={handleChange}
           />
 
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="time"
             id="scrimsTime"
             name="scrimsTime"
-            value={scrimsData.scrimsTime}
+            value={formData.scrimsTime}
             placeholder="IDP Time (HH:mm)"
             required
             onChange={handleChange}
           />
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="number"
             id="scrimsPrize"
             min="1"
             max="1000000"
             name="scrimsPrize"
-            value={scrimsData.scrimsPrize}
+            value={formData.scrimsPrize}
             placeholder="Prize Pool"
             onChange={handleChange}
           />
           <textarea
-            className="bg-gray-800/80 h-52 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 h-52 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="text"
             id="scrimsRules"
             name="scrimsRules"
-            value={scrimsData.scrimsRules}
+            value={formData.scrimsRules}
             placeholder="Rules"
             onChange={handleChange}
           />
           <button
             type="submit"
-            className="w-full text-[#ff8a01] bg-gray-800/80 py-3 font-bold text-2xl mb-60"
+            className="w-full text-[#ff8a01] bg-gray-800/80 py-4 font-bold text-3xl mb-60"
           >
-            Register
+            Edit Scrims
           </button>
         </form>
       </div>
       <Footer />
     </>
   );
-};
-
-export default OrgCreateScrims;
+}

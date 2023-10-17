@@ -22,6 +22,7 @@ import OrgHome from "./Organization/OrgHome";
 import UnAuthorized from "./pages/UnAuthorized";
 import UserTournaments from "./User/UserTournaments";
 import UserTournamentSlotBox from "./User/UserTournamentSlotBox";
+import EditScrims from "./pages/EditScrims";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -54,23 +55,32 @@ function App(props) {
               element={<EditTournament />}
             />
           </Route>
+          <Route path="/updatescrims" element={<PrivateRoute />}>
+            <Route path="/updatescrims/:scrimsId" element={<EditScrims />} />
+          </Route>
           <Route path="/Organization" element={<PrivateRoute />}>
-          <Route path="/Organization" element={<OrgHome />} /> </Route>
+            <Route path="/Organization" element={<OrgHome />} />{" "}
+          </Route>
 
           <Route path="/UserScrimList" element={<PrivateRoute />}>
-          <Route path="/UserScrimList" element={<UserScrimList />} />  </Route>
+            <Route path="/UserScrimList" element={<UserScrimList />} />{" "}
+          </Route>
 
           <Route path="/UserDailyMatch" element={<PrivateRoute />}>
-          <Route path="/UserDailyMatch" element={<UserDailyMatch />} /> </Route>
+            <Route path="/UserDailyMatch" element={<UserDailyMatch />} />{" "}
+          </Route>
 
-          <Route path="/UserOpenRoom" element={<PrivateRoute />}> 
-          <Route path="/UserOpenRoom" element={<UserOpenRoom />} /> </Route>
+          <Route path="/UserOpenRoom" element={<PrivateRoute />}>
+            <Route path="/UserOpenRoom" element={<UserOpenRoom />} />{" "}
+          </Route>
 
-          <Route path="/UserSlotList" element={<PrivateRoute />}> 
-          <Route path="/UserSlotList" element={<UserSlotList />} /> </Route>
-          
-          <Route path="/UserTournaments" element={<PrivateRoute />}> 
-          <Route path="/UserTournaments" element={<UserTournaments />} />  </Route>
+          <Route path="/UserSlotList" element={<PrivateRoute />}>
+            <Route path="/UserSlotList" element={<UserSlotList />} />{" "}
+          </Route>
+
+          <Route path="/UserTournaments" element={<PrivateRoute />}>
+            <Route path="/UserTournaments" element={<UserTournaments />} />{" "}
+          </Route>
 
           <Route path="/OrgCreateScrims" element={<PrivateRoute />}>
             <Route path="/OrgCreateScrims" element={<OrgCreateScrims />} />

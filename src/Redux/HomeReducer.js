@@ -1,14 +1,12 @@
 import { STORE_IDENTIFIER, STORE_SLOTDETAILS } from "./Action";
 
-
-
 const initialState = {
     IdentifiedItem: "user" , 
     slotdetails: []
 }
 const HomeReducer = (state = initialState, action) => {
-    console.log('reducer', action.payload)
-    switch (action.type)  {
+  // console.log('reducer', action.payload)
+  switch (action.type) {
     case STORE_IDENTIFIER:
         return Object.assign ({},state,{IdentifiedItem:action.payload})
 
@@ -22,3 +20,4 @@ const HomeReducer = (state = initialState, action) => {
 }
 export default HomeReducer;
 
+   

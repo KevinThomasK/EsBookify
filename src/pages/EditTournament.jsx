@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
-import axios from "axios";
-import { newTournament, updateTournament } from "../api-Helpers/api-helpers";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { updateTournament } from "../api-Helpers/api-helpers";
 import { useParams } from "react-router-dom";
+import useFormatTime from "../hooks/useFormatTime";
+import useFormatDate from "../hooks/useFormatDate";
+import useMinDate from "../hooks/useMinDate";
 
 export default function EditTournament() {
   const [formData, setFormData] = useState({
@@ -17,19 +17,7 @@ export default function EditTournament() {
     rules: "",
   });
 
-  //date validation frontend
-  let date = new Date();
-  let tdate = date.getDate();
-  let month = date.getMonth() + 1;
-  if (tdate < 10) {
-    tdate = "0" + tdate;
-  }
-  if (month < 10) {
-    month = "0" + month;
-  }
-  let year = date.getFullYear();
-  let minDate = year + "-" + month + "-" + tdate;
-  console.log(minDate);
+  let minDate = useMinDate();
 
   const params = useParams();
 
@@ -50,13 +38,11 @@ export default function EditTournament() {
       return;
     }
 
-    // Format the date in "dd-mm-yyyy" before sending it to the server
+
     const formattedDate = formatDate(formData.tournamentDate);
 
-    // Format the time in "hh:mm AM/PM" before sending it to the server
     const formattedTime = formatTime(formData.tournamentTime);
 
-    //format name
     const formattedName = formData.tournamentName.trim();
 
     // Send the formatted data to the newTournament function
@@ -78,34 +64,10 @@ export default function EditTournament() {
   };
 
   // Function to format the date as "dd-mm-yyyy"
-  const formatDate = (date) => {
-    const parts = date.split("-");
-    if (parts.length === 3) {
-      const [year, month, day] = parts;
-      return `${day}-${month}-${year}`;
-    }
-    return date; // Return as-is if not in the expected format
-  };
+  const formatDate = useFormatDate();
 
   // Function to format the time as "hh:mm AM/PM"
-  const formatTime = (time) => {
-    const parts = time.split(":");
-    if (parts.length === 2) {
-      const [hour, minute] = parts;
-      let period = "AM";
-      let formattedHour = parseInt(hour, 10);
-
-      if (formattedHour >= 12) {
-        period = "PM";
-        if (formattedHour > 12) {
-          formattedHour -= 12;
-        }
-      }
-
-      return `${formattedHour}:${minute} ${period}`;
-    }
-    return time; // Return as-is if not in the expected format
-  };
+  const formatTime = useFormatTime();
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router";
 import Slider from "./Slider/Slider";
