@@ -7,8 +7,10 @@ import Org from "../Organization/OrgHome.module.css";
 import home from "../HomePage.module.css";
 import { allTournaments } from "../api-Helpers/api-helpers";
 import imge from "../assets/ListLogo.png";
+import { storeSlotdetails } from "../Redux/Action";
+import { connect } from "react-redux";
 
-function UserTournaments() {
+function UserTournaments(props) {
   const navigate = useNavigate();
   const [tournaments, setTournaments] = useState();
 
@@ -17,6 +19,11 @@ function UserTournaments() {
       .then((data) => setTournaments(data))
       .catch((err) => console.log(err));
   }, []);
+  function ToRegister (item) {
+    console.log('registerButton');
+    props.storeSlotdetails(item)
+     navigate ("/UserTournamentSlotBox")
+  }
 
   return (
     <div className={Org.Orgbackground}>
@@ -34,9 +41,9 @@ function UserTournaments() {
                 return (
                   <li
                     className={classes.listbox}
-                    onClick={() => {
-                      navigate("      ");
-                    }}
+                    // onClick={() => {
+                    //   navigate("      ");
+                    // }}
                   >
                     <img className={classes.ListLogo} src={imge} />
                     <h3 className="text-2xl text-center mt-2 text-orange-500">
@@ -46,8 +53,8 @@ function UserTournaments() {
                       <div className={classes.UserScrimListDateandTime}>
                         {item.dateOfMatch} {item.idpTime}
                       </div>
-                      <div className=" text-center mt-2 text-orange-500">
-                        Register
+                      <div   className=" text-center mt-2 text-orange-500">
+                       <button onClick={ ()=> ToRegister(item)}> Register </button>
                       </div>
                     </div>
                   </li>
@@ -61,4 +68,11 @@ function UserTournaments() {
   );
 }
 
-export default UserTournaments;
+const mapDispatchToProps= (dispatch) => {
+  return { 
+    storeSlotdetails: (s) => {dispatch(storeSlotdetails(s))} 
+  }
+}
+
+
+export default connect(null,mapDispatchToProps) (UserTournaments);

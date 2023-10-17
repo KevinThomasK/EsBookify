@@ -4,7 +4,7 @@ import Org from "../Organization/OrgHome.module.css";
 import Footer from "../Footer/Footer";
 import { UserSlotListDetails } from "../Constant";
 
-function UserSlotList() {
+function UserTournamentSlotBox() {
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -27,4 +27,4 @@ function UserSlotList() {
   );
 }
 
-export default UserSlotList;
+export default UserTournamentSlotBox;

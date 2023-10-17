@@ -94,6 +94,7 @@ background: url('../src/assets/ListLogo.png'), lightgray 50% / cover no-repeat;
     gap: 93px;
     display: flex;
     justify-content: center;
+    margin-top: 60px;
 
 }
 .slotbox{

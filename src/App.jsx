@@ -13,15 +13,15 @@ import UserScrimList from "./User/UserScrimList";
 import UserDailyMatch from "./User/UserDailymatch";
 import UserOpenRoom from "./User/UserOpenRoom";
 import EditTournament from "./pages/EditTournament";
-import UserSlotList from "./User/UserSlotList";
+import UserSlotList from "./User/UserTournamentSlotBox";
 import OrganizationHomepage from "./Organization/OrganizatiomHomepage";
-import UserTournamentList from "./UserTournamentList";
 import OrgCreateScrims from "./Organization/OrgCreateScrims";
 import OrgCreateDailyMatch from "./Organization/OrgDailymatch";
 import OrgCreateOpenRoom from "./Organization/OrgOpenRoom";
 import OrgHome from "./Organization/OrgHome";
 import UnAuthorized from "./pages/UnAuthorized";
 import UserTournaments from "./User/UserTournaments";
+import UserTournamentSlotBox from "./User/UserTournamentSlotBox";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -84,11 +84,14 @@ function App(props) {
           <Route path="/OrgCreateOpenRoom" element={<PrivateRoute />}>
             <Route path="/OrgCreateOpenRoom" element={<OrgCreateOpenRoom />} />
           </Route>
-          <Route
-            path="/OrganizationHomepage"
-            element={<OrganizationHomepage />}
-          />
-        </Routes>
+         
+          <Route path="/OrganizationHomepage"
+            element={<OrganizationHomepage />}/>
+      
+        <Route path="/UserTournamentSlotBox" element={<PrivateRoute />}>
+            <Route path="/UserTournamentSlotBox" element={<UserTournamentSlotBox />} />
+          </Route>
+          </Routes>
       </Router>
 
       <ToastContainer
