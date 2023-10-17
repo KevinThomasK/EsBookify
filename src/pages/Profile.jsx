@@ -11,11 +11,12 @@ export default function Profile() {
     email: auth.currentUser.email,
   });
 
-  function onLogout() {
+  const onLogout = () => {
     auth.signOut();
     localStorage.removeItem("email");
+    localStorage.removeItem("userType");
     navigate("/");
-  }
+  };
 
   const { name, email } = formData;
   return (

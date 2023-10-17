@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { auth } from './firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import logoImg from "../src/assets/DROBEDOWN.png";
-import ProfilePopUp from './ProfilePopUp';
-import classes from '../src/ProfilePopUp.module.css';
-import store from './Store';
-import { connect } from 'react-redux'
+import ProfilePopUp from "./ProfilePopUp";
+import classes from "../src/ProfilePopUp.module.css";
+import store from "./Store";
+import { connect } from "react-redux";
 
 function Header(props) {
   const navigate = useNavigate();
@@ -15,11 +15,10 @@ function Header(props) {
   const [isLogged, setIsLogged] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(()=> {
-    console.log("Use effect",props.transfer);
-  },[props.transfer])
+  useEffect(() => {
+    //console.log("Use effect",props.transfer);
+  }, [props.transfer]);
   const handleMouseEnter = () => {
-
     setIsHovered(true);
   };
 
@@ -29,49 +28,65 @@ function Header(props) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setIsLogged(true)
+        setIsLogged(true);
       } else {
-        setIsLogged(false)
+        setIsLogged(false);
       }
-    })
-  }, [auth])
+    });
+  }, [auth]);
   //console.log(isHovered);
   return (
     <div>
       <nav className="bg-black pb-[30px]">
-        <h2 className="text-orange-500 font-semibold text-3xl cursor-pointer" 
-        onClick={() => {console.log('redux vlaue', props.transfer); props.transfer== "org" ?   navigate("/OrganizationHomepage") :navigate ("/") }}>
+        <h2
+          className="text-orange-500 font-semibold text-3xl cursor-pointer"
+          onClick={() => {
+            console.log("redux vlaue", props.transfer);
+            props.transfer == "org"
+              ? navigate("/OrganizationHomepage")
+              : navigate("/");
+          }}
+        >
           EsBookify
         </h2>
-        <div className='w-[330px] h-[30px] relative flex rounded-md border border-[#ff8a01]'>
-
+        <div className="w-[330px] h-[30px] relative flex rounded-md border border-[#ff8a01]">
           <input
             type="text"
             placeholder="search..."
-            className='bg-transparent text-[#ff8a01] pl-[10px] w-[90%] placeholder:text-[#ff8a01] placeholder:pl-[2px]'
+            className="bg-transparent text-[#ff8a01] pl-[10px] w-[90%] placeholder:text-[#ff8a01] placeholder:pl-[2px]"
           ></input>
           <a href="#">
-            <FaMagnifyingGlass className='text-[#ff8a01] pt-[7px] text-xl' />
+            <FaMagnifyingGlass className="text-[#ff8a01] pt-[7px] text-xl" />
           </a>
         </div>
         <div className={classes.popupdiv} onMouseEnter={handleMouseEnter}>
-          
-            {isLogged && <button  data-modal-target="defaultModal" data-modal-toggle="defaultModal"
-               className={classes.profileButton}>
-              <img className='w-[36px]' src={logoImg} alt='logo' />  </button>}
-            {isHovered && <ProfilePopUp  handleMouseEnter={handleMouseLeave} />}
-          
+          {isLogged && (
+            <button
+              data-modal-target="defaultModal"
+              data-modal-toggle="defaultModal"
+              className={classes.profileButton}
+            >
+              <img className="w-[36px]" src={logoImg} alt="logo" />{" "}
+            </button>
+          )}
+          {isHovered && <ProfilePopUp handleMouseEnter={handleMouseLeave} />}
         </div>
-        {!isLogged && <button className='text-[#ff8a01] w-[90px] h-[30px] bg-neutral-600 font-semibold border border-[#ff8a01]' onClick={props.onShowLogin} >Login</button>}
+        {!isLogged && (
+          <button
+            className="text-[#ff8a01] w-[90px] h-[30px] bg-neutral-600 font-semibold border border-[#ff8a01]"
+            onClick={props.onShowLogin}
+          >
+            Login
+          </button>
+        )}
       </nav>
-
     </div>
-  )
+  );
 }
 const mapStateToProps = (HomeReducer) => {
-  console.log("Cart", HomeReducer)
+  //console.log("Cart", HomeReducer)
   return {
-   transfer: HomeReducer.selectedItems.IdentifiedItem
-  }
-}
-export default connect (mapStateToProps,null )(Header)
+    transfer: HomeReducer.selectedItems.IdentifiedItem,
+  };
+};
+export default connect(mapStateToProps, null)(Header);

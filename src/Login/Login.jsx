@@ -18,31 +18,42 @@ import { getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
 import UserSignUp from "../SignUp/UserSignUp";
 import { FirebaseError } from "firebase/app";
-import { validateOrg } from "../api-Helpers/api-helpers";
+import { newUser, validateOrg } from "../api-Helpers/api-helpers";
 import { useNavigate } from "react-router";
 import { storeIdentifier } from "../Redux/Action";
 import { connect } from "react-redux";
 
 // import 'react-phone-input-2/lib/style.css'
 function Login(props) {
- // console.log(props);
+  // console.log(props);
   const [ph, setph] = useState("");
   const [showOTP, setShowOTP] = useState(false);
   const [phoneerror, setphoneerror] = useState(false);
   const [ValidPhoneNumber, setValidPhoneNumber] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
   const [IsSignUp, setIsSignUp] = useState(false);
-  const [CountryCode, setCountryCode]=useState("");
+  const [CountryCode, setCountryCode] = useState("");
   const [org, setOrg] = useState(false);
   const location = useNavigate();
-  const [section, setSection] = useState ("user")
-  const  handleClick = async ()=>{
+  const [section, setSection] = useState("user");
+  const handleClick = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log(user.email);    
-      localStorage.setItem("email",user.email);
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("userType", section);
+      const uid = user.uid;
+      console.log(uid);
+      console.log(section);
       // check for the user
+      newUser({
+        uid: uid,
+        name: user.displayName,
+        email: user.email,
+        userType: section,
+      })
+        .then((res) => console.log(res))
+        .catch((err) => toast.error("something went wrong"));
 
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
@@ -54,13 +65,13 @@ function Login(props) {
           timestamp: serverTimestamp(),
         });
       }
-        if (section == 'org')  {
-          location("/OrganizationHomepage")
-        }
-        props.storeIdentifier(section) 
-      toast.success("Signed In")
+      if (section == "org") {
+        location("/OrganizationHomepage");
+      }
+      props.storeIdentifier(section);
+      toast.success("Signed In");
     } catch (err) {
-      props.storeIdentifier(section) 
+      props.storeIdentifier(section);
       toast.error("something went wrong");
     }
   };
@@ -70,10 +81,10 @@ function Login(props) {
       if (response) {
         response.getIdToken().then((token) => {
           window.localStorage.setItem("auth", "true");
-          console.log(token);
+          // console.log(token);
 
           validateOrg(token).then((data) => {
-           console.log(data.user)
+            // console.log(data.user)
             //setOrg(data.user);
           });
         });
@@ -93,7 +104,7 @@ function Login(props) {
         {
           size: "invisible",
           callback: (response) => {
-           // console.log(response);
+            // console.log(response);
             onSignup();
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             // ...
@@ -121,7 +132,7 @@ function Login(props) {
       onCaptchVerify();
       const appVerifier = window.recaptchaVerifier;
       const phoneNumber = "+" + ph;
-     // console.log(phoneNumber, appVerifier);
+      // console.log(phoneNumber, appVerifier);
 
       // const auth = getAuth();
       signInWithPhoneNumber(auth, phoneNumber, appVerifier)
@@ -135,8 +146,6 @@ function Login(props) {
         .catch((error) => {
           if (error instanceof FirebaseError) {
             console.log(error, error.code, error.message);
-            console.log(error.code);
-            console.log(error.message);
             if (error.code === "auth/invalid-phone-number") {
               setErrorMessage("Invalid Phone Number ");
             } else {
@@ -197,11 +206,6 @@ function Login(props) {
                     onChange={handlePhonechange}
                     placeholder="Mobile Number"
                   />
-                  {/* <input
-              type="text"
-              placeholder="Mobile"
-              className={classes.mobileInput}
-            ></input> */}
                 </div>
                 {phoneerror ? (
                   <span className={classes.text_color_error}>
@@ -255,9 +259,11 @@ function Login(props) {
     </LoginModal>
   );
 }
-const mapDispatchToProps= (dispatch) => {
-  return { 
-    storeIdentifier: (s) => {dispatch(storeIdentifier(s))} 
-  }
-}
-export default connect (null, mapDispatchToProps) (Login);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeIdentifier: (s) => {
+      dispatch(storeIdentifier(s));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(Login);

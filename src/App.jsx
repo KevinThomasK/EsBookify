@@ -22,6 +22,7 @@ import OrgCreateOpenRoom from "./Organization/OrgOpenRoom";
 import OrgHome from "./Organization/OrgHome";
 import UnAuthorized from "./pages/UnAuthorized";
 import UserTournaments from "./User/UserTournaments";
+import EditScrims from "./pages/EditScrims";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -53,6 +54,9 @@ function App(props) {
               path="/updatetournament/:tournamentId"
               element={<EditTournament />}
             />
+          </Route>
+          <Route path="/updatescrims" element={<PrivateRoute />}>
+            <Route path="/updatescrims/:scrimsId" element={<EditScrims />} />
           </Route>
           <Route path="/Organization" element={<OrgHome />} />
           <Route path="/UserScrimList" element={<UserScrimList />} />
