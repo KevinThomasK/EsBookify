@@ -140,10 +140,11 @@ function Login(props) {
           //console.log(confirmationResult);
           setShowOTP(true); // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
-
+            console.log("testing");
           window.confirmationResult = confirmationResult; // ...
         })
         .catch((error) => {
+          console.log("testing2",error);
           if (error instanceof FirebaseError) {
             console.log(error, error.code, error.message);
             if (error.code === "auth/invalid-phone-number") {
@@ -221,7 +222,8 @@ function Login(props) {
                   </span>
                 ) : null}
                 <div className={classes.loginBtn}>
-                  <button onClick={() => onSignup()}>Login</button>
+                  <button onClick={() => onSignup()}>
+                    Login</button>
                 </div>
                 <div className={classes.flex}>
                   <div className={classes.underline}></div>
