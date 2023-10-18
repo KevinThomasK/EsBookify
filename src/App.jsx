@@ -23,6 +23,10 @@ import UnAuthorized from "./pages/UnAuthorized";
 import UserTournaments from "./User/UserTournaments";
 import UserTournamentSlotBox from "./User/UserTournamentSlotBox";
 import EditScrims from "./pages/EditScrims";
+import UserScrimSlotBox from "./User/UserScrimSlotBox";
+import UserDailyMatchSlot from "./User/UserDailyMatchSlot";
+import UserOpenRoomSlotBox from "./User/UserOpenRoomSlotBox";
+
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -94,14 +98,25 @@ function App(props) {
           <Route path="/OrgCreateOpenRoom" element={<PrivateRoute />}>
             <Route path="/OrgCreateOpenRoom" element={<OrgCreateOpenRoom />} />
           </Route>
-         
+
           <Route path="/OrganizationHomepage"
-            element={<OrganizationHomepage />}/>
-      
-        <Route path="/UserTournamentSlotBox" element={<PrivateRoute />}>
+            element={<OrganizationHomepage />} />
+
+          <Route path="/UserTournamentSlotBox" element={<PrivateRoute />}>
             <Route path="/UserTournamentSlotBox" element={<UserTournamentSlotBox />} />
           </Route>
-          </Routes>
+          <Route path="/UserScrimSlotBox" element={<PrivateRoute />}>
+            <Route path="/UserScrimSlotBox" element={<UserScrimSlotBox />} />
+          </Route>
+          <Route path="/UserDailyMatchSlotBox" element={<PrivateRoute />}>
+            <Route path="/UserDailyMatchSlotBox" element={<UserDailyMatchSlot/>} />
+          </Route>
+          <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
+            <Route path="/UserOpenRoomSlotBox" element={<UserOpenRoomSlotBox/>} />
+          </Route>
+
+
+        </Routes>
       </Router>
 
       <ToastContainer

@@ -6,7 +6,7 @@ import imge from "../assets/ListLogo.png";
 import { UserSlotListDetails } from "../Constant";
 import { connect } from "react-redux";
 
-function UserScrimSlotBox(props) {
+function UserOpenRoomSlotBox(props) {
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -67,4 +67,4 @@ const mapStateToProps = (HomeReducer) => {
     slotdetails: HomeReducer.selectedItems.slotdetails
   }
 }
-export default connect  (mapStateToProps,null) (UserScrimSlotBox);
+export default connect  (mapStateToProps,null) (UserOpenRoomSlotBox);
