@@ -1,65 +1,49 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import classes from "./OrgHome.module.css";
-import {
-  allScrims,
-  allTournaments,
-  deleteScrims,
-  deleteTournament,
-} from "../api-Helpers/api-helpers";
 import { useState } from "react";
 import imge from "../assets/ListLogo.png";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { useUser } from "../hooks/useUser";
 
 function TournamentList() {
   const navigate = useNavigate();
-  const [tournaments, setTournaments] = useState();
-  const [scrims, setScrims] = useState();
+  const [tournaments, setTournaments] = useState([]);
+
+  const { user } = useUser();
 
   useEffect(() => {
-    allTournaments()
-      .then((data) =>
-        setTournaments(
-          data.filter((item) => item.org === localStorage.getItem("email"))
-        )
-      )
-      .catch((err) => console.log(err));
-  }, []);
+    const loadTournaments = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/tournaments/${user.uid}/tournaments`
+        );
+        setTournaments(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (user) {
+      loadTournaments();
+    }
+  }, [user]);
 
-  //get scrims
-  useEffect(() => {
-    allScrims()
-      .then((data) =>
-        setScrims(
-          data.filter((item) => item.org === localStorage.getItem("email"))
-        )
-      )
-      .catch((err) => console.log(err));
-  }, []);
-
-  //Delete tournament
-  const handleDelete = (id) => {
-    deleteTournament(id)
-      .then(toast.success("Tournament deleted"))
-      .then(navigate("/"))
-      .catch((err) => console.log(err));
-  };
-  //Delete scrims
-  const handleDeleteScrims = (id) => {
-    deleteScrims(id)
-      .then(toast.success("Scrims deleted"))
-      .then(navigate("/"))
-      .catch((err) => console.log(err));
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete(`http://localhost:4000/tournaments/${id}`);
+      const resDate = res.data;
+      toast.success("Tournament deleted");
+      return resDate;
+    } catch (error) {
+      console.log(error);
+      toast.error("Tournament not deleted , try again later");
+    }
   };
 
-  //Edit Tournament
   const handleEdit = (id) => {
     navigate(`/updatetournament/${id}`);
-  };
-
-  //edit scrims
-  const handleEditScrims = (id) => {
-    navigate(`/updatescrims/${id}`);
   };
 
   return (
@@ -82,7 +66,7 @@ function TournamentList() {
                     <div className={classes.price}>${item.prizePool}</div>
                     <div
                       className={classes.edittext}
-                      onClick={() => handleEdit(item._id)}
+                      onClick={() => handleEdit(item.id)}
                     >
                       {" "}
                       Edit{" "}
@@ -90,7 +74,7 @@ function TournamentList() {
 
                     <div
                       className=" text-center mt-2 text-orange-500 cursor-pointer"
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item.id)}
                     >
                       Delete
                     </div>
@@ -101,8 +85,8 @@ function TournamentList() {
           })}
       </ul>
       {/* commennt */}
-      <h2 className="text-4xl text-orange-500 text-center mt-20">SCRIMS</h2>
-      <ul className="list-none mx-auto mt-10 flex flex-row flex-wrap  justify-center gap-10 ">
+      {/* <h2 className="text-4xl text-orange-500 text-center mt-20">SCRIMS</h2> */}
+      {/* <ul className="list-none mx-auto mt-10 flex flex-row flex-wrap  justify-center gap-10 ">
         {scrims &&
           scrims.map((item) => {
             return (
@@ -136,7 +120,7 @@ function TournamentList() {
               </>
             );
           })}
-      </ul>
+      </ul> */}
     </section>
   );
 }

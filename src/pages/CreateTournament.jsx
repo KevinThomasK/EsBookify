@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
-import { newTournament } from "../api-Helpers/api-helpers";
 import useMinDate from "../hooks/useMinDate";
 import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
 import { toast } from "react-toastify";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import axios from "axios";
 
 export default function CreateTournament() {
   const [formData, setFormData] = useState({
@@ -16,8 +17,18 @@ export default function CreateTournament() {
     prizePool: "",
     rules: "",
   });
-  const [DateType,setDateType] = useState("text")
-  const [TimeType,setTimeType] = useState("text")
+  const [DateType, setDateType] = useState("text");
+  const [TimeType, setTimeType] = useState("text");
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const cancelSubscription = onAuthStateChanged(getAuth(), (user) => {
+      setUser(user);
+    });
+
+    return cancelSubscription;
+  }, []);
 
   let minDate = useMinDate();
 
@@ -48,15 +59,26 @@ export default function CreateTournament() {
 
     const formattedName = formData.tournamentName.trim();
 
-    // Send the formatted data to the newTournament function
-    newTournament({
-      ...formData,
-      tournamentDate: formattedDate,
-      tournamentTime: formattedTime,
-      tournamentName: formattedName,
-    })
-      .then((res) => console.log(res))
-      .catch((err) => toast.error("something went wrong"));
+    if (!user) {
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/tournaments/${user.uid}/tournaments`,
+        {
+          name: formattedName,
+          dateOfMatch: formattedDate,
+          idpTime: formattedTime,
+          prizePool: formData.prizePool,
+          rules: formData.rules,
+        }
+      );
+      const newTournament = response.data;
+      toast.success("Tournament Created Successfully");
+      console.log(newTournament);
+    } catch (err) {
+      console.log(err);
+    }
 
     document.getElementById("tournamentName").value = "";
     document.getElementById("rules").value = "";
@@ -101,8 +123,8 @@ export default function CreateTournament() {
             className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             id="tournamentDate"
             type={DateType}
-            onFocus={(e)=>setDateType("date")}
-            onBlur={(e)=>setDateType("text")}
+            onFocus={(e) => setDateType("date")}
+            onBlur={(e) => setDateType("text")}
             name="tournamentDate"
             min={minDate}
             value={formData.tournamentDate}
@@ -114,8 +136,8 @@ export default function CreateTournament() {
           <input
             className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type={TimeType}
-            onFocus={(e)=>setTimeType("time")}
-            onBlur={(e)=>setTimeType("text")}
+            onFocus={(e) => setTimeType("time")}
+            onBlur={(e) => setTimeType("text")}
             id="tournamentTime"
             name="tournamentTime"
             value={formData.tournamentTime}

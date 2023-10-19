@@ -5,18 +5,17 @@ import Footer from "../Footer/Footer";
 import classes from "../Organization/OrgHome.module.css";
 import Org from "../Organization/OrgHome.module.css";
 import home from "../HomePage.module.css";
-import { allTournaments } from "../api-Helpers/api-helpers";
 import imge from "../assets/ListLogo.png";
 
 function UserTournaments() {
   const navigate = useNavigate();
   const [tournaments, setTournaments] = useState();
 
-  useEffect(() => {
-    allTournaments()
-      .then((data) => setTournaments(data))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   allTournaments()
+  //     .then((data) => setTournaments(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className={Org.Orgbackground}>

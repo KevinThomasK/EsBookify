@@ -53,7 +53,7 @@ function Login(props) {
         userType: section,
       })
         .then((res) => console.log(res))
-        .catch((err) => toast.error("something went wrong"));
+        .catch((err) => console.log(err));
 
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
@@ -72,28 +72,25 @@ function Login(props) {
       toast.success("Signed In");
     } catch (err) {
       props.storeIdentifier(section);
-      toast.error("something went wrong");
     }
   };
 
-  useEffect(() => {
-    auth.onAuthStateChanged((response) => {
-      if (response) {
-        response.getIdToken().then((token) => {
-          window.localStorage.setItem("auth", "true");
-          // console.log(token);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((response) => {
+  //     if (response) {
+  //       response.getIdToken().then((token) => {
+  //         window.localStorage.setItem("auth", "true");
 
-          validateOrg(token).then((data) => {
-            // console.log(data.user)
-            //setOrg(data.user);
-          });
-        });
-      } else {
-        //setOrg(null)
-        window.localStorage.setItem("auth", "false");
-      }
-    });
-  }, []);
+  //         validateOrg(token).then((data) => {
+
+  //         });
+  //       });
+  //     } else {
+
+  //       window.localStorage.setItem("auth", "false");
+  //     }
+  //   });
+  // }, []);
 
   function onCaptchVerify() {
     if (!window.recaptchaVerifier) {
