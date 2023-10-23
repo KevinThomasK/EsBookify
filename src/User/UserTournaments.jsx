@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { TournamentListDetails } from "../Constant";
+import { allTournaments } from "../api-Helpers/api-helpers";
 import Footer from "../Footer/Footer";
 import classes from "../Organization/OrgHome.module.css";
 import Org from "../Organization/OrgHome.module.css";
@@ -11,11 +12,11 @@ function UserTournaments() {
   const navigate = useNavigate();
   const [tournaments, setTournaments] = useState();
 
-  // useEffect(() => {
-  //   allTournaments()
-  //     .then((data) => setTournaments(data))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    allTournaments()
+      .then((data) => setTournaments(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className={Org.Orgbackground}>

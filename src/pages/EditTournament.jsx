@@ -6,10 +6,12 @@ import { useParams } from "react-router-dom";
 import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
 import useMinDate from "../hooks/useMinDate";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { useAuthedRequest } from "../hooks/useAuthedRequest";
 
 export default function EditTournament() {
+  const { put } = useAuthedRequest();
+
   const [formData, setFormData] = useState({
     tournamentName: "",
     tournamentDate: "",
@@ -46,7 +48,7 @@ export default function EditTournament() {
     const formattedName = formData.tournamentName.trim();
 
     try {
-      const res = await axios.put(
+      const updatedTournament = await put(
         `http://localhost:4000/tournaments/${params.tournamentId}`,
         {
           name: formattedName,
@@ -56,14 +58,13 @@ export default function EditTournament() {
           rules: formData.rules,
         }
       );
-      const resDate = res.data;
       document.getElementById("tournamentName").value = "";
       document.getElementById("rules").value = "";
       document.getElementById("prizePool").value = "";
       document.getElementById("tournamentTime").value = "";
       document.getElementById("tournamentDate").value = "";
       toast.success("Tournament Edited Succussfully");
-      return resDate;
+      return updatedTournament;
     } catch (error) {
       console.log(error);
       toast.error("Not able to Edit Tournament, Please try again later");

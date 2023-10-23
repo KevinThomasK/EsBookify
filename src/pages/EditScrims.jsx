@@ -2,19 +2,22 @@ import React, { useState } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
-import { updateScrims } from "../api-Helpers/api-helpers";
 import { useParams } from "react-router-dom";
 import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
 import useMinDate from "../hooks/useMinDate";
+import { toast } from "react-toastify";
+import { useAuthedRequest } from "../hooks/useAuthedRequest";
 
 export default function EditScrims() {
+  const { put } = useAuthedRequest();
+
   const [formData, setFormData] = useState({
-    scrimsName: "",
-    scrimsDate: "", // Keep the date field as a string
-    scrimsTime: "",
-    scrimsPrize: "",
-    scrimsRules: "",
+    tournamentName: "",
+    tournamentDate: "",
+    tournamentTime: "",
+    prizePool: "",
+    rules: "",
   });
 
   let minDate = useMinDate();
@@ -33,39 +36,43 @@ export default function EditScrims() {
 
     // Ensure that the "tournamentTime" field is in the 24-hour format (HH:mm)
     const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-    if (!timePattern.test(formData.scrimsTime)) {
+    if (!timePattern.test(formData.tournamentTime)) {
       alert("Invalid time format. Please use HH:mm format (24-hour).");
       return;
     }
 
-    const formattedDate = formatDate(formData.scrimsDate);
+    const formattedDate = formatDate(formData.tournamentDate);
 
-    const formattedTime = formatTime(formData.scrimsTime);
+    const formattedTime = formatTime(formData.tournamentTime);
 
-    const formattedName = formData.scrimsName.trim();
+    const formattedName = formData.tournamentName.trim();
 
-    // Send the formatted data to the newTournament function
-    updateScrims({
-      ...formData,
-      scrimsDate: formattedDate,
-      scrimsTime: formattedTime,
-      scrimsName: formattedName,
-      id: params.scrimsId,
-    })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-    document.getElementById("scrimsName").value = "";
-    document.getElementById("scrimsRules").value = "";
-    document.getElementById("scrimsPrize").value = "";
-    document.getElementById("scrimsTime").value = "";
-    document.getElementById("scrimsDate").value = "";
+    try {
+      const updatedScrim = await put(
+        `http://localhost:4000/scrims/${params.scrimId}`,
+        {
+          name: formattedName,
+          dateOfMatch: formattedDate,
+          idpTime: formattedTime,
+          prizePool: formData.prizePool,
+          rules: formData.rules,
+        }
+      );
+      document.getElementById("tournamentName").value = "";
+      document.getElementById("rules").value = "";
+      document.getElementById("prizePool").value = "";
+      document.getElementById("tournamentTime").value = "";
+      document.getElementById("tournamentDate").value = "";
+      toast.success("Scrim Edited Succussfully");
+      return updatedScrim;
+    } catch (error) {
+      console.log(error);
+      toast.error("Not able to Edit Tournament, Please try again later");
+    }
   };
 
-  // Function to format the date as "dd-mm-yyyy"
   const formatDate = useFormatDate();
 
-  // Function to format the time as "hh:mm AM/PM"
   const formatTime = useFormatTime();
 
   return (
@@ -77,7 +84,7 @@ export default function EditScrims() {
           alt="background"
         />
         <h2 className="text-white absolute top-[45%] left-[40%] text-4xl font-bold">
-          Edit <span className="text-[#ff8a01]">Scrims</span>
+          Edit <span className="text-[#ff8a01]">Scrim</span>
         </h2>
       </div>
 
@@ -91,21 +98,21 @@ export default function EditScrims() {
         >
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4  placeholder:text-[#ff8a01] text-[#ff8a01]"
-            id="scrimsName"
+            id="tournamentName"
             type="text"
-            name="scrimsName"
-            value={formData.scrimsName}
+            name="tournamentName"
+            value={formData.tournamentName}
             placeholder="Tournament Name"
             required
             onChange={handleChange}
           />
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
-            id="scrimsDate"
+            id="tournamentDate"
             type="date"
-            name="scrimsDate"
+            name="tournamentDate"
             min={minDate}
-            value={formData.scrimsDate}
+            value={formData.tournamentDate}
             placeholder="Date of Match (DD-MM-YYYY)"
             required
             onChange={handleChange}
@@ -114,9 +121,9 @@ export default function EditScrims() {
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="time"
-            id="scrimsTime"
-            name="scrimsTime"
-            value={formData.scrimsTime}
+            id="tournamentTime"
+            name="tournamentTime"
+            value={formData.tournamentTime}
             placeholder="IDP Time (HH:mm)"
             required
             onChange={handleChange}
@@ -124,20 +131,20 @@ export default function EditScrims() {
           <input
             className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="number"
-            id="scrimsPrize"
+            id="prizePool"
             min="1"
             max="1000000"
-            name="scrimsPrize"
-            value={formData.scrimsPrize}
+            name="prizePool"
+            value={formData.prizePool}
             placeholder="Prize Pool"
             onChange={handleChange}
           />
           <textarea
             className="bg-gray-800/80 h-52 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="text"
-            id="scrimsRules"
-            name="scrimsRules"
-            value={formData.scrimsRules}
+            id="rules"
+            name="rules"
+            value={formData.rules}
             placeholder="Rules"
             onChange={handleChange}
           />
@@ -145,7 +152,7 @@ export default function EditScrims() {
             type="submit"
             className="w-full text-[#ff8a01] bg-gray-800/80 py-4 font-bold text-3xl mb-60"
           >
-            Edit Scrims
+            Edit Scrim
           </button>
         </form>
       </div>

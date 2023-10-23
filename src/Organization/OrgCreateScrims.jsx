@@ -1,21 +1,27 @@
 import React, { useState } from "react";
-import banner from "../assets/CreateScrim.png";
+import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "../pages/CreateTournament.module.css";
+import Footer from "../Footer/Footer";
 import useMinDate from "../hooks/useMinDate";
 import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
-import Footer from "../Footer/Footer";
 import { toast } from "react-toastify";
-import { newScrims } from "../api-Helpers/api-helpers";
+import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { useUser } from "../hooks/useUser";
 
-const OrgCreateScrims = () => {
-  const [scrimsData, setScrimsData] = useState({
-    scrimsName: "",
-    scrimsDate: "",
-    scrimsTime: "",
-    scrimsPrize: "",
-    scrimsRules: "",
+export default function CreateScrim() {
+  const { user } = useUser();
+  const { post } = useAuthedRequest();
+
+  const [formData, setFormData] = useState({
+    tournamentName: "",
+    tournamentDate: "",
+    tournamentTime: "",
+    prizePool: "",
+    rules: "",
   });
+  const [DateType, setDateType] = useState("text");
+  const [TimeType, setTimeType] = useState("text");
 
   let minDate = useMinDate();
 
@@ -24,7 +30,7 @@ const OrgCreateScrims = () => {
   const formatTime = useFormatTime();
 
   const handleChange = (e) => {
-    setScrimsData((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -33,32 +39,44 @@ const OrgCreateScrims = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Ensure that the "tournamentTime" field is in the 24-hour format (HH:mm)
     const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-    if (!timePattern.test(scrimsData.scrimsTime)) {
+    if (!timePattern.test(formData.tournamentTime)) {
       alert("Invalid time format. Please use HH:mm format (24-hour).");
       return;
     }
 
-    const formattedDate = formatDate(scrimsData.scrimsDate);
+    const formattedDate = formatDate(formData.tournamentDate);
 
-    const formattedTime = formatTime(scrimsData.scrimsTime);
+    const formattedTime = formatTime(formData.tournamentTime);
 
-    const formattedName = scrimsData.scrimsName.trim();
-    newScrims({
-      ...scrimsData,
-      scrimsDate: formattedDate,
-      scrimsTime: formattedTime,
-      scrimsName: formattedName,
-    })
-      .then((res) => console.log(res))
-      .catch((err) => toast.error("something went wrong"));
-    console.log("hi there");
+    const formattedName = formData.tournamentName.trim();
 
-    document.getElementById("scrimsName").value = "";
-    document.getElementById("scrimsRules").value = "";
-    document.getElementById("scrimsPrize").value = "";
-    document.getElementById("scrimsTime").value = "";
-    document.getElementById("scrimsDate").value = "";
+    if (!user) {
+      return;
+    }
+    try {
+      const newScrim = await post(
+        `http://localhost:4000/scrims/${user.uid}/scrims`,
+        {
+          name: formattedName,
+          dateOfMatch: formattedDate,
+          idpTime: formattedTime,
+          prizePool: formData.prizePool,
+          rules: formData.rules,
+        }
+      );
+      toast.success("Scrim Created Successfully");
+      console.log(newScrim);
+    } catch (err) {
+      console.log(err);
+    }
+
+    document.getElementById("tournamentName").value = "";
+    document.getElementById("rules").value = "";
+    document.getElementById("prizePool").value = "";
+    document.getElementById("tournamentTime").value = "";
+    document.getElementById("tournamentDate").value = "";
   };
 
   return (
@@ -66,11 +84,11 @@ const OrgCreateScrims = () => {
       <div className="bg-black relative w-full">
         <img
           className="w-[95%] mx-auto pb-10 pt-10"
-          src={banner}
+          src={createTournamentPageImg}
           alt="background"
         />
         <h2 className="text-white absolute top-[45%] left-[40%] text-4xl font-bold">
-          Create <span className="text-[#ff8a01]">Scrims</span>
+          Create <span className="text-[#ff8a01]">Scrim</span>
         </h2>
       </div>
 
@@ -84,54 +102,58 @@ const OrgCreateScrims = () => {
         >
           <input
             className="bg-gray-800/80 mb-14 px-4 py-2  placeholder:text-[#ff8a01] text-[#ff8a01]"
-            id="scrimsName"
+            id="tournamentName"
             type="text"
-            name="scrimsName"
-            value={scrimsData.scrimsName}
-            placeholder="Scrims Name"
+            name="tournamentName"
+            value={formData.tournamentName}
+            placeholder="Tournament Name"
             required
             onChange={handleChange}
             autoFocus
           />
           <input
             className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
-            id="scrimsDate"
-            type="date"
-            name="scrimsDate"
+            id="tournamentDate"
+            type={DateType}
+            onFocus={(e) => setDateType("date")}
+            onBlur={(e) => setDateType("text")}
+            name="tournamentDate"
             min={minDate}
-            value={scrimsData.scrimsDate}
-            placeholder="Date of Match (DD-MM-YYYY)"
+            value={formData.tournamentDate}
+            placeholder="Date of Match"
             required
             onChange={handleChange}
           />
 
           <input
             className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
-            type="time"
-            id="scrimsTime"
-            name="scrimsTime"
-            value={scrimsData.scrimsTime}
-            placeholder="IDP Time (HH:mm)"
+            type={TimeType}
+            onFocus={(e) => setTimeType("time")}
+            onBlur={(e) => setTimeType("text")}
+            id="tournamentTime"
+            name="tournamentTime"
+            value={formData.tournamentTime}
+            placeholder="IDP Time "
             required
             onChange={handleChange}
           />
           <input
             className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="number"
-            id="scrimsPrize"
+            id="prizePool"
             min="1"
             max="1000000"
-            name="scrimsPrize"
-            value={scrimsData.scrimsPrize}
+            name="prizePool"
+            value={formData.prizePool}
             placeholder="Prize Pool"
             onChange={handleChange}
           />
           <textarea
             className="bg-gray-800/80 h-52 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="text"
-            id="scrimsRules"
-            name="scrimsRules"
-            value={scrimsData.scrimsRules}
+            id="rules"
+            name="rules"
+            value={formData.rules}
             placeholder="Rules"
             onChange={handleChange}
           />
@@ -146,6 +168,4 @@ const OrgCreateScrims = () => {
       <Footer />
     </>
   );
-};
-
-export default OrgCreateScrims;
+}

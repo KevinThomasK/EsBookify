@@ -17,12 +17,14 @@ import UserSlotList from "./User/UserSlotList";
 import OrganizationHomepage from "./Organization/OrganizatiomHomepage";
 import UserTournamentList from "./UserTournamentList";
 import OrgCreateScrims from "./Organization/OrgCreateScrims";
-import OrgCreateDailyMatch from "./Organization/OrgDailymatch";
-import OrgCreateOpenRoom from "./Organization/OrgOpenRoom";
+import CreateDailyMatch from "./Organization/CreateDailyMatch";
+import CreateOpenRoom from "./Organization/CreateOpenRooms";
 import OrgHome from "./Organization/OrgHome";
 import UnAuthorized from "./pages/UnAuthorized";
 import UserTournaments from "./User/UserTournaments";
 import EditScrims from "./pages/EditScrims";
+import EditDailyMatch from "./pages/EditDailyMatch";
+import EditOpenRooms from "./pages/EditOpenRooms";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -55,8 +57,20 @@ function App(props) {
               element={<EditTournament />}
             />
           </Route>
-          <Route path="/updatescrims" element={<PrivateRoute />}>
-            <Route path="/updatescrims/:scrimsId" element={<EditScrims />} />
+          <Route path="/updatescrim" element={<PrivateRoute />}>
+            <Route path="/updatescrim/:scrimId" element={<EditScrims />} />
+          </Route>
+          <Route path="/updatedailymatch" element={<PrivateRoute />}>
+            <Route
+              path="/updatedailymatch/:dailymatchId"
+              element={<EditDailyMatch />}
+            />
+          </Route>
+          <Route path="/updateopenroom" element={<PrivateRoute />}>
+            <Route
+              path="/updateopenroom/:openroomId"
+              element={<EditOpenRooms />}
+            />
           </Route>
           <Route path="/Organization" element={<PrivateRoute />}>
             <Route path="/Organization" element={<OrgHome />} />{" "}
@@ -86,13 +100,10 @@ function App(props) {
             <Route path="/OrgCreateScrims" element={<OrgCreateScrims />} />
           </Route>
           <Route path="/OrgCreateDailyMatch" element={<PrivateRoute />}>
-            <Route
-              path="/OrgCreateDailyMatch"
-              element={<OrgCreateDailyMatch />}
-            />
+            <Route path="/OrgCreateDailyMatch" element={<CreateDailyMatch />} />
           </Route>
           <Route path="/OrgCreateOpenRoom" element={<PrivateRoute />}>
-            <Route path="/OrgCreateOpenRoom" element={<OrgCreateOpenRoom />} />
+            <Route path="/OrgCreateOpenRoom" element={<CreateOpenRoom />} />
           </Route>
           <Route
             path="/OrganizationHomepage"
