@@ -55,6 +55,19 @@ export const allDailyMatch = async () => {
   return x;
 };
 
+//get all Open-rooms
+export const allOpenRooms = async () => {
+  const res = await axios
+    .get(`${baseUrl}openrooms`)
+    .catch((err) => console.log(err));
+  if (res.status !== 200) {
+    return console.log("no data");
+  }
+  const data = await res.data;
+  const x = await data.openrooms;
+  return x;
+};
+
 //new user
 export const newUser = async (data) => {
   console.log(data);
