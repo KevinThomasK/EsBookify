@@ -7,10 +7,10 @@ import { UserSlotListDetails } from "../Constant";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 
-function UserScrimSlotBox(props) {
+function UserDailyMatchSlotBox(props) {
   const navigate = useNavigate();
   function IconUnlock (item){
-   navigate  ("/UserScrimPlayerRegisterForm") 
+   navigate  ("/UserDailyMatchPlayerRegisterForm") 
   }
   return (
     <div className={Org.Orgbackground}>
@@ -51,7 +51,7 @@ function UserScrimSlotBox(props) {
           <div className={classes.mainslot}>
             {UserSlotListDetails.map((item) => {
               return (
-                <div className={classes.slotbox} onClick={(item)=>IconUnlock(item)}>
+                <div className={classes.slotbox}onClick={(item)=>IconUnlock(item)}>
                   <img src="../src/assets/UnlockIcon.png" />
                   <span className={classes.span}> {item.content}</span>
                 </div>
@@ -72,4 +72,4 @@ const mapStateToProps = (HomeReducer) => {
     slotdetails: HomeReducer.selectedItems.slotdetails
   }
 }
-export default connect  (mapStateToProps,null) (UserScrimSlotBox);
+export default connect  (mapStateToProps,null) (UserDailyMatchSlotBox);

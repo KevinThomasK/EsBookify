@@ -6,8 +6,16 @@ import imge from "../assets/ListLogo.png";
 import { UserSlotListDetails } from "../Constant";
 
 import { connect } from "react-redux";
+import { useNavigate } from "react-router";
+
+
 
 function UserTournamentSlotBox(props) {
+  const navigate = useNavigate();
+  function IconUnlock (item){
+   navigate  ("/UserTournamentPlayerRegisterForm") 
+  }
+  
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -42,7 +50,7 @@ function UserTournamentSlotBox(props) {
           <div className={classes.mainslot}>
             {UserSlotListDetails.map((item) => {
               return (
-                <div className={classes.slotbox}>
+                <div className={classes.slotbox} onClick={(item)=>IconUnlock(item)}>
                   <img src="../src/assets/UnlockIcon.png" />
                   <span className={classes.span}> {item.content}</span>
                 </div>

@@ -25,6 +25,14 @@ import UserTournamentSlotBox from "./User/UserTournamentSlotBox";
 import EditScrims from "./pages/EditScrims";
 import EditDailyMatch from "./pages/EditDailyMatch";
 import EditOpenRooms from "./pages/EditOpenRooms";
+import UserScrimSlotBox from "./User/UserScrimSlotBox";
+import UserDailyMatchSlot from "./User/UserDailyMatchSlot";
+import UserOpenRoomSlotBox from "./User/UserOpenRoomSlotBox";
+import UserTournamentPlayerRegisterForm from "./User/UserTournamentPlayerRegisterForm";
+import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm";
+import UserDailyMatchPlayerRegisterForm from "./User/UserDailyMatchPlayerRegistrationForm";
+import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistrationForm";
+
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -105,14 +113,45 @@ function App(props) {
           <Route path="/OrgCreateOpenRoom" element={<PrivateRoute />}>
             <Route path="/OrgCreateOpenRoom" element={<CreateOpenRoom />} />
           </Route>
-         
+
           <Route path="/OrganizationHomepage"
-            element={<OrganizationHomepage />}/>
-      
-        <Route path="/UserTournamentSlotBox" element={<PrivateRoute />}>
+            element={<OrganizationHomepage />} />
+
+          <Route path="/UserTournamentSlotBox" element={<PrivateRoute />}>
             <Route path="/UserTournamentSlotBox" element={<UserTournamentSlotBox />} />
           </Route>
-          </Routes>
+          <Route path="/UserScrimSlotBox" element={<PrivateRoute />}>
+            <Route path="/UserScrimSlotBox" element={<UserScrimSlotBox />} />
+          </Route>
+          <Route path="/UserDailyMatchSlotBox" element={<PrivateRoute />}>
+            <Route path="/UserDailyMatchSlotBox" element={<UserDailyMatchSlot/>} />
+          </Route>
+          <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
+            <Route path="/UserOpenRoomSlotBox" element={<UserOpenRoomSlotBox/>} />
+          </Route>
+
+
+          <Route  path="/OrganizationHomepage" element={<OrganizationHomepage />}
+            /> 
+           <Route path="/UserTournamentPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserTournamentPlayerRegisterForm" element={<UserTournamentPlayerRegisterForm />} />
+          </Route>
+
+          <Route path="/UserScrimPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserScrimPlayerRegisterForm" element={<UserScrimPlayerRegisterForm />} />
+          </Route>
+
+          <Route path="/UserDailyMatchPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserDailyMatchPlayerRegisterForm" element={<UserDailyMatchPlayerRegisterForm />} />
+          </Route>
+
+            
+          <Route path="/UserOpenRoomPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserOpenRoomPlayerRegisterForm" element={<UserOpenRoomPlayerRegisterForm />} />
+          </Route>
+
+
+        </Routes>
       </Router>
 
       <ToastContainer
