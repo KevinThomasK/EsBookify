@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
-import classes from "./CreateTournament.module.css";
+import classes from "../pages/CreateTournament.module.css";
 import Footer from "../Footer/Footer";
 import useMinDate from "../hooks/useMinDate";
 import useFormatTime from "../hooks/useFormatTime";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
 import { useUser } from "../hooks/useUser";
 
-export default function CreateTournament() {
+export default function CreateDailyMatch() {
   const { user } = useUser();
   const { post } = useAuthedRequest();
 
@@ -56,8 +56,8 @@ export default function CreateTournament() {
       return;
     }
     try {
-      const newTournament = await post(
-        `http://localhost:4000/tournaments/${user.uid}/tournaments`,
+      const newDailyMatch = await post(
+        `http://localhost:4000/dailymatch/${user.uid}/dailymatch`,
         {
           name: formattedName,
           dateOfMatch: formattedDate,
@@ -66,8 +66,8 @@ export default function CreateTournament() {
           rules: formData.rules,
         }
       );
-      toast.success("Tournament Created Successfully");
-      console.log(newTournament);
+      toast.success("Daily-Match Created Successfully");
+      console.log(newDailyMatch);
     } catch (err) {
       console.log(err);
     }
@@ -88,7 +88,7 @@ export default function CreateTournament() {
           alt="background"
         />
         <h2 className="text-white absolute top-[45%] left-[40%] text-4xl font-bold">
-          Create <span className="text-[#ff8a01]">Tournament</span>
+          Create <span className="text-[#ff8a01]">Daily-Match</span>
         </h2>
       </div>
 

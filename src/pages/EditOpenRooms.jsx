@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
-import useMinDate from "../hooks/useMinDate";
+import { useParams } from "react-router-dom";
 import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
+import useMinDate from "../hooks/useMinDate";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
-import { useUser } from "../hooks/useUser";
 
-export default function CreateTournament() {
-  const { user } = useUser();
-  const { post } = useAuthedRequest();
+export default function EditOpenRooms() {
+  const { put } = useAuthedRequest();
 
   const [formData, setFormData] = useState({
     tournamentName: "",
@@ -20,14 +19,10 @@ export default function CreateTournament() {
     prizePool: "",
     rules: "",
   });
-  const [DateType, setDateType] = useState("text");
-  const [TimeType, setTimeType] = useState("text");
 
   let minDate = useMinDate();
 
-  const formatDate = useFormatDate();
-
-  const formatTime = useFormatTime();
+  const params = useParams();
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
@@ -52,12 +47,9 @@ export default function CreateTournament() {
 
     const formattedName = formData.tournamentName.trim();
 
-    if (!user) {
-      return;
-    }
     try {
-      const newTournament = await post(
-        `http://localhost:4000/tournaments/${user.uid}/tournaments`,
+      const updatedDailyMatch = await put(
+        `http://localhost:4000/openrooms/${params.openroomId}`,
         {
           name: formattedName,
           dateOfMatch: formattedDate,
@@ -66,18 +58,22 @@ export default function CreateTournament() {
           rules: formData.rules,
         }
       );
-      toast.success("Tournament Created Successfully");
-      console.log(newTournament);
-    } catch (err) {
-      console.log(err);
+      document.getElementById("tournamentName").value = "";
+      document.getElementById("rules").value = "";
+      document.getElementById("prizePool").value = "";
+      document.getElementById("tournamentTime").value = "";
+      document.getElementById("tournamentDate").value = "";
+      toast.success("OpenRoom Edited Succussfully");
+      return updatedDailyMatch;
+    } catch (error) {
+      console.log(error);
+      toast.error("Not Able to Edit Open-Room, Please Try Again Later");
     }
-
-    document.getElementById("tournamentName").value = "";
-    document.getElementById("rules").value = "";
-    document.getElementById("prizePool").value = "";
-    document.getElementById("tournamentTime").value = "";
-    document.getElementById("tournamentDate").value = "";
   };
+
+  const formatDate = useFormatDate();
+
+  const formatTime = useFormatTime();
 
   return (
     <>
@@ -88,7 +84,7 @@ export default function CreateTournament() {
           alt="background"
         />
         <h2 className="text-white absolute top-[45%] left-[40%] text-4xl font-bold">
-          Create <span className="text-[#ff8a01]">Tournament</span>
+          Edit <span className="text-[#ff8a01]">Open-Room</span>
         </h2>
       </div>
 
@@ -97,11 +93,11 @@ export default function CreateTournament() {
       </h3>
       <div className={classes.formDiv}>
         <form
-          className="flex flex-col w-[33%] mx-auto bg-transparent"
+          className="flex flex-col w-[40%] mx-auto bg-transparent"
           onSubmit={handleSubmit}
         >
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2  placeholder:text-[#ff8a01] text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4  placeholder:text-[#ff8a01] text-[#ff8a01]"
             id="tournamentName"
             type="text"
             name="tournamentName"
@@ -109,36 +105,31 @@ export default function CreateTournament() {
             placeholder="Tournament Name"
             required
             onChange={handleChange}
-            autoFocus
           />
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             id="tournamentDate"
-            type={DateType}
-            onFocus={(e) => setDateType("date")}
-            onBlur={(e) => setDateType("text")}
+            type="date"
             name="tournamentDate"
             min={minDate}
             value={formData.tournamentDate}
-            placeholder="Date of Match"
+            placeholder="Date of Match (DD-MM-YYYY)"
             required
             onChange={handleChange}
           />
 
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
-            type={TimeType}
-            onFocus={(e) => setTimeType("time")}
-            onBlur={(e) => setTimeType("text")}
+            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            type="time"
             id="tournamentTime"
             name="tournamentTime"
             value={formData.tournamentTime}
-            placeholder="IDP Time "
+            placeholder="IDP Time (HH:mm)"
             required
             onChange={handleChange}
           />
           <input
-            className="bg-gray-800/80 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="number"
             id="prizePool"
             min="1"
@@ -149,7 +140,7 @@ export default function CreateTournament() {
             onChange={handleChange}
           />
           <textarea
-            className="bg-gray-800/80 h-52 mb-14 px-4 py-2 text-[#ff8a01] placeholder:text-[#ff8a01]"
+            className="bg-gray-800/80 h-52 mb-14 px-4 py-4 text-[#ff8a01] placeholder:text-[#ff8a01]"
             type="text"
             id="rules"
             name="rules"
@@ -159,9 +150,9 @@ export default function CreateTournament() {
           />
           <button
             type="submit"
-            className="w-full text-[#ff8a01] bg-gray-800/80 py-3 font-bold text-2xl mb-60"
+            className="w-full text-[#ff8a01] bg-gray-800/80 py-4 font-bold text-3xl mb-60"
           >
-            Register
+            Edit OpenRoom
           </button>
         </form>
       </div>

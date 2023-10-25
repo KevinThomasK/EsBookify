@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { TournamentListDetails } from "../Constant";
+import { allTournaments } from "../api-Helpers/api-helpers";
 import Footer from "../Footer/Footer";
 import classes from "../Organization/OrgHome.module.css";
 import Org from "../Organization/OrgHome.module.css";
 import home from "../HomePage.module.css";
-import { allTournaments } from "../api-Helpers/api-helpers";
 import imge from "../assets/ListLogo.png";
 import { storeSlotdetails } from "../Redux/Action";
 import { connect } from "react-redux";

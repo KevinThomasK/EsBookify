@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
-import { updateTournament } from "../api-Helpers/api-helpers";
 import { useParams } from "react-router-dom";
 import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
 import useMinDate from "../hooks/useMinDate";
+import { toast } from "react-toastify";
+import { useAuthedRequest } from "../hooks/useAuthedRequest";
 
 export default function EditTournament() {
+  const { put } = useAuthedRequest();
+
   const [formData, setFormData] = useState({
     tournamentName: "",
-    tournamentDate: "", // Keep the date field as a string
+    tournamentDate: "",
     tournamentTime: "",
     prizePool: "",
     rules: "",
@@ -38,35 +41,38 @@ export default function EditTournament() {
       return;
     }
 
-
     const formattedDate = formatDate(formData.tournamentDate);
 
     const formattedTime = formatTime(formData.tournamentTime);
 
     const formattedName = formData.tournamentName.trim();
 
-    // Send the formatted data to the newTournament function
-    updateTournament({
-      ...formData,
-      tournamentDate: formattedDate,
-      tournamentTime: formattedTime,
-      tournamentName: formattedName,
-      id: params.tournamentId,
-    })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-    document.getElementById("tournamentName").value = "";
-    document.getElementById("rules").value = "";
-    document.getElementById("prizePool").value = "";
-    document.getElementById("tournamentTime").value = "";
-    document.getElementById("tournamentDate").value = "";
+    try {
+      const updatedTournament = await put(
+        `http://localhost:4000/tournaments/${params.tournamentId}`,
+        {
+          name: formattedName,
+          dateOfMatch: formattedDate,
+          idpTime: formattedTime,
+          prizePool: formData.prizePool,
+          rules: formData.rules,
+        }
+      );
+      document.getElementById("tournamentName").value = "";
+      document.getElementById("rules").value = "";
+      document.getElementById("prizePool").value = "";
+      document.getElementById("tournamentTime").value = "";
+      document.getElementById("tournamentDate").value = "";
+      toast.success("Tournament Edited Succussfully");
+      return updatedTournament;
+    } catch (error) {
+      console.log(error);
+      toast.error("Not able to Edit Tournament, Please try again later");
+    }
   };
 
-  // Function to format the date as "dd-mm-yyyy"
   const formatDate = useFormatDate();
 
-  // Function to format the time as "hh:mm AM/PM"
   const formatTime = useFormatTime();
 
   return (
