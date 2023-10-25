@@ -5,8 +5,13 @@ import Footer from "../Footer/Footer";
 import imge from "../assets/ListLogo.png";
 import { UserSlotListDetails } from "../Constant";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router";
 
 function UserScrimSlotBox(props) {
+  const navigate = useNavigate();
+  function IconUnlock (item){
+   navigate  ("/UserScrimPlayerRegisterForm") 
+  }
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -46,7 +51,7 @@ function UserScrimSlotBox(props) {
           <div className={classes.mainslot}>
             {UserSlotListDetails.map((item) => {
               return (
-                <div className={classes.slotbox}>
+                <div className={classes.slotbox} onClick={(item)=>IconUnlock(item)}>
                   <img src="../src/assets/UnlockIcon.png" />
                   <span className={classes.span}> {item.content}</span>
                 </div>

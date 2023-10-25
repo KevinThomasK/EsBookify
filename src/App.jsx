@@ -26,6 +26,10 @@ import EditScrims from "./pages/EditScrims";
 import UserScrimSlotBox from "./User/UserScrimSlotBox";
 import UserDailyMatchSlot from "./User/UserDailyMatchSlot";
 import UserOpenRoomSlotBox from "./User/UserOpenRoomSlotBox";
+import UserTournamentPlayerRegisterForm from "./User/UserTournamentPlayerRegisterForm";
+import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm";
+import UserDailyMatchPlayerRegisterForm from "./User/UserDailyMatchPlayerRegistrationForm";
+import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistrationForm";
 
 
 function App(props) {
@@ -113,6 +117,26 @@ function App(props) {
           </Route>
           <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
             <Route path="/UserOpenRoomSlotBox" element={<UserOpenRoomSlotBox/>} />
+          </Route>
+
+
+          <Route  path="/OrganizationHomepage" element={<OrganizationHomepage />}
+            /> 
+           <Route path="/UserTournamentPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserTournamentPlayerRegisterForm" element={<UserTournamentPlayerRegisterForm />} />
+          </Route>
+
+          <Route path="/UserScrimPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserScrimPlayerRegisterForm" element={<UserScrimPlayerRegisterForm />} />
+          </Route>
+
+          <Route path="/UserDailyMatchPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserDailyMatchPlayerRegisterForm" element={<UserDailyMatchPlayerRegisterForm />} />
+          </Route>
+
+            
+          <Route path="/UserOpenRoomPlayerRegisterForm" element={<PrivateRoute />}>
+            <Route path="/UserOpenRoomPlayerRegisterForm" element={<UserOpenRoomPlayerRegisterForm />} />
           </Route>
 
 
