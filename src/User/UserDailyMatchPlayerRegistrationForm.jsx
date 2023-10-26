@@ -6,7 +6,7 @@ import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
 import Footer from "../Footer/Footer";
 import { toast } from "react-toastify";
-import { newScrims } from "../api-Helpers/api-helpers";
+// import { newScrims } from "../api-Helpers/api-helpers";
 
 const UserDailyMatchPlayerRegisterForm = () => {
     const [teamdata, setTeamData] = useState({
