@@ -1,30 +1,20 @@
-// api-helpers.js
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const baseUrl = "http://localhost:4000/";
 
-export const newTournament = async (data) => {
-  // console.log(data);
-
+//all tournaments
+export const allTournaments = async () => {
   const res = await axios
-    .post("http://localhost:4000/tournaments/createtournament/", {
-      name: data.tournamentName,
-      dateOfMatch: data.tournamentDate, // Assuming the server accepts the date in the given format
-      idpTime: data.tournamentTime,
-      prizePool: parseInt(data.prizePool), // Convert to integer
-      rules: data.rules,
-      org: localStorage.getItem("email"),
-    })
+    .get(`${baseUrl}tournaments`)
     .catch((err) => console.log(err));
-
-  if (res.status !== 201) {
-    return console.log("unexpected error");
+  if (res.status !== 200) {
+    return console.log("no data");
   }
-
-  const resData = await res.data;
-  toast.success("Tournament created successfully");
-  return resData;
+  const data = await res.data;
+  const x = await data.tournaments;
+  console.log(x);
+  return x;
 };
 
 //org login
@@ -36,80 +26,6 @@ export const validateOrg = async (token) => {
     },
   });
   return res.data;
-};
-
-//get all tournaments
-export const allTournaments = async () => {
-  const res = await axios
-    .get(`${baseUrl}tournaments`)
-    .catch((err) => console.log(err));
-  if (res.status !== 200) {
-    return console.log("no data");
-  }
-  const data = await res.data;
-  const x = await data.tournaments;
-  return x;
-  //console.log(data);
-};
-
-//delete tournament
-export const deleteTournament = async (id) => {
-  const res = await axios
-    .delete(`${baseUrl}tournaments/deletetournament/${id}`)
-    .catch((err) => console.log(err));
-
-  if (res.status !== 200) {
-    return console.log("erorrr");
-  }
-
-  const resData = await res.data;
-  return resData;
-};
-
-//edit tournament
-export const updateTournament = async (data) => {
-  const id = data.id;
-  console.log(id);
-  const res = await axios
-    .put(`http://localhost:4000/tournaments/updatetournament/${id}`, {
-      name: data.tournamentName,
-      dateOfMatch: data.tournamentDate, // Assuming the server accepts the date in the given format
-      idpTime: data.tournamentTime,
-      prizePool: parseInt(data.prizePool), // Convert to integer
-      rules: data.rules,
-      org: localStorage.getItem("email"),
-    })
-    .catch((err) => console.log(err));
-
-  if (res.status !== 200) {
-    return console.log("unexpected error");
-  }
-
-  const resData = await res.data;
-  toast.success("Tournament updated successfully");
-  return resData;
-};
-
-//create scrims
-export const newScrims = async (data) => {
-  const res = await axios
-    .post("http://localhost:4000/scrims/createscrims/", {
-      name: data.scrimsName,
-      dateOfMatch: data.scrimsDate, // Assuming the server accepts the date in the given format
-      idpTime: data.scrimsTime,
-      prizePool: parseInt(data.scrimsPrize), // Convert to integer
-      rules: data.scrimsRules,
-      org: localStorage.getItem("email"),
-    })
-    .catch((err) => console.log(err));
-
-  if (res.status !== 201) {
-    return console.log("unexpected error");
-  }
-
-  const resData = await res.data;
-  toast.success("Scrims created successfully");
-  return resData;
 };
 
 //get all scrims
@@ -126,42 +42,30 @@ export const allScrims = async () => {
   return x;
 };
 
-//delete Scrims
-export const deleteScrims = async (id) => {
+//get all Daily-Match
+export const allDailyMatch = async () => {
   const res = await axios
-    .delete(`${baseUrl}scrims/deletescrims/${id}`)
+    .get(`${baseUrl}dailymatch`)
     .catch((err) => console.log(err));
-
   if (res.status !== 200) {
-    return console.log("erorrr");
+    return console.log("no data");
   }
-
-  const resData = await res.data;
-  return resData;
+  const data = await res.data;
+  const x = await data.dailymatches;
+  return x;
 };
 
-//edit scrims
-export const updateScrims = async (data) => {
-  const id = data.id;
-  console.log(id);
+//get all Open-rooms
+export const allOpenRooms = async () => {
   const res = await axios
-    .put(`http://localhost:4000/scrims/updatescrims/${id}`, {
-      name: data.scrimsName,
-      dateOfMatch: data.scrimsDate, // Assuming the server accepts the date in the given format
-      idpTime: data.scrimsTime,
-      prizePool: parseInt(data.scrimsPrize), // Convert to integer
-      rules: data.scrimsRules,
-      org: localStorage.getItem("email"),
-    })
+    .get(`${baseUrl}openrooms`)
     .catch((err) => console.log(err));
-
   if (res.status !== 200) {
-    return console.log("unexpected error");
+    return console.log("no data");
   }
-
-  const resData = await res.data;
-  toast.success("scrims updated successfully");
-  return resData;
+  const data = await res.data;
+  const x = await data.openrooms;
+  return x;
 };
 
 //new user

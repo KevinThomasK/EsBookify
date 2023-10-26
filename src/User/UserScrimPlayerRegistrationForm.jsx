@@ -7,7 +7,6 @@ import useFormatDate from "../hooks/useFormatDate";
 import Footer from "../Footer/Footer";
 import { toast } from "react-toastify";
 
-
 const UserScrimPlayerRegisterForm = () => {
     const [teamdata, setTeamData] = useState({
         TeamName: "",
