@@ -9,8 +9,10 @@ import { allOpenRooms } from "../api-Helpers/api-helpers";
 import imge from "../assets/ListLogo.png";
 import { useState } from "react";
 import { useEffect } from "react";
+import { connect } from "react-redux";
+import { storeSlotdetails } from "../Redux/Action";
 
-function UserDailyMatchList() {
+function UserOpenRoom(props) {
   const navigate = useNavigate();
 
   const [openRoom, setOpenRoom] = useState();
@@ -20,6 +22,12 @@ function UserDailyMatchList() {
       .then((data) => setOpenRoom(data))
       .catch((err) => console.log(err));
   }, []);
+
+  function ToRegister (item) {
+    console.log('registerButton');
+    props.storeSlotdetails(item)
+     navigate ("/UserOpenRoomSlotBox")
+  }
 
   return (
     <div className={Org.Orgbackground}>
@@ -37,9 +45,6 @@ function UserDailyMatchList() {
                 return (
                   <li
                     className={classes.listbox}
-                    onClick={() => {
-                      navigate("      ");
-                    }}
                   >
                     <img className={classes.ListLogo} src={imge} />
                     <h3 className="text-2xl text-center mt-2 text-orange-500">
@@ -49,7 +54,8 @@ function UserDailyMatchList() {
                       <div className={classes.UserScrimListDateandTime}>
                         {item.dateOfMatch} {item.idpTime}
                       </div>
-                      <div className=" text-center mt-2 text-orange-500">
+                      <div className=" text-center mt-2 text-orange-500"
+                      onClick={ ()=> ToRegister(item)}>
                         Register
                       </div>
                     </div>
@@ -64,4 +70,10 @@ function UserDailyMatchList() {
   );
 }
 
-export default UserDailyMatchList;
+const mapDispatchToProps= (dispatch) => {
+  return { 
+    storeSlotdetails: (s) => {dispatch(storeSlotdetails(s))} 
+  }
+}
+
+export default connect(null,mapDispatchToProps) (UserOpenRoom); 
