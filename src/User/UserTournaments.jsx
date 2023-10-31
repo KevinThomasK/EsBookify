@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { TournamentListDetails } from "../Constant";
 import { allTournaments } from "../api-Helpers/api-helpers";
 import Footer from "../Footer/Footer";
 import classes from "../Organization/OrgHome.module.css";
@@ -19,10 +18,11 @@ function UserTournaments(props) {
       .then((data) => setTournaments(data))
       .catch((err) => console.log(err));
   }, []);
-  function ToRegister (item) {
-    console.log('registerButton');
-    props.storeSlotdetails(item)
-     navigate ("/UserTournamentSlotBox")
+
+  function ToRegister(item) {
+    // console.log("item", item);
+    props.storeSlotdetails(item);
+    navigate("/UserTournamentSlotBox");
   }
 
   return (
@@ -53,8 +53,11 @@ function UserTournaments(props) {
                       <div className={classes.UserScrimListDateandTime}>
                         {item.dateOfMatch} {item.idpTime}
                       </div>
-                      <div   className=" text-center mt-2 text-orange-500">
-                       <button onClick={ ()=> ToRegister(item)}> Register </button>
+                      <div className=" text-center mt-2 text-orange-500">
+                        <button onClick={() => ToRegister(item)}>
+                          {" "}
+                          Register{" "}
+                        </button>
                       </div>
                     </div>
                   </li>
@@ -68,11 +71,12 @@ function UserTournaments(props) {
   );
 }
 
-const mapDispatchToProps= (dispatch) => {
-  return { 
-    storeSlotdetails: (s) => {dispatch(storeSlotdetails(s))} 
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeSlotdetails: (s) => {
+      dispatch(storeSlotdetails(s));
+    },
+  };
+};
 
-
-export default connect(null,mapDispatchToProps) (UserTournaments);
+export default connect(null, mapDispatchToProps)(UserTournaments);
