@@ -50,7 +50,14 @@ function UserScrimList() {
                         {item.dateOfMatch} {item.idpTime}
                       </div>
                       <div className=" text-center mt-2 text-orange-500">
-                        Register
+                        <button
+                          onClick={() =>
+                            navigate("/UserTournamentPlayerRegisterForm")
+                          }
+                        >
+                          {" "}
+                          Register{" "}
+                        </button>
                       </div>
                     </div>
                   </li>
