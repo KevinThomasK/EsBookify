@@ -32,6 +32,7 @@ import UserTournamentPlayerRegisterForm from "./User/UserTournamentPlayerRegiste
 import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm";
 import UserDailyMatchPlayerRegisterForm from "./User/UserDailyMatchPlayerRegistrationForm";
 import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistrationForm";
+import TournamentSlots from "./Slots/TournamentSlots";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -151,6 +152,10 @@ function App(props) {
             <Route
               path="/UserTournamentPlayerRegisterForm/:tournamentId/:userId"
               element={<UserTournamentPlayerRegisterForm />}
+            />
+            <Route
+              path="/UserTournamentPlayerRegisterForm/:tournamentId"
+              element={<TournamentSlots />}
             />
           </Route>
 

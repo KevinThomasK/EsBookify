@@ -18,13 +18,22 @@ function UserTournamentSlotBox(props) {
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}/${user.uid}`);
   }
 
+  const TournamentTeams = async () => {
+    const tournamentId = props.slotdetails._id;
+    // console.log(tournamentId);
+    navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}`);
+  };
+
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
         <div className={classes.MainOrgList}>
           <div>
             <ul className="list-none mx-auto  flex flex-row flex-wrap  justify-center gap-10 ">
-              <li className={classes.listbox}>
+              <li
+                className={classes.listbox}
+                onClick={() => TournamentTeams(props.slotdetails._id)}
+              >
                 <img className={classes.ListLogo} src={imge} />
                 <h3 className="text-2xl text-center mt-2 text-orange-500">
                   <div>{props.slotdetails.name}</div>
