@@ -9,8 +9,10 @@ import { allScrims } from "../api-Helpers/api-helpers";
 import imge from "../assets/ListLogo.png";
 import { useState } from "react";
 import { useEffect } from "react";
+import { storeSlotdetails } from "../Redux/Action";
+import { connect } from "react-redux";
 
-function UserScrimList() {
+function UserScrimList(props) {
   const navigate = useNavigate();
 
   const [scrims, setScrims] = useState();
@@ -20,6 +22,12 @@ function UserScrimList() {
       .then((data) => setScrims(data))
       .catch((err) => console.log(err));
   }, []);
+
+  function ToRegister(item) {
+    console.log("registerButton");
+    props.storeSlotdetails(item);
+    navigate("/UserScrimSlotBox");
+  }
 
   return (
     <div className={Org.Orgbackground}>
@@ -35,12 +43,7 @@ function UserScrimList() {
             {scrims &&
               scrims.map((item) => {
                 return (
-                  <li
-                    className={classes.listbox}
-                    onClick={() => {
-                      navigate("      ");
-                    }}
-                  >
+                  <li className={classes.listbox}>
                     <img className={classes.ListLogo} src={imge} />
                     <h3 className="text-2xl text-center mt-2 text-orange-500">
                       <div>{item.name}</div>
@@ -49,11 +52,11 @@ function UserScrimList() {
                       <div className={classes.UserScrimListDateandTime}>
                         {item.dateOfMatch} {item.idpTime}
                       </div>
-                      <div className=" text-center mt-2 text-orange-500">
-                        <button onClick={() => navigate("/UserScrimSlotBox")}>
-                          {" "}
-                          Register{" "}
-                        </button>
+                      <div
+                        className=" text-center mt-2 text-orange-500"
+                        onClick={() => ToRegister(item)}
+                      >
+                        Register
                       </div>
                     </div>
                   </li>
@@ -67,4 +70,12 @@ function UserScrimList() {
   );
 }
 
-export default UserScrimList;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeSlotdetails: (s) => {
+      dispatch(storeSlotdetails(s));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(UserScrimList);

@@ -26,13 +26,14 @@ import EditScrims from "./pages/EditScrims";
 import EditDailyMatch from "./pages/EditDailyMatch";
 import EditOpenRooms from "./pages/EditOpenRooms";
 import UserScrimSlotBox from "./User/UserScrimSlotBox";
-import UserDailyMatchSlot from "./User/UserDailyMatchSlot";
+
 import UserOpenRoomSlotBox from "./User/UserOpenRoomSlotBox";
 import UserTournamentPlayerRegisterForm from "./User/UserTournamentPlayerRegisterForm";
 import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm";
 import UserDailyMatchPlayerRegisterForm from "./User/UserDailyMatchPlayerRegistrationForm";
 import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistrationForm";
 import TournamentSlots from "./Slots/TournamentSlots";
+import UserDailyMatchSlotBox from "./User/UserDailyMatchSlot";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
