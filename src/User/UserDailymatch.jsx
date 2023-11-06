@@ -26,7 +26,7 @@ function UserDailyMatchList(props) {
   function ToRegister (item) {
     console.log('registerButton');
     props.storeSlotdetails(item)
-     navigate ("/UserDailyMatchSlot")
+     navigate ("/UserDailyMatchSlotBox")
   }
 
   return (

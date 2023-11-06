@@ -33,7 +33,7 @@ import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm"
 import UserDailyMatchPlayerRegisterForm from "./User/UserDailyMatchPlayerRegistrationForm";
 import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistrationForm";
 import TournamentSlots from "./Slots/TournamentSlots";
-import UserDailyMatchSlotBox from "./User/UserDailyMatchSlot";
+import  UserDailyMatchSlotBox from "./User/UserDailyMatchSlot";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -121,20 +121,18 @@ function App(props) {
           />
 
           <Route path="/UserTournamentSlotBox" element={<PrivateRoute />}>
-            <Route
-              path="/UserTournamentSlotBox"
-              element={<UserTournamentSlotBox />}
-            />
+            <Route path="/UserTournamentSlotBox"  element={<UserTournamentSlotBox />}  />
+             
           </Route>
           <Route path="/UserScrimSlotBox" element={<PrivateRoute />}>
             <Route path="/UserScrimSlotBox" element={<UserScrimSlotBox />} />
           </Route>
           <Route path="/UserDailyMatchSlotBox" element={<PrivateRoute />}>
-            <Route
-              path="/UserDailyMatchSlotBox"
-              element={<UserDailyMatchSlot />}
-            />
-          </Route>
+            <Route  path="/UserDailyMatchSlotBox"   element={<UserDailyMatchSlotBox />}  />
+            </Route>
+            
+           
+         
           <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
             <Route
               path="/UserOpenRoomSlotBox"

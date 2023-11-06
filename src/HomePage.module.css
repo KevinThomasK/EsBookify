@@ -143,8 +143,11 @@ input:focus {
 .createheading{
     color: var(--secondary-colur, #f5f0f0);
     font-family: Poppins;
-    font-size: 50px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
+    justify-content: center;
+    display: flex;
+    font-size: xx-large;
+    margin-top: 20px;
 }

@@ -91,11 +91,12 @@ function OtpVerify(props) {
         console.log(res)
         console.log("LoggedInSuccessfully")
         props.onCloseOTP()
+        window.localStorage.setItem("loginDetails",props.section)
         props.storeIdentifier(props.section) 
-        if (props.section=="org"){
-        //  console.log(props.history);
-          location("/OrganizationHomepage")
-        }
+        // if (props.section=="org"){
+        // //  console.log(props.history);
+        //   location("/OrganizationHomepage")
+        // }
       }) .catch((error) => {
         // Error; SMS not sent        // ...  
       console.log(error)

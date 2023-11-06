@@ -42,9 +42,8 @@ function Header(props) {
           className="text-orange-500 font-semibold text-3xl cursor-pointer"
           onClick={() => {
             console.log("redux vlaue", props.transfer);
-            props.transfer == "org"
-              ? navigate("/OrganizationHomepage")
-              : navigate("/");
+          
+               navigate("/");
           }}
         >
           EsBookify
