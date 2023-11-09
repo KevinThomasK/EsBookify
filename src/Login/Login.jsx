@@ -65,9 +65,10 @@ function Login(props) {
           timestamp: serverTimestamp(),
         });
       }
-      if (section == "org") {
-        location("/OrganizationHomepage");
-      }
+      // if (section == "org") {
+      //   location("/OrganizationHomepage");
+      // }
+      window.localStorage.setItem("loginDetails",section)
       props.storeIdentifier(section);
       toast.success("Signed In");
     } catch (err) {

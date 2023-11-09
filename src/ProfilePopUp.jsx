@@ -13,6 +13,7 @@ function ProfilePopUp(props) {
     toast.error("Logged out");
     localStorage.removeItem("email");
     localStorage.removeItem("userType");
+    localStorage.setItem("loginDetails" , "user")
     navigate("/");
   }
   return (

@@ -7,6 +7,7 @@ import Slider from "../Slider/Slider";
 import Matches from "../Matches/Matches";
 import Footer from "../Footer/Footer";
 import { OrganizationHomepageSlider } from "../Slider/SliderData";
+import { connect } from "react-redux";
 
 function OrganizationHomepage(props) {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function OrganizationHomepage(props) {
           </div>
           <div className={classes.matchdiv}>
             <h1 className={classes.matchheading}> Manage Your Match</h1>
-          </div>
+         
           <section id="matches" className="w-9/12 mx-auto">
             <ul className="list-none mx-auto mt-10 flex flex-col sm:flex-row items-center gap-12">
               <li
@@ -48,7 +49,7 @@ function OrganizationHomepage(props) {
               </li>
             </ul>
           </section>
-          <div className={classes.matchdiv}>
+         
             <h1 className={classes.createheading}> Create Your Match</h1>
           </div>
           <div className={classes.MainList}></div>
@@ -60,4 +61,12 @@ function OrganizationHomepage(props) {
   );
 }
 
-export default OrganizationHomepage;
+const mapStateToProps = (HomeReducer) => {
+  //console.log("Cart", HomeReducer)
+  return {
+    transfer: HomeReducer.selectedItems.IdentifiedItem,
+  };
+};
+
+export default connect  (mapStateToProps, null) (OrganizationHomepage); 
+

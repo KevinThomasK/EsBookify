@@ -34,7 +34,7 @@ const UserDailyMatchPlayerRegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formattedName = scrimsData.scrimsName.trim();
+    const formattedName = teamdata.scrimsName.trim();
     // newScrims({
     //     ...scrimsData,
     //     scrimsDate: formattedDate,
