@@ -26,14 +26,14 @@ import EditScrims from "./pages/EditScrims";
 import EditDailyMatch from "./pages/EditDailyMatch";
 import EditOpenRooms from "./pages/EditOpenRooms";
 import UserScrimSlotBox from "./User/UserScrimSlotBox";
-
+import UserDailyMatchSlot from "./User/UserDailyMatchSlot";
 import UserOpenRoomSlotBox from "./User/UserOpenRoomSlotBox";
 import UserTournamentPlayerRegisterForm from "./User/UserTournamentPlayerRegisterForm";
 import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm";
 import UserDailyMatchPlayerRegisterForm from "./User/UserDailyMatchPlayerRegistrationForm";
 import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistrationForm";
 import TournamentSlots from "./Slots/TournamentSlots";
-import UserDailyMatchSlotBox from "./User/UserDailyMatchSlot";
+import ScrimSlots from "./Slots/ScrimSlots";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -129,9 +129,9 @@ function App(props) {
           <Route path="/UserScrimSlotBox" element={<PrivateRoute />}>
             <Route path="/UserScrimSlotBox" element={<UserScrimSlotBox />} />
           </Route>
-          <Route path="/UserDailyMatchSlotBox" element={<PrivateRoute />}>
+          <Route path="/UserDailyMatchSlot" element={<PrivateRoute />}>
             <Route
-              path="/UserDailyMatchSlotBox"
+              path="/UserDailyMatchSlot"
               element={<UserDailyMatchSlot />}
             />
           </Route>
@@ -162,8 +162,12 @@ function App(props) {
 
           <Route path="/UserScrimPlayerRegisterForm" element={<PrivateRoute />}>
             <Route
-              path="/UserScrimPlayerRegisterForm"
+              path="/UserScrimPlayerRegisterForm/:scrimId/:userId"
               element={<UserScrimPlayerRegisterForm />}
+            />
+            <Route
+              path="/UserScrimPlayerRegisterForm/:scrimId"
+              element={<ScrimSlots />}
             />
           </Route>
 
