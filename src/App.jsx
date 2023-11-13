@@ -26,7 +26,7 @@ import EditScrims from "./pages/EditScrims";
 import EditDailyMatch from "./pages/EditDailyMatch";
 import EditOpenRooms from "./pages/EditOpenRooms";
 import UserScrimSlotBox from "./User/UserScrimSlotBox";
-
+import UserDailyMatchSlot from "./User/UserDailyMatchSlot";
 import UserOpenRoomSlotBox from "./User/UserOpenRoomSlotBox";
 import UserTournamentPlayerRegisterForm from "./User/UserTournamentPlayerRegisterForm";
 import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm";
@@ -35,6 +35,10 @@ import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistratio
 import TournamentSlots from "./Slots/TournamentSlots";
 import UserDailyMatchSlotBox from "./User/UserDailyMatchSlot";
 import NotificationList from "./User/NotificationList";
+
+
+import ScrimSlots from "./Slots/ScrimSlots";
+
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -132,6 +136,13 @@ function App(props) {
             <Route path="/UserDailyMatchSlotBox" element={<UserDailyMatchSlotBox />} />
           </Route>
             <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
+          <Route path="/UserDailyMatchSlot" element={<PrivateRoute />}>  </Route>
+            <Route
+              path="/UserDailyMatchSlot"
+              element={<UserDailyMatchSlot />}
+            />
+          </Route>
+          <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
             <Route
               path="/UserOpenRoomSlotBox"
               element={<UserOpenRoomSlotBox />}
@@ -158,8 +169,12 @@ function App(props) {
 
           <Route path="/UserScrimPlayerRegisterForm" element={<PrivateRoute />}>
             <Route
-              path="/UserScrimPlayerRegisterForm"
+              path="/UserScrimPlayerRegisterForm/:scrimId/:userId"
               element={<UserScrimPlayerRegisterForm />}
+            />
+            <Route
+              path="/UserScrimPlayerRegisterForm/:scrimId"
+              element={<ScrimSlots />}
             />
           </Route>
 

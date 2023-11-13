@@ -6,18 +6,30 @@ import imge from "../assets/ListLogo.png";
 import { UserSlotListDetails } from "../Constant";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
+import { useUser } from "../hooks/useUser";
 
 function UserScrimSlotBox(props) {
   const navigate = useNavigate();
+  const { user } = useUser();
   function IconUnlock(item) {
-    navigate("/UserScrimPlayerRegisterForm");
+    const scrimId = props.slotdetails._id;
+    navigate(`/UserScrimPlayerRegisterForm/${scrimId}/${user.uid}`);
   }
+
+  const ScrimTeams = async () => {
+    const scrimId = props.slotdetails._id;
+    navigate(`/UserScrimPlayerRegisterForm/${scrimId}`);
+  };
+
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
         <div className={classes.MainOrgList}>
           <ul className="list-none mx-auto  flex flex-row flex-wrap  justify-center gap-10 ">
-            <li className={classes.listbox}>
+            <li
+              className={classes.listbox}
+              onClick={() => ScrimTeams(props.slotdetails._id)}
+            >
               <img className={classes.ListLogo} src={imge} />
               <h3 className="text-2xl text-center mt-2 text-orange-500">
                 <div>{props.slotdetails.name}</div>
