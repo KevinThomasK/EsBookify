@@ -4,10 +4,12 @@ import Footer from "../Footer/Footer";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { connect } from "react-redux";
 
-const UserTournamentPlayerRegisterForm = () => {
+const UserTournamentPlayerRegisterForm = (props) => {
   const { post } = useAuthedRequest();
   const params = useParams();
+console.log("params", params);
 
   const [teamdata, setTeamData] = useState({
     TeamName: "",
@@ -40,6 +42,9 @@ const UserTournamentPlayerRegisterForm = () => {
           Player3: teamdata.Player3,
           Player4: teamdata.Player4,
           Player5: teamdata.Player5,
+          TournamentName: props.slotdetails.name,
+          TournamentDate: props.slotdetails.dateOfMatch,
+
         }
       );
       document.getElementById("TeamName").value = "";
@@ -50,6 +55,7 @@ const UserTournamentPlayerRegisterForm = () => {
       document.getElementById("Player4").value = "";
       document.getElementById("Player5").value = "";
       toast.success("Registered Tournament Succussfully");
+      console.log("registerTeam" , registeredTeam);
       return registeredTeam;
     } catch (error) {
       console.log(error);
@@ -149,4 +155,11 @@ const UserTournamentPlayerRegisterForm = () => {
   );
 };
 
-export default UserTournamentPlayerRegisterForm;
+const mapStateToProps = (HomeReducer) => {
+  console.log("slotdetails", HomeReducer);
+  return {
+    slotdetails: HomeReducer.selectedItems.slotdetails,
+  };
+};
+
+export default connect(mapStateToProps, null) (UserTournamentPlayerRegisterForm);
