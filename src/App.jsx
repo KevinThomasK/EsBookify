@@ -36,6 +36,8 @@ import TournamentSlots from "./Slots/TournamentSlots";
 import ScrimSlots from "./Slots/ScrimSlots";
 import DailyMatchSlots from "./Slots/DailyMatchSlots";
 import OpenRoomSlots from "./Slots/OpenRoomSlots";
+import NotificationList from "./User/NotificationList";
+
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -136,7 +138,7 @@ function App(props) {
               path="/UserDailyMatchSlotBox"
               element={<UserDailyMatchSlot />}
             />
-          </Route>
+          
           <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
             <Route
               path="/UserOpenRoomSlotBox"
@@ -200,6 +202,11 @@ function App(props) {
               element={<OpenRoomSlots />}
             />
           </Route>
+
+          <Route path="/NotificationList" element={<PrivateRoute />}>
+            <Route path="/NotificationList" element={<NotificationList />} />
+          </Route>
+
         </Routes>
       </Router>
 

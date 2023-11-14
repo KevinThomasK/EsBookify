@@ -8,7 +8,7 @@ import ProfilePopUp from "./ProfilePopUp";
 import classes from "../src/ProfilePopUp.module.css";
 import store from "./Store";
 import { connect } from "react-redux";
-
+import notification  from "./assets/BellIcon.png"; 
 function Header(props) {
   const navigate = useNavigate();
 
@@ -35,6 +35,10 @@ function Header(props) {
     });
   }, [auth]);
   //console.log(isHovered);
+  const notify =()=> {
+    navigate("/NotificationList")
+    console.log("notifyButton");
+  }
   return (
     <div>
       <nav className="bg-black pb-[30px]">
@@ -58,6 +62,18 @@ function Header(props) {
             <FaMagnifyingGlass className="text-[#ff8a01] pt-[7px] text-xl" />
           </a>
         </div>
+
+            <div>
+            <button 
+            onClick={notify}
+              data-modal-target="defaultModal"
+              data-modal-toggle="defaultModal"
+              className={classes.profileButton}
+            >
+              <img  src={notification} alt="bellIcon"/> {" "}
+              </button>
+            </div>
+
         <div className={classes.popupdiv} onMouseEnter={handleMouseEnter}>
           {isLogged && (
             <button

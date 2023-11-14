@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "../Organization/OrgHome.module.css";
 import Org from "../Organization/OrgHome.module.css";
 import Footer from "../Footer/Footer";
@@ -7,14 +7,43 @@ import { UserSlotListDetails } from "../Constant";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 import { useUser } from "../hooks/useUser";
+import { storeSlotCount } from "../Redux/Action";
+import { toast } from "react-toastify";
+import { useAuthedRequest } from "../hooks/useAuthedRequest";
+
 
 function UserTournamentSlotBox(props) {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { get } = useAuthedRequest();
+  const [regteam, setregteam] = useState([])
   //console.log(user.uid);
-  function IconUnlock() {
+  useEffect(() => {
+    const handleslot = async () => {
+      try {
+        const registeredTeam = await get(
+          `http://localhost:4000/UserTournamentPlayerRegisterForm/${props.slotdetails._id}`,
+          {}
+        );
+        setregteam(registeredTeam.registeredTeams)
+        console.log("registeredTeam", registeredTeam);
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong,Try Again Later");
+      }
+    }
+    handleslot()
+
+  }, [get])
+
+
+  function IconUnlock(item) {
     //console.log(props.slotdetails);
     const tournamentId = props.slotdetails._id;
+    console.log("itemcon", item);
+    props.storeSlotCount(item)
+
+
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}/${user.uid}`);
   }
 
@@ -23,7 +52,7 @@ function UserTournamentSlotBox(props) {
     // console.log(tournamentId);
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}`);
   };
-
+console.log("regteam1", regteam);
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -49,18 +78,39 @@ function UserTournamentSlotBox(props) {
             </ul>
           </div>
           <div className={classes.mainslot}>
-            {UserSlotListDetails.map((item) => {
-              return (
-                <div
-                  key={item.content}
-                  className={classes.slotbox}
-                  onClick={(item) => IconUnlock(item)}
-                >
-                  <img src="../src/assets/UnlockIcon.png" />
-                  <span className={classes.span}> {item.content}</span>
-                </div>
-              );
+            {regteam.length  && regteam.map((regitem) => {
+              console.log("regitem", regitem);
+              UserSlotListDetails.map((item) => {
+
+                return (
+                  <div
+                    key={item.content}
+                    className={classes.slotbox}
+                    onClick={() => IconUnlock(item)}
+                  >
+                    <img src="../src/assets/UnlockIcon.png" />
+                    <span className =  { `${ regitem.SlotNumber==item.content ? classes.slotregbox:classes.span} `  }> {item.content}</span>
+                  </div>
+                );
+              }
+              )
             })}
+            {
+               UserSlotListDetails.map((item) => {
+
+                return (
+                  <div
+                    key={item.content}
+                    className={classes.slotbox} 
+                    onClick={() => IconUnlock(item)}
+                  >
+                    <img src="../src/assets/UnlockIcon.png" />
+                    <span className={classes.span}> {item.content}</span>
+                  </div>
+                );
+              }
+              )
+            }
           </div>
         </div>
       </div>
@@ -77,4 +127,13 @@ const mapStateToProps = (HomeReducer) => {
   };
 };
 
-export default connect(mapStateToProps, null)(UserTournamentSlotBox);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeSlotCount: (s) => {
+      dispatch(storeSlotCount(s));
+    },
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserTournamentSlotBox);

@@ -1,8 +1,9 @@
-import { STORE_IDENTIFIER, STORE_SLOTDETAILS } from "./Action";
+import { STORE_IDENTIFIER, STORE_SLOTCOUNT, STORE_SLOTDETAILS } from "./Action";
 
 const initialState = {
     IdentifiedItem: "user" , 
-    slotdetails: []
+    slotdetails: [],
+    SlotCount:""
 }
 const HomeReducer = (state = initialState, action) => {
   // console.log('reducer', action.payload)
@@ -14,6 +15,8 @@ const HomeReducer = (state = initialState, action) => {
         case STORE_SLOTDETAILS:
             return Object.assign ({},state,{slotdetails:action.payload})    
       
+            case STORE_SLOTCOUNT:
+                return Object.assign ({},state,{SlotCount:action.payload})
     default:
         return state;
 }
