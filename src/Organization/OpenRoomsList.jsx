@@ -32,13 +32,18 @@ function OpenRoomsList() {
   }, [user, get, isReady]);
 
   const handleDelete = async (id) => {
-    try {
-      const res = await del(`http://localhost:4000/openrooms/${id}`);
-      toast.success("Open-Room Deleted");
-      return res;
-    } catch (error) {
-      console.log(error);
-      toast.error("Open-Room Not Deleted , Try Again Later");
+    const isConfirmed = window.confirm("Are you sure you want to proceed?");
+    if (isConfirmed) {
+      try {
+        const res = await del(`http://localhost:4000/openrooms/${id}`);
+        window.location.reload();
+        return res;
+      } catch (error) {
+        console.log(error);
+        toast.error("Open-Room Not Deleted , Try Again Later");
+      }
+    } else {
+      return;
     }
   };
 

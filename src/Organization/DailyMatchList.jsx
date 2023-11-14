@@ -32,13 +32,18 @@ function DailyMatchList() {
   }, [user, get, isReady]);
 
   const handleDelete = async (id) => {
-    try {
-      const res = await del(`http://localhost:4000/dailymatch/${id}`);
-      toast.success("Daily-Match Deleted");
-      return res;
-    } catch (error) {
-      console.log(error);
-      toast.error("Daily-match not deleted , try again later");
+    const isConfirmed = window.confirm("Are you sure you want to proceed?");
+    if (isConfirmed) {
+      try {
+        const res = await del(`http://localhost:4000/dailymatch/${id}`);
+        window.location.reload();
+        return res;
+      } catch (error) {
+        console.log(error);
+        toast.error("Daily-match not deleted , try again later");
+      }
+    } else {
+      return;
     }
   };
 

@@ -33,11 +33,9 @@ import UserScrimPlayerRegisterForm from "./User/UserScrimPlayerRegistrationForm"
 import UserDailyMatchPlayerRegisterForm from "./User/UserDailyMatchPlayerRegistrationForm";
 import UserOpenRoomPlayerRegisterForm from "./User/UserOpenRoomPlayerRegistrationForm";
 import TournamentSlots from "./Slots/TournamentSlots";
-<<<<<<< HEAD
 import ScrimSlots from "./Slots/ScrimSlots";
-=======
-import  UserDailyMatchSlotBox from "./User/UserDailyMatchSlot";
->>>>>>> b162a330dba1b9f8d25665e1c236db85926a442f
+import DailyMatchSlots from "./Slots/DailyMatchSlots";
+import OpenRoomSlots from "./Slots/OpenRoomSlots";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -125,15 +123,17 @@ function App(props) {
           />
 
           <Route path="/UserTournamentSlotBox" element={<PrivateRoute />}>
-            <Route path="/UserTournamentSlotBox"  element={<UserTournamentSlotBox />}  />
-             
+            <Route
+              path="/UserTournamentSlotBox"
+              element={<UserTournamentSlotBox />}
+            />
           </Route>
           <Route path="/UserScrimSlotBox" element={<PrivateRoute />}>
             <Route path="/UserScrimSlotBox" element={<UserScrimSlotBox />} />
           </Route>
-          <Route path="/UserDailyMatchSlot" element={<PrivateRoute />}>
+          <Route path="/UserDailyMatchSlotBox" element={<PrivateRoute />}>
             <Route
-              path="/UserDailyMatchSlot"
+              path="/UserDailyMatchSlotBox"
               element={<UserDailyMatchSlot />}
             />
           </Route>
@@ -178,8 +178,12 @@ function App(props) {
             element={<PrivateRoute />}
           >
             <Route
-              path="/UserDailyMatchPlayerRegisterForm"
+              path="/UserDailyMatchPlayerRegisterForm/:dailymatchId/:userId"
               element={<UserDailyMatchPlayerRegisterForm />}
+            />
+            <Route
+              path="/UserDailyMatchPlayerRegisterForm/:dailymatchId"
+              element={<DailyMatchSlots />}
             />
           </Route>
 
@@ -188,8 +192,12 @@ function App(props) {
             element={<PrivateRoute />}
           >
             <Route
-              path="/UserOpenRoomPlayerRegisterForm"
+              path="/UserOpenRoomPlayerRegisterForm/:openroomId/:userId"
               element={<UserOpenRoomPlayerRegisterForm />}
+            />
+            <Route
+              path="/UserOpenRoomPlayerRegisterForm/:openroomId"
+              element={<OpenRoomSlots />}
             />
           </Route>
         </Routes>

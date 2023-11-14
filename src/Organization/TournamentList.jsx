@@ -15,6 +15,7 @@ function TournamentList() {
   const [tournaments, setTournaments] = useState([]);
 
   const { user } = useUser();
+
   const { isReady, get, del } = useAuthedRequest();
 
   useEffect(() => {
@@ -35,14 +36,19 @@ function TournamentList() {
   }, [user, get, isReady]);
 
   const handleDelete = async (id) => {
-    console.log(id);
-    try {
-      const res = await del(`http://localhost:4000/tournaments/${id}`);
-      toast.success("Tournament deleted");
-      return res;
-    } catch (error) {
-      console.log(error);
-      toast.error("Tournament not deleted , try again later");
+    const isConfirmed = window.confirm("Are you sure you want to proceed?");
+    if (isConfirmed) {
+      try {
+        const res = await del(`http://localhost:4000/tournaments/${id}`);
+        window.location.reload();
+        // toast.success("Tournament deleted");
+        return res;
+      } catch (error) {
+        console.log(error);
+        toast.error("Tournament not deleted , try again later");
+      }
+    } else {
+      return;
     }
   };
 
