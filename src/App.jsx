@@ -135,13 +135,13 @@ function App(props) {
           <Route path="/UserDailyMatchSlotBox" element={<PrivateRoute />}>
             <Route path="/UserDailyMatchSlotBox" element={<UserDailyMatchSlotBox />} />
           </Route>
-            <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
-          <Route path="/UserDailyMatchSlot" element={<PrivateRoute />}>  </Route>
+          
+            <Route path="/UserDailyMatchSlot" element={<PrivateRoute />}>  </Route>
             <Route
               path="/UserDailyMatchSlot"
               element={<UserDailyMatchSlot />}
             />
-          </Route>
+          
           <Route path="/UserOpenRoomSlotBox" element={<PrivateRoute />}>
             <Route
               path="/UserOpenRoomSlotBox"
@@ -190,10 +190,8 @@ function App(props) {
 
           <Route
             path="/UserOpenRoomPlayerRegisterForm"
-            element={<PrivateRoute />}
-          >
-            <Route
-              path="/UserOpenRoomPlayerRegisterForm"
+            element={<PrivateRoute />} >
+            <Route path="/UserOpenRoomPlayerRegisterForm"
               element={<UserOpenRoomPlayerRegisterForm />}
             />
           </Route>
