@@ -16,23 +16,29 @@ function NotificationList (props) {
   const navigate = useNavigate();
   const [tournaments, setTournaments] = useState();
   const params = useParams();
-  useEffect(() => {
-    allTournaments()
-      .then((data) => setTournaments(data))
-      .catch((err) => console.log(err));
-  }, []);
+  console.log("paramss" , params);
+  // useEffect(() => {
+  //   allTournaments()
+  //     .then((data) => setTournaments(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
   const { user } = useUser();
   const { isReady, get, del } = useAuthedRequest();
-
   useEffect(() => {
+    console.log("tournament", tournaments);
+  
+  }, [tournaments])
+  
+  useEffect(() => {
+
     const loadscrims = async () => {
       try {
         const myTournaments = await get(
-          `http://localhost:4000/UserTournamentPlayerRegisterForm/`,
+          `http://localhost:4000/UserTournamentPlayerRegisterForm/`, {}
         );
        
         console.log("myTournaments",myTournaments);
-        setTournaments(scrim);
+        setTournaments(myTournaments);
         console.log(myTournaments);
       } catch (error) {
         console.log(error);

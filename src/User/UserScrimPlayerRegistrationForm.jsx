@@ -4,8 +4,9 @@ import Footer from "../Footer/Footer";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { connect } from "react-redux";
 
-const UserScrimPlayerRegisterForm = () => {
+const UserScrimPlayerRegisterForm = (props) => {
   const { post } = useAuthedRequest();
   const params = useParams();
 
@@ -40,6 +41,9 @@ const UserScrimPlayerRegisterForm = () => {
           Player3: teamdata.Player3,
           Player4: teamdata.Player4,
           Player5: teamdata.Player5,
+          ScrimName: props.slotdetails.name,
+          ScrimDate: props.slotdetails.dateOfMatch,
+          SlotNumber:props.SlotCount.content
         }
       );
       document.getElementById("TeamName").value = "";
@@ -147,6 +151,17 @@ const UserScrimPlayerRegisterForm = () => {
       <Footer />
     </>
   );
+
+
 };
 
-export default UserScrimPlayerRegisterForm;
+const mapStateToProps = (HomeReducer) => {
+  console.log("slotdetails", HomeReducer);
+  return {
+    slotdetails: HomeReducer.selectedItems.slotdetails,
+    SlotCount: HomeReducer.selectedItems.SlotCount,
+  };
+};
+
+
+export default connect (mapStateToProps, null) (UserScrimPlayerRegisterForm);

@@ -3,48 +3,189 @@ import classes from "../Organization/OrgHome.module.css";
 import Org from "../Organization/OrgHome.module.css";
 import Footer from "../Footer/Footer";
 import imge from "../assets/ListLogo.png";
-import { UserSlotListDetails } from "../Constant";
+import {  UserTournamentSlotList } from "../Constant";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 import { useUser } from "../hooks/useUser";
 import { storeSlotCount } from "../Redux/Action";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
-
+import UnlockIcon from "../assets/UnlockIcon.png"
+import LockIcon from "../assets/LockIcon.png"
 
 function UserTournamentSlotBox(props) {
   const navigate = useNavigate();
   const { user } = useUser();
-  const { get } = useAuthedRequest();
+  const { get, isReady } = useAuthedRequest();
   const [regteam, setregteam] = useState([])
+  const [UserIconList, setUserIconList ] =useState([
+    {
+      content: "1",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+      
+    },
+    {
+      content: "2",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+      
+    },
+    {
+      content: "3",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "4",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "5",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "6",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "7",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "8",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "9",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "10",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "11",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "12",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "13",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "14",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "15",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "16",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "17",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "18",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "19",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "20",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "21",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "22",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "23",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "24",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+    {
+      content: "25",
+      image: "../src/assets/UnlockIcon.png",
+   click: true
+    },
+  ]
+  )
   //console.log(user.uid);
+  console.log("UserTournamentSlotList", UserTournamentSlotList, UserIconList);
+  
+  
+  
   useEffect(() => {
+    console.log("test");
     const handleslot = async () => {
       try {
+        console.log("props.slotdetails._id", props.slotdetails._id);
         const registeredTeam = await get(
           `http://localhost:4000/UserTournamentPlayerRegisterForm/${props.slotdetails._id}`,
           {}
         );
         setregteam(registeredTeam.registeredTeams)
+        
         console.log("registeredTeam", registeredTeam);
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong,Try Again Later");
       }
     }
-    handleslot()
+    if (isReady) { handleslot() }
 
-  }, [get])
+
+  }, [get, isReady])
 
 
   function IconUnlock(item) {
     //console.log(props.slotdetails);
+    if (item.click) {
     const tournamentId = props.slotdetails._id;
     console.log("itemcon", item);
     props.storeSlotCount(item)
 
 
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}/${user.uid}`);
+    }
   }
 
   const TournamentTeams = async () => {
@@ -52,7 +193,37 @@ function UserTournamentSlotBox(props) {
     // console.log(tournamentId);
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}`);
   };
-console.log("regteam1", regteam);
+  console.log("regteam1", regteam);
+
+  const updateImages = () => {
+    let listarray =[...UserIconList]
+    console.log("listarrayy", listarray);
+    regteam.forEach(mainObj => {
+      const matchingOtherObj = listarray.find(
+        otherObj => otherObj.content == mainObj.SlotNumber
+      );
+        console.log("matchingOtherObj", matchingOtherObj);
+      // If a matching object is found, update the Image key
+      if (matchingOtherObj) {
+        matchingOtherObj.image = "../src/assets/LockIcon.png";
+        matchingOtherObj.click= false
+      }
+    });
+    setUserIconList (listarray)
+   
+    
+  }
+  useEffect(() => {
+    console.log("useefect");
+    if (regteam.length > 0) {
+      updateImages()
+    }
+   
+    
+    
+  }, [regteam])
+  
+  console.log("UserIconList", UserIconList);
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -78,33 +249,37 @@ console.log("regteam1", regteam);
             </ul>
           </div>
           <div className={classes.mainslot}>
-            {regteam.length  && regteam.map((regitem) => {
-              console.log("regitem", regitem);
-              UserSlotListDetails.map((item) => {
+            {/* {UserSlotListDetails.map((item) => {
+              console.log("regteam", regteam);
+              let data = regteam.length && regteam.find(regitem => regitem.SlotNumber == item.content)
+              console.log("data", data);
+              return (
+                <div
+                  key={item.content}
+                  className={classes.slotbox}
+                  onClick={() => IconUnlock(item)}
+                >
+                  <img src={`${regitem.SlotNumber == item.content ? LockIcon : UnlockIcon}`} />
 
-                return (
-                  <div
-                    key={item.content}
-                    className={classes.slotbox}
-                    onClick={() => IconUnlock(item)}
-                  >
-                    <img src="../src/assets/UnlockIcon.png" />
-                    <span className =  { `${ regitem.SlotNumber==item.content ? classes.slotregbox:classes.span} `  }> {item.content}</span>
-                  </div>
-                );
-              }
-              )
-            })}
+                  <span className={classes.span}> {item.content}</span>
+                </div>
+              );
+            }
+            )
+            } */}
             {
-               UserSlotListDetails.map((item) => {
 
+               UserIconList.map((item) => {
+                console.log("itemicoon", item);
                 return (
                   <div
                     key={item.content}
                     className={classes.slotbox} 
                     onClick={() => IconUnlock(item)}
                   >
-                    <img src="../src/assets/UnlockIcon.png" />
+                    {item.click ? <img src={UnlockIcon}/> : <img src={LockIcon}/>  }
+                {console.log("itemClick", item.click)}
+
                     <span className={classes.span}> {item.content}</span>
                   </div>
                 );
@@ -136,4 +311,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserTournamentSlotBox);
+export default connect(mapStateToProps, mapDispatchToProps)(UserTournamentSlotBox) ;

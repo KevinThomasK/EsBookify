@@ -3,7 +3,7 @@ import classes from "../Organization/OrgHome.module.css";
 import Org from "../Organization/OrgHome.module.css";
 import Footer from "../Footer/Footer";
 import imge from "../assets/ListLogo.png";
-import { UserSlotListDetails } from "../Constant";
+import { UserTournamentSlotList } from "../Constant";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -49,7 +49,7 @@ function UserOpenRoomSlotBox(props) {
 
 
           <div className={classes.mainslot}>
-            {UserSlotListDetails.map((item) => {
+            {UserTournamentSlotList.map((item) => {
               return (
                 <div className={classes.slotbox}onClick={(item)=>IconUnlock(item)} >
                   <img src="../src/assets/UnlockIcon.png" />
