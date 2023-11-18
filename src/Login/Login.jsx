@@ -43,6 +43,7 @@ function Login(props) {
       localStorage.setItem("email", user.email);
       localStorage.setItem("userType", section);
       const uid = user.uid;
+      localStorage.setItem("UID",uid );
       console.log(uid);
       console.log(section);
       // check for the user
