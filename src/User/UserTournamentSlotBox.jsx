@@ -224,6 +224,10 @@ function UserTournamentSlotBox(props) {
   }, [regteam])
   
   console.log("UserIconList", UserIconList);
+
+
+
+  
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>

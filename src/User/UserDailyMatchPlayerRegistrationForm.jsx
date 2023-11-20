@@ -6,8 +6,15 @@ import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
 import Footer from "../Footer/Footer";
 import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";      
+import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { connect } from "react-redux";
 
-const UserDailyMatchPlayerRegisterForm = () => {
+const UserDailyMatchPlayerRegisterForm = (props) => {
+  const { post } = useAuthedRequest();
+  const params = useParams();
+  const navigate= useNavigate ()
+console.log("params", params);
   const [teamdata, setTeamData] = useState({
     TeamName: "",
     Teamtag: "",
@@ -34,26 +41,45 @@ const UserDailyMatchPlayerRegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formattedName = teamdata.scrimsName.trim();
-    // newScrims({
-    //     ...scrimsData,
-    //     scrimsDate: formattedDate,
-    //     scrimsTime: formattedTime,
-    //     scrimsName: formattedName,
-    // })
-    //     .then((res) => console.log(res))
-    //     .catch((err) => toast.error("something went wrong"));
-    // console.log("hi there");
+    try {
+      const registeredTeam = await post(
+        `http://localhost:4000/UserDailyMatchPlayerRegisterForm/${params.dailymatchId}/${params.userId}`,
+        {
+          TeamName: teamdata.TeamName,
+          TeamTag: teamdata.Teamtag,
+          Player1: teamdata.Player1,
+          Player2: teamdata.Player2,
+          Player3: teamdata.Player3,
+          Player4: teamdata.Player4,
+          Player5: teamdata.Player5,
+          DailyMatchName: props.slotdetails.name,
+          DailyMatchDate: props.slotdetails.dateOfMatch,
+          SlotNumber:props.SlotCount.content
 
-    setTeamData({
-      TeamName: "",
-      Teamtag: "",
-      Player1: "",
-      Player2: "",
-      Player3: "",
-      Player4: "",
-      Player5: "",
-    });
+        }
+      );
+      setTeamData({
+        TeamName: "",
+        Teamtag: "",
+        Player1: "",
+        Player2: "",
+        Player3: "",
+        Player4: "",
+        Player5: "",
+      });
+      toast.success("Registered Tournament Succussfully");
+      console.log("registerTeam" , registeredTeam);
+      navigate("/UserDailyMatchSlotBox")
+      return registeredTeam;
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong,Try Again Later");
+    }
+
+   
+    
+
+   
   };
 
   return (
@@ -159,4 +185,13 @@ const UserDailyMatchPlayerRegisterForm = () => {
   );
 };
 
-export default UserDailyMatchPlayerRegisterForm;
+const mapStateToProps = (HomeReducer) => {
+  console.log("slotdetails", HomeReducer);
+  return {
+    slotdetails: HomeReducer.selectedItems.slotdetails,
+    SlotCount: HomeReducer.selectedItems.SlotCount,
+  };
+};
+
+
+export default connect (mapStateToProps, null) (UserDailyMatchPlayerRegisterForm);

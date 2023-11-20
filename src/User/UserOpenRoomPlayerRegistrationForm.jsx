@@ -6,8 +6,15 @@ import useFormatTime from "../hooks/useFormatTime";
 import useFormatDate from "../hooks/useFormatDate";
 import Footer from "../Footer/Footer";
 import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";      
+import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { connect } from "react-redux";
 
-const UserOpenRoomPlayerRegisterForm = () => {
+const UserOpenRoomPlayerRegisterForm = (props) => {
+  const { post } = useAuthedRequest();
+  const params = useParams();
+  const navigate= useNavigate ()
+console.log("params", params);
   const [teamdata, setTeamData] = useState({
     TeamName: "",
     Teamtag: "",
@@ -34,7 +41,25 @@ const UserOpenRoomPlayerRegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formattedName = scrimsData.scrimsName.trim();
+    
+
+    try {
+      const registeredTeam = await post(
+        `http://localhost:4000/UserOpenRoomPlayerRegisterForm/${params.openroomid}/${params.userId}`,
+        {
+          TeamName: teamdata.TeamName,
+          TeamTag: teamdata.Teamtag,
+          Player1: teamdata.Player1,
+          Player2: teamdata.Player2,
+          Player3: teamdata.Player3,
+          Player4: teamdata.Player4,
+          Player5: teamdata.Player5,
+          OpenRoomName: props.slotdetails.name,
+          OpenRoomDate: props.slotdetails.dateOfMatch,
+          SlotNumber:props.SlotCount.content
+
+        }
+      );
     // newScrims({
     //     ...scrimsData,
     //     scrimsDate: formattedDate,
@@ -54,6 +79,17 @@ const UserOpenRoomPlayerRegisterForm = () => {
       Player4: "",
       Player5: "",
     });
+
+    toast.success("Registered Tournament Succussfully");
+    console.log("registerTeam" , registeredTeam);
+    navigate("/UserDailyMatchSlotBox")
+    return registeredTeam;
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong,Try Again Later");
+  }
+
+
   };
 
   return (
@@ -159,4 +195,13 @@ const UserOpenRoomPlayerRegisterForm = () => {
   );
 };
 
-export default UserOpenRoomPlayerRegisterForm;
+const mapStateToProps = (HomeReducer) => {
+  console.log("slotdetails", HomeReducer);
+  return {
+    slotdetails: HomeReducer.selectedItems.slotdetails,
+    SlotCount: HomeReducer.selectedItems.SlotCount,
+  };
+};
+
+
+export default connect (mapStateToProps, null) (UserOpenRoomPlayerRegisterForm);

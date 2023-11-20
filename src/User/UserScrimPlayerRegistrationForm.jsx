@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from "../pages/CreateTournament.module.css";
 import Footer from "../Footer/Footer";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
 import { connect } from "react-redux";
@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 const UserScrimPlayerRegisterForm = (props) => {
   const { post } = useAuthedRequest();
   const params = useParams();
+  const navigate= useNavigate ()
 
   const [teamdata, setTeamData] = useState({
     TeamName: "",
@@ -53,7 +54,9 @@ const UserScrimPlayerRegisterForm = (props) => {
       document.getElementById("Player3").value = "";
       document.getElementById("Player4").value = "";
       document.getElementById("Player5").value = "";
-      toast.success("Registered Tournament Succussfully");
+      toast.success("Registered Tournament Successfully");
+      console.log("registerTeam" , registeredTeam);
+      navigate("/UserScrimSlotBox")
       return registeredTeam;
     } catch (error) {
       console.log(error);
