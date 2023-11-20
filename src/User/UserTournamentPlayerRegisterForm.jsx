@@ -45,8 +45,8 @@ console.log("params", params);
           Player5: teamdata.Player5,
           TournamentName: props.slotdetails.name,
           TournamentDate: props.slotdetails.dateOfMatch,
-
           SlotNumber:props.SlotCount.content
+
         }
       );
       document.getElementById("TeamName").value = "";

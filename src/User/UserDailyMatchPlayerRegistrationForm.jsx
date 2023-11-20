@@ -3,12 +3,15 @@ import classes from "../pages/CreateTournament.module.css";
 import Footer from "../Footer/Footer";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useNavigate} from "react-router-dom";      
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { connect } from "react-redux";
 
-const UserDailyMatchPlayerRegisterForm = () => {
+const UserDailyMatchPlayerRegisterForm = (props) => {
   const { post } = useAuthedRequest();
   const params = useParams();
-
+  const navigate= useNavigate ()
+console.log("params", params);
   const [teamdata, setTeamData] = useState({
     TeamName: "",
     Teamtag: "",
@@ -40,21 +43,34 @@ const UserDailyMatchPlayerRegisterForm = () => {
           Player3: teamdata.Player3,
           Player4: teamdata.Player4,
           Player5: teamdata.Player5,
+          DailyMatchName: props.slotdetails.name,
+          DailyMatchDate: props.slotdetails.dateOfMatch,
+          SlotNumber:props.SlotCount.content
+
         }
       );
-      document.getElementById("TeamName").value = "";
-      document.getElementById("Teamtag").value = "";
-      document.getElementById("Player1").value = "";
-      document.getElementById("Player2").value = "";
-      document.getElementById("Player3").value = "";
-      document.getElementById("Player4").value = "";
-      document.getElementById("Player5").value = "";
+      setTeamData({
+        TeamName: "",
+        Teamtag: "",
+        Player1: "",
+        Player2: "",
+        Player3: "",
+        Player4: "",
+        Player5: "",
+      });
       toast.success("Registered Tournament Succussfully");
+      console.log("registerTeam" , registeredTeam);
+      navigate("/UserDailyMatchSlotBox")
       return registeredTeam;
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong,Try Again Later");
     }
+
+   
+    
+
+   
   };
 
   return (
@@ -149,4 +165,13 @@ const UserDailyMatchPlayerRegisterForm = () => {
   );
 };
 
-export default UserDailyMatchPlayerRegisterForm;
+const mapStateToProps = (HomeReducer) => {
+  console.log("slotdetails", HomeReducer);
+  return {
+    slotdetails: HomeReducer.selectedItems.slotdetails,
+    SlotCount: HomeReducer.selectedItems.SlotCount,
+  };
+};
+
+
+export default connect (mapStateToProps, null) (UserDailyMatchPlayerRegisterForm);
