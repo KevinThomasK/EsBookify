@@ -175,55 +175,46 @@ function App(props) {
               path="/UserTournamentPlayerRegisterForm/:tournamentId/:userId"
               element={<UserTournamentPlayerRegisterForm />}
             />
-            <Route
-              path="/UserTournamentPlayerRegisterForm/:tournamentId"
-              element={<TournamentSlots />}
-            />
-          </Route>
+            <Route path="/UserTournamentPlayerRegisterForm/:tournamentId"  element={<TournamentSlots />} />  </Route>
+              
+             
+            
+            
 
           <Route path="/UserScrimPlayerRegisterForm" element={<PrivateRoute />}>
-            <Route
-              path="/UserScrimPlayerRegisterForm/:scrimId/:userId"
-              element={<UserScrimPlayerRegisterForm />}
-            />
-            <Route
-              path="/UserScrimPlayerRegisterForm/:scrimId"
-              element={<ScrimSlots />}
-            />
+            <Route path="/UserScrimPlayerRegisterForm/:scrimId/:userId" element={<UserScrimPlayerRegisterForm />} />
+           
+            <Route path="/UserScrimPlayerRegisterForm/:scrimId" element={<ScrimSlots />}  />
+              
           </Route>
+           
 
-          <Route
-            path="/UserDailyMatchPlayerRegisterForm"
-            element={<PrivateRoute />}
-          >
-            <Route
-              path="/UserDailyMatchPlayerRegisterForm/:dailymatchId/:userId"
-              element={<UserDailyMatchPlayerRegisterForm />}
-            />
-            <Route
-              path="/UserDailyMatchPlayerRegisterForm/:dailymatchId"
-              element={<DailyMatchSlots />}
-            />
-          </Route>
+         
+          
+           
+          
+          <Route path="/UserDailyMatchPlayerRegisterForm"  element={<PrivateRoute />} >
+          <Route path="/UserDailyMatchPlayerRegisterForm/:dailymatchId/:userId"  element={<UserDailyMatchPlayerRegisterForm />}  />
+        <Route path="/UserDailyMatchPlayerRegisterForm/:dailymatchId" element={<DailyMatchSlots />} />
+       </Route>
 
-          <Route
-            path="/UserOpenRoomPlayerRegisterForm"
-            element={<PrivateRoute />}
-          >
-            <Route
-              path="/UserOpenRoomPlayerRegisterForm/:openroomId/:userId"
-              element={<UserOpenRoomPlayerRegisterForm />}
-            />
-            <Route
-              path="/UserOpenRoomPlayerRegisterForm/:openroomId"
-              element={<OpenRoomSlots />}
-            />
+
+         
+       <Route  path="/UserOpenRoomPlayerRegisterForm"  element={<PrivateRoute />} >
+            <Route path="/UserOpenRoomPlayerRegisterForm/:openroomId/:userId"  element={<UserOpenRoomPlayerRegisterForm />}  />
+            <Route path="/UserOpenRoomPlayerRegisterForm/:openroomId"  element={<OpenRoomSlots />}/>
           </Route>
+           
+             
+           
 
           <Route path="/NotificationList" element={<PrivateRoute />}>
             <Route path="/NotificationList" element={<NotificationList />} />
           </Route>
         </Routes>
+
+
+        
       </Router>
 
       <ToastContainer

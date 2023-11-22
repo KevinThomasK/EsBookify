@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import classes from "../pages/CreateTournament.module.css";
 import Footer from "../Footer/Footer";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";      
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { connect } from "react-redux";
 
-const UserOpenRoomPlayerRegisterForm = () => {
+const UserOpenRoomPlayerRegisterForm = (props) => {
   const { post } = useAuthedRequest();
   const params = useParams();
-
+  const navigate= useNavigate ()
+console.log("params", params);
   const [teamdata, setTeamData] = useState({
     TeamName: "",
     Teamtag: "",
@@ -29,9 +31,11 @@ const UserOpenRoomPlayerRegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    
+
     try {
       const registeredTeam = await post(
-        `http://localhost:4000/UserOpenRoomPlayerRegisterForm/${params.openroomId}/${params.userId}`,
+        `http://localhost:4000/UserOpenRoomPlayerRegisterForm/${params.openroomid}/${params.userId}`,
         {
           TeamName: teamdata.TeamName,
           TeamTag: teamdata.Teamtag,
@@ -40,21 +44,42 @@ const UserOpenRoomPlayerRegisterForm = () => {
           Player3: teamdata.Player3,
           Player4: teamdata.Player4,
           Player5: teamdata.Player5,
+          OpenRoomName: props.slotdetails.name,
+          OpenRoomDate: props.slotdetails.dateOfMatch,
+          SlotNumber:props.SlotCount.content
+
         }
       );
-      document.getElementById("TeamName").value = "";
-      document.getElementById("Teamtag").value = "";
-      document.getElementById("Player1").value = "";
-      document.getElementById("Player2").value = "";
-      document.getElementById("Player3").value = "";
-      document.getElementById("Player4").value = "";
-      document.getElementById("Player5").value = "";
-      toast.success("Registered OpenRoom Succussfully");
-      return registeredTeam;
-    } catch (error) {
-      console.log(error);
-      toast.error("Try Later");
-    }
+    // newScrims({
+    //     ...scrimsData,
+    //     scrimsDate: formattedDate,
+    //     scrimsTime: formattedTime,
+    //     scrimsName: formattedName,
+    // })
+    //     .then((res) => console.log(res))
+    //     .catch((err) => toast.error("something went wrong"));
+    // console.log("hi there");
+
+    setTeamData({
+      TeamName: "",
+      Teamtag: "",
+      Player1: "",
+      Player2: "",
+      Player3: "",
+      Player4: "",
+      Player5: "",
+    });
+
+    toast.success("Registered Tournament Succussfully");
+    console.log("registerTeam" , registeredTeam);
+    navigate("/UserDailyMatchSlotBox")
+    return registeredTeam;
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong,Try Again Later");
+  }
+
+
   };
 
   return (
@@ -149,4 +174,13 @@ const UserOpenRoomPlayerRegisterForm = () => {
   );
 };
 
-export default UserOpenRoomPlayerRegisterForm;
+const mapStateToProps = (HomeReducer) => {
+  console.log("slotdetails", HomeReducer);
+  return {
+    slotdetails: HomeReducer.selectedItems.slotdetails,
+    SlotCount: HomeReducer.selectedItems.SlotCount,
+  };
+};
+
+
+export default connect (mapStateToProps, null) (UserOpenRoomPlayerRegisterForm);
