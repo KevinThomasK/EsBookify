@@ -37,6 +37,11 @@ import ScrimSlots from "./Slots/ScrimSlots";
 import DailyMatchSlots from "./Slots/DailyMatchSlots";
 import OpenRoomSlots from "./Slots/OpenRoomSlots";
 import NotificationList from "./User/NotificationList";
+import PointTable from "./Organization/PointTable/PointTable";
+import AddPoints from "./Organization/PointTable/AddPoints";
+import AddPointsT from "./Organization/PointTable/AddPoints-T";
+import AddPointsS from "./Organization/PointTable/AddPoints-S";
+import AddPointsD from "./Organization/PointTable/AddPoints-D";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -59,6 +64,19 @@ function App(props) {
           <Route path="/unauthorized" element={<UnAuthorized />} />
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route path="/point-table" element={<PrivateRoute />}>
+            <Route path="/point-table" element={<PointTable />} />
+            <Route path="/point-table/:matchId" element={<AddPoints />} />
+          </Route>
+          <Route path="/point-table-t" element={<PrivateRoute />}>
+            <Route path="/point-table-t/:tId" element={<AddPointsT />} />
+          </Route>
+          <Route path="/point-table-s" element={<PrivateRoute />}>
+            <Route path="/point-table-s/:sId" element={<AddPointsS />} />
+          </Route>
+          <Route path="/point-table-d" element={<PrivateRoute />}>
+            <Route path="/point-table-d/:dId" element={<AddPointsD />} />
           </Route>
           <Route path="/create-tournament" element={<PrivateRoute />}>
             <Route path="/create-tournament" element={<CreateTournament />} />

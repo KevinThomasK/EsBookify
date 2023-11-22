@@ -9,11 +9,10 @@ import { connect } from "react-redux";
 import Table from "./assets/Table.png";
 import Activepost from "./assets/Activepost.png";
 
-
 function HomePage(props) {
   const navigate = useNavigate();
-  let loginDetails =window.localStorage.getItem("loginDetails")
-  console.log("loginDetails",loginDetails);
+  let loginDetails = window.localStorage.getItem("loginDetails");
+  // console.log("loginDetails", loginDetails);
   return (
     <>
       <div className={classes.MainBackground}>
@@ -29,10 +28,12 @@ function HomePage(props) {
             </h1>
           </div>
           <div className={classes.MainList}>
-            {loginDetails=="user" ?
+            {loginDetails == "user" ? (
               <h3 className={classes.TournamentHeading}>
-                START YOUR <span className={classes.animationSpan}> BATTLE</span>
-              </h3> :
+                START YOUR{" "}
+                <span className={classes.animationSpan}> BATTLE</span>
+              </h3>
+            ) : (
               <div>
                 <div className={classes.matchdiv}>
                   <h1 className={classes.matchheading}> Manage Your Match</h1>
@@ -41,7 +42,7 @@ function HomePage(props) {
                   <ul className="list-none mx-auto mt-10 flex flex-col sm:flex-row items-center gap-12">
                     <li
                       onClick={() => {
-                        navigate("");
+                        navigate("/point-table");
                       }}
                       className="w-1/3 h-80 justify-center sm:w-5/6  flex flex-col items-center border border-solid rounded-md border-orange-500 hover:border-blue-500 hover:cursor-pointer"
                     >
@@ -59,16 +60,16 @@ function HomePage(props) {
                   </ul>
                 </section>
                 <h1 className={classes.createheading}> Create Your Match</h1>
-              </div>}
+              </div>
+            )}
           </div>
-          <Matches isHome={ loginDetails=="user" ?  true :false}  />
+          <Matches isHome={loginDetails == "user" ? true : false} />
         </div>
       </div>
       <Footer />
     </>
   );
 }
-
 
 const mapStateToProps = (HomeReducer) => {
   //console.log("Cart", HomeReducer)
@@ -78,4 +79,3 @@ const mapStateToProps = (HomeReducer) => {
 };
 
 export default connect(mapStateToProps, null)(HomePage);
-

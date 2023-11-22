@@ -102,7 +102,7 @@ export default function EditOpenRooms() {
             type="text"
             name="tournamentName"
             value={formData.tournamentName}
-            placeholder="Tournament Name"
+            placeholder="Open-Room Name"
             required
             onChange={handleChange}
           />

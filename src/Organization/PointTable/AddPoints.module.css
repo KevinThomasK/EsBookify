@@ -1,0 +1,17 @@
+.Mainbackground{
+    height: 100vh;
+    background-image: url("../../assets/bg.jpg");
+    background-position:center;
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+   
+}
+.gradient {
+    opacity: 0.89;
+    height: 100%;
+    width: 100%;
+    background: black;
+    padding-top: 90px;
+    padding-left: 30%;
+}
