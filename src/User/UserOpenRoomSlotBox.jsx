@@ -262,7 +262,10 @@ console.log("UserIconList", UserIconList);
           <div className={classes.mainslot}>
             {/* {UserTournamentSlotList.map((item) => {
               return (
-                <div className={classes.slotbox}onClick={(item)=>IconUnlock(item)} >
+                <div
+                  className={classes.slotbox}
+                  onClick={(item) => IconUnlock(item)}
+                >
                   <img src="../src/assets/UnlockIcon.png" />
                   <span className={classes.span}> {item.content}</span>
                 </div>
@@ -300,7 +303,7 @@ UserIconList.map((item) => {
 }
 
 const mapStateToProps = (HomeReducer) => {
-  console.log("slotdetails", HomeReducer)
+  console.log("slotdetails", HomeReducer);
   return {
     slotdetails: HomeReducer.selectedItems.slotdetails
   }

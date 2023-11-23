@@ -9,8 +9,8 @@ import { connect } from "react-redux";
 const UserTournamentPlayerRegisterForm = (props) => {
   const { post } = useAuthedRequest();
   const params = useParams();
-  const navigate= useNavigate ()
-console.log("params", params);
+  const navigate = useNavigate();
+  //console.log("params", params);
 
   const [teamdata, setTeamData] = useState({
     TeamName: "",
@@ -45,8 +45,13 @@ console.log("params", params);
           Player5: teamdata.Player5,
           TournamentName: props.slotdetails.name,
           TournamentDate: props.slotdetails.dateOfMatch,
+<<<<<<< HEAD
+
+          SlotNumber: props.SlotCount.content,
+=======
           SlotNumber:props.SlotCount.content
 
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
         }
       );
       document.getElementById("TeamName").value = "";
@@ -57,8 +62,8 @@ console.log("params", params);
       document.getElementById("Player4").value = "";
       document.getElementById("Player5").value = "";
       toast.success("Registered Tournament Succussfully");
-      console.log("registerTeam" , registeredTeam);
-      navigate("/UserTournamentSlotBox")
+      console.log("registerTeam", registeredTeam);
+      navigate("/UserTournamentSlotBox");
       return registeredTeam;
     } catch (error) {
       console.log(error);
@@ -166,4 +171,4 @@ const mapStateToProps = (HomeReducer) => {
   };
 };
 
-export default connect(mapStateToProps, null) (UserTournamentPlayerRegisterForm);
+export default connect(mapStateToProps, null)(UserTournamentPlayerRegisterForm);

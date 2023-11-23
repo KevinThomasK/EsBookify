@@ -106,7 +106,7 @@ export default function CreateDailyMatch() {
             type="text"
             name="tournamentName"
             value={formData.tournamentName}
-            placeholder="Tournament Name"
+            placeholder="Daily Match Name"
             required
             onChange={handleChange}
             autoFocus

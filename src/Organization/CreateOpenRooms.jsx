@@ -106,7 +106,7 @@ export default function CreateOpenRoom() {
             type="text"
             name="tournamentName"
             value={formData.tournamentName}
-            placeholder="Tournament Name"
+            placeholder="OpenRoom Name"
             required
             onChange={handleChange}
             autoFocus

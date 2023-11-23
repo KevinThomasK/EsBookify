@@ -10,12 +10,19 @@ import { useUser } from "../hooks/useUser";
 import { storeSlotCount } from "../Redux/Action";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
+<<<<<<< HEAD
+=======
 import UnlockIcon from "../assets/UnlockIcon.png"
 import LockIcon from "../assets/LockIcon.png"
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
 
 function UserTournamentSlotBox(props) {
   const navigate = useNavigate();
   const { user } = useUser();
+<<<<<<< HEAD
+  const { get } = useAuthedRequest();
+  const [regteam, setregteam] = useState([]);
+=======
   const { get, isReady } = useAuthedRequest();
   const [regteam, setregteam] = useState([])
   const [UserIconList, setUserIconList ] =useState([
@@ -148,6 +155,7 @@ function UserTournamentSlotBox(props) {
     },
   ]
   )
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
   //console.log(user.uid);
   console.log("UserTournamentSlotList", UserTournamentSlotList, UserIconList);
   
@@ -162,27 +170,37 @@ function UserTournamentSlotBox(props) {
           `http://localhost:4000/UserTournamentPlayerRegisterForm/${props.slotdetails._id}`,
           {}
         );
+<<<<<<< HEAD
+        setregteam(registeredTeam.registeredTeams);
+        //console.log("registeredTeam", registeredTeam);
+=======
         setregteam(registeredTeam.registeredTeams)
         
         console.log("registeredTeam", registeredTeam);
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong,Try Again Later");
       }
+<<<<<<< HEAD
+    };
+    handleslot();
+  }, [get]);
+=======
     }
     if (isReady) { handleslot() }
 
 
   }, [get, isReady])
 
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
 
   function IconUnlock(item) {
     //console.log(props.slotdetails);
     if (item.click) {
     const tournamentId = props.slotdetails._id;
-    console.log("itemcon", item);
-    props.storeSlotCount(item)
-
+    //console.log("itemcon", item);
+    props.storeSlotCount(item);
 
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}/${user.uid}`);
     }
@@ -190,9 +208,11 @@ function UserTournamentSlotBox(props) {
 
   const TournamentTeams = async () => {
     const tournamentId = props.slotdetails._id;
-    // console.log(tournamentId);
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}`);
   };
+<<<<<<< HEAD
+
+=======
   console.log("regteam1", regteam);
 
   const updateImages = () => {
@@ -228,6 +248,7 @@ function UserTournamentSlotBox(props) {
 
 
   
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -253,16 +274,52 @@ function UserTournamentSlotBox(props) {
             </ul>
           </div>
           <div className={classes.mainslot}>
+<<<<<<< HEAD
+            {regteam.length &&
+              regteam.map((regitem) => {
+                //console.log("regitem", regitem);
+                UserSlotListDetails.map((item) => {
+                  return (
+                    <div
+                      key={item.content}
+                      className={classes.slotbox}
+                      onClick={() => IconUnlock(item)}
+                    >
+                      <img src="../src/assets/UnlockIcon.png" />
+                      <span
+                        className={`${
+                          regitem.SlotNumber == item.content
+                            ? classes.slotregbox
+                            : classes.span
+                        } `}
+                      >
+                        {" "}
+                        {item.content}
+                      </span>
+                    </div>
+                  );
+                });
+              })}
+            {UserSlotListDetails.map((item) => {
+=======
             {/* {UserSlotListDetails.map((item) => {
               console.log("regteam", regteam);
               let data = regteam.length && regteam.find(regitem => regitem.SlotNumber == item.content)
               console.log("data", data);
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
               return (
                 <div
                   key={item.content}
                   className={classes.slotbox}
                   onClick={() => IconUnlock(item)}
                 >
+<<<<<<< HEAD
+                  <img src="../src/assets/UnlockIcon.png" />
+                  <span className={classes.span}> {item.content}</span>
+                </div>
+              );
+            })}
+=======
                   <img src={`${regitem.SlotNumber == item.content ? LockIcon : UnlockIcon}`} />
 
                   <span className={classes.span}> {item.content}</span>
@@ -290,6 +347,7 @@ function UserTournamentSlotBox(props) {
               }
               )
             }
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
           </div>
         </div>
       </div>
@@ -314,5 +372,12 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+<<<<<<< HEAD
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserTournamentSlotBox);
+=======
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserTournamentSlotBox) ;
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba

@@ -12,6 +12,7 @@ function ScrimsList() {
   const [tournaments, setTournaments] = useState([]);
 
   const { user } = useUser();
+
   const { isReady, get, del } = useAuthedRequest();
 
   useEffect(() => {
@@ -32,13 +33,19 @@ function ScrimsList() {
   }, [user, get, isReady]);
 
   const handleDelete = async (id) => {
-    try {
-      const res = await del(`http://localhost:4000/scrims/${id}`);
-      toast.success("Scrim deleted");
-      return res;
-    } catch (error) {
-      console.log(error);
-      toast.error("Scrim not deleted , try again later");
+    const isConfirmed = window.confirm("Are you sure you want to proceed?");
+    if (isConfirmed) {
+      try {
+        const res = await del(`http://localhost:4000/scrims/${id}`);
+        window.location.reload();
+        // toast.success("Scrim deleted");
+        return res;
+      } catch (error) {
+        console.log(error);
+        toast.error("Scrim not deleted , Try Again Later");
+      }
+    } else {
+      return;
     }
   };
 

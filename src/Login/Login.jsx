@@ -36,6 +36,7 @@ function Login(props) {
   const [org, setOrg] = useState(false);
   const location = useNavigate();
   const [section, setSection] = useState("user");
+
   const handleClick = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -43,9 +44,13 @@ function Login(props) {
       localStorage.setItem("email", user.email);
       localStorage.setItem("userType", section);
       const uid = user.uid;
+<<<<<<< HEAD
+
+=======
       localStorage.setItem("UID",uid );
       console.log(uid);
       console.log(section);
+>>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
       // check for the user
       newUser({
         uid: uid,
@@ -69,30 +74,13 @@ function Login(props) {
       // if (section == "org") {
       //   location("/OrganizationHomepage");
       // }
-      window.localStorage.setItem("loginDetails",section)
+      window.localStorage.setItem("loginDetails", section);
       props.storeIdentifier(section);
       toast.success("Signed In");
     } catch (err) {
       props.storeIdentifier(section);
     }
   };
-
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((response) => {
-  //     if (response) {
-  //       response.getIdToken().then((token) => {
-  //         window.localStorage.setItem("auth", "true");
-
-  //         validateOrg(token).then((data) => {
-
-  //         });
-  //       });
-  //     } else {
-
-  //       window.localStorage.setItem("auth", "false");
-  //     }
-  //   });
-  // }, []);
 
   function onCaptchVerify() {
     if (!window.recaptchaVerifier) {
@@ -116,7 +104,7 @@ function Login(props) {
       );
     }
   }
-  const onSignup = () => {
+  const onSignup = async () => {
     // const isValidCountryCallingCode = PhoneNumber.isValidCountryCallingCode(value);
     // const formattedPhoneNumber = formatPhoneNumber(ph, CountryCode);
     // console.log("formattedPhoneNumber" ,formattedPhoneNumber);
@@ -139,11 +127,12 @@ function Login(props) {
           //console.log(confirmationResult);
           setShowOTP(true); // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
-            console.log("testing");
+          console.log("testing");
           window.confirmationResult = confirmationResult; // ...
         })
+        .then(console.log("the USER is", auth))
         .catch((error) => {
-          console.log("testing2",error);
+          console.log("testing2", error);
           if (error instanceof FirebaseError) {
             console.log(error, error.code, error.message);
             if (error.code === "auth/invalid-phone-number") {
@@ -221,8 +210,7 @@ function Login(props) {
                   </span>
                 ) : null}
                 <div className={classes.loginBtn}>
-                  <button onClick={() => onSignup()}>
-                    Login</button>
+                  <button onClick={() => onSignup()}>Login</button>
                 </div>
                 <div className={classes.flex}>
                   <div className={classes.underline}></div>

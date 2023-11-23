@@ -287,7 +287,7 @@ UserIconList.map((item) => {
 }
 
 const mapStateToProps = (HomeReducer) => {
-  console.log("slotdetails", HomeReducer)
+  console.log("slotdetails", HomeReducer);
   return {
     slotdetails: HomeReducer.selectedItems.slotdetails
   }

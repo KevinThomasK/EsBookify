@@ -106,7 +106,7 @@ export default function CreateScrim() {
             type="text"
             name="tournamentName"
             value={formData.tournamentName}
-            placeholder="Tournament Name"
+            placeholder="Scrim Name"
             required
             onChange={handleChange}
             autoFocus
