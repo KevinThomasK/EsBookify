@@ -159,8 +159,7 @@ export default function CreateTournament() {
           />
           <button
             type="submit"
-            className="w-full text-[#ff8a01] bg-gray-800/80 py-3 font-bold text-2xl mb-60"
-          >
+            className="w-full text-[#ff8a01] bg-gray-800/80 py-3 font-bold text-2xl mb-60" >
             Register
           </button>
         </form>

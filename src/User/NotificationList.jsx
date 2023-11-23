@@ -34,7 +34,7 @@ function NotificationList (props) {
     const loadscrims = async () => {
       try {
         const myTournaments = await get(
-          `http://localhost:4000/UserTournamentPlayerRegisterForm/`, {}
+          `http://localhost:4000/UserTournamentPlayerRegisterForm/`
         );
        
         console.log("myTournaments",myTournaments);
