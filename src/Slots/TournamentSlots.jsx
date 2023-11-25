@@ -17,11 +17,12 @@ const TournamentSlots = (props) => {
   let count = 1;
   const getRegisteredTeams = async () => {
     try {
+      console.log("type", params.tournamentId, typeof(params.tournamentId));
       const res = await axios.get(
         `http://localhost:4000/UserTournamentPlayerRegisterForm/${params.tournamentId}`
       );
       const data = res.data.registeredTeams;
-      //console.log(data);
+      console.log("data", data);
       setTeams(data);
     } catch (error) {
       console.log(error);
@@ -30,7 +31,7 @@ const TournamentSlots = (props) => {
   useEffect(() => {
     getRegisteredTeams();
   }, []);
-
+console.log("teams", teams);
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>

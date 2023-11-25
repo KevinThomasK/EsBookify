@@ -42,6 +42,7 @@ import AddPoints from "./Organization/PointTable/AddPoints";
 import AddPointsT from "./Organization/PointTable/AddPoints-T";
 import AddPointsS from "./Organization/PointTable/AddPoints-S";
 import AddPointsD from "./Organization/PointTable/AddPoints-D";
+import ActivePost from "./Organization/ActivePost/ActivePost";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -205,16 +206,24 @@ function App(props) {
             <Route path="/UserOpenRoomPlayerRegisterForm/:openroomId"  element={<OpenRoomSlots />}/>
           </Route>
            
-             
+           
            
 
           <Route path="/NotificationList" element={<PrivateRoute />}>
             <Route path="/NotificationList" element={<NotificationList />} />
           </Route>
-        </Routes>
 
 
-        
+          <Route path="/ActivePost" element={<PrivateRoute />}>
+            <Route path="/ActivePost" element={<ActivePost />} />
+          </Route>
+
+
+
+       
+
+
+          </Routes> 
       </Router>
 
       <ToastContainer

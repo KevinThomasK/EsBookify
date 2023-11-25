@@ -45,13 +45,8 @@ const UserTournamentPlayerRegisterForm = (props) => {
           Player5: teamdata.Player5,
           TournamentName: props.slotdetails.name,
           TournamentDate: props.slotdetails.dateOfMatch,
-<<<<<<< HEAD
-
-          SlotNumber: props.SlotCount.content,
-=======
           SlotNumber:props.SlotCount.content
 
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
         }
       );
       document.getElementById("TeamName").value = "";
