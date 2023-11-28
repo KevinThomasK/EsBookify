@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import createTournamentPageImg from "../assets/Rectangle 25.png";
 import classes from "./CreateTournament.module.css";
 import Footer from "../Footer/Footer";
@@ -8,9 +8,11 @@ import useFormatDate from "../hooks/useFormatDate";
 import useMinDate from "../hooks/useMinDate";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import axios from "axios";
 
 export default function EditTournament() {
-  const { put } = useAuthedRequest();
+  const { put } = useAuthedRequest(); 
+
 
   const [formData, setFormData] = useState({
     tournamentName: "",
@@ -23,7 +25,29 @@ export default function EditTournament() {
   let minDate = useMinDate();
 
   const params = useParams();
-
+ const getRegisteredTeams = async () => {
+    try {
+      console.log("type",params);
+      const res = await axios.get(
+        `http://localhost:4000/UserTournamentPlayerRegisterForm/${params.id}`
+      );
+      const data = res.data.tournament;
+      setFormData({
+        tournamentName: data.name,
+        tournamentDate: data.dateOfMatch ,
+        tournamentTime: data.idpTime,
+        prizePool: data.prizePool,
+        rules: data.rules,
+      })
+      console.log("data", res);
+      // setTeams(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getRegisteredTeams();
+  }, []);
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,

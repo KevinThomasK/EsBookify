@@ -5,10 +5,14 @@ import imge from "../../assets/ListLogo.png";
 import downloadicon from "../../assets/DownloadIcon.svg";
 import shareicon from "../../assets/ShareIcon.svg";
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router';
+import { useUser } from '../../hooks/useUser';
 
 
 function ActivePostTeamList(props) {
     const [teams, setTeams] = useState("");
+    const navigate = useNavigate ()
+    const { user } = useUser();
     let count =1
     const getRegisteredTeams = async () => {
         try {
@@ -26,6 +30,9 @@ function ActivePostTeamList(props) {
       useEffect(() => {
         getRegisteredTeams();
       }, []);
+      function idpclick  () {
+        navigate (`/SendIDP/${props.slotcontent._id}/${user.uid}` )
+      }
   return (
     
     <div className={Org.Orgbackground}>
@@ -50,7 +57,9 @@ function ActivePostTeamList(props) {
           </ul>
         </div>
         <div className={classes.tableheading}>
-        <h4> SEND IDP </h4>
+        <h4
+        onClick={idpclick}>
+           SEND IDP </h4>
           <h4> SLOT LIST </h4>
           <img src={downloadicon}></img>
           <img src={shareicon}></img>

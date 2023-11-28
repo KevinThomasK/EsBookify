@@ -43,6 +43,7 @@ import AddPointsT from "./Organization/PointTable/AddPoints-T";
 import AddPointsS from "./Organization/PointTable/AddPoints-S";
 import AddPointsD from "./Organization/PointTable/AddPoints-D";
 import ActivePost from "./Organization/ActivePost/ActivePost";
+import SendIDP from "./Organization/ActivePost/SendIDP";
 
 function App(props) {
   const [loginIsShown, setLoginIsShown] = useState(false);
@@ -84,7 +85,7 @@ function App(props) {
           </Route>
           <Route path="/updatetournament" element={<PrivateRoute />}>
             <Route
-              path="/updatetournament/:tournamentId"
+              path="/updatetournament/:tournamentId/:id"
               element={<EditTournament />}
             />
           </Route>
@@ -218,7 +219,9 @@ function App(props) {
             <Route path="/ActivePost" element={<ActivePost />} />
           </Route>
 
-
+          <Route path="/SendIDP" element={<PrivateRoute />}>
+            <Route path="/SendIDP/:TournamentId/:userId" element={<SendIDP />} />
+          </Route>
 
        
 

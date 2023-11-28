@@ -18,9 +18,37 @@ function ActivePost(props) {
   const [isSlotSelected, setisSlotSelected] = useState(false);
 const [slotcontent , setslotcontent] = useState ([]);
   const { user } = useUser();
-  const Navigate = useNavigate()
+  const navigate = useNavigate()
 
   const { isReady, get, del } = useAuthedRequest();
+  const handleEdit = (item) => {
+    console.log("item__",item);
+    if (item.category=="tournaments")
+    navigate(`/updatetournament/${item.id}/${item._id}`);
+    if (item.category=="scrims")
+    navigate(`/updatescrim/${item.id}`);
+    if (item.category=="dailymatch")
+    navigate(`/updatedailymatch/${item.id}`);
+    if (item.category=="openrooms")
+    navigate(`/updateopenroom/${item.id}`);
+  };
+
+  const handleDelete = async (item) => {
+    const isConfirmed = window.confirm("Are you sure you want to proceed?");
+    if (isConfirmed) {
+      try {
+        const res = await del(`http://localhost:4000/${item.category}/${item.id}`);
+        window.location.reload();
+        // toast.success("Tournament deleted");
+        return res;
+      } catch (error) {
+        console.log(error);
+        toast.error("Tournament not deleted , try again later");
+      }
+    } else {
+      return;
+    }
+  };
   
   useEffect(() => {
     let activepostdata =[]
@@ -31,7 +59,7 @@ const [slotcontent , setslotcontent] = useState ([]);
         );
         
         myTournaments.map((item)=> {
-          item.category= "tournament"
+          item.category= "tournaments"
         })
         console.log("mytournament", myTournaments);
       
@@ -90,7 +118,7 @@ const [slotcontent , setslotcontent] = useState ([]);
           `http://localhost:4000/openrooms/${user.uid}/openrooms`
         );
         myOpenRoom.map((item)=> {
-          item.category= "openroom"
+          item.category= "openrooms"
         })
         let data= [...activepostdata, ...myOpenRoom]
         activepostdata.push(...myOpenRoom)
@@ -113,13 +141,13 @@ console.log("activepost", ActivePost);
 function slotlist (item) {
   console.log("item",item);
   setisSlotSelected (true)
-  if (item.category=="tournament")
+  if (item.category=="tournaments")
       item.url= "/UserTournamentPlayerRegisterForm"
       if (item.category=="scrims")
       item.url= "/UserScrimPlayerRegisterForm"
       if (item.category=="dailymatch")
       item.url= "/UserDailyMatchPlayerRegisterForm"
-      if (item.category=="openroom")
+      if (item.category=="openrooms")
       item.url= "/UserOpenRoomPlayerRegisterForm"  
   setslotcontent(item)
     // Navigate(`/UserTournamentPlayerRegisterForm/${item.id}`);
@@ -163,12 +191,12 @@ console.log("activepost", ActivePost);
                     <div className={classes.activepostslotsedit}>
                       
                       <div className=" text-center mt-2 text-white">
-                        <button>
+                        <button onClick={() => handleDelete(item)}>
                         Delete
                         </button>
                       </div>
                       <div className=" text-center mt-2 text-white">
-                        <button>
+                        <button onClick={() => handleEdit(item)}>
                         Edit
                         </button>
                       </div>

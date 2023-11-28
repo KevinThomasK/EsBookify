@@ -189,6 +189,7 @@ function UserTournamentSlotBox(props) {
 
   const TournamentTeams = async () => {
     const tournamentId = props.slotdetails._id;
+    console.log("__id", tournamentId);
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}`);
   };
   console.log("regteam1", regteam);
