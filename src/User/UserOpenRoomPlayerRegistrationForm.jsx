@@ -35,7 +35,7 @@ console.log("params", params);
 
     try {
       const registeredTeam = await post(
-        `http://localhost:4000/UserOpenRoomPlayerRegisterForm/${params.openroomid}/${params.userId}`,
+        `http://localhost:4000/UserOpenRoomPlayerRegisterForm/${params.openroomId}/${params.userId}`,
         {
           TeamName: teamdata.TeamName,
           TeamTag: teamdata.Teamtag,
@@ -72,7 +72,7 @@ console.log("params", params);
 
     toast.success("Registered Tournament Succussfully");
     console.log("registerTeam" , registeredTeam);
-    navigate("/UserDailyMatchSlotBox")
+    navigate("/UserOpenRoomSlotBox")
     return registeredTeam;
   } catch (error) {
     console.log(error);

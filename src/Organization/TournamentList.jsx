@@ -53,6 +53,7 @@ function TournamentList() {
   };
 
   const handleEdit = (id) => {
+    console.log("idd" ,id);
     navigate(`/updatetournament/${id}`);
   };
 

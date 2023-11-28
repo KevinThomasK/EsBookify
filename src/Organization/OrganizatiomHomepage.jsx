@@ -41,10 +41,14 @@ function OrganizationHomepage(props) {
                   Point Table
                 </h3>
               </li>
-              <li className="w-1/3 h-80 justify-center sm:w-5/6  flex flex-col items-center border rounded-md border-solid border-orange-500 hover:border-blue-500 hover:cursor-pointer">
+              <li 
+                  onClick={() => {
+                    navigate("");
+                  }}
+              className="w-1/3 h-80 justify-center sm:w-5/6  flex flex-col items-center border rounded-md border-solid border-orange-500 hover:border-blue-500 hover:cursor-pointer">
                 <img src={Activepost} />
                 <h3 className="text-2xl text-center mt-2 text-orange-500">
-                  <a href="#">Active posts</a>
+                  Active posts
                 </h3>
               </li>
             </ul>

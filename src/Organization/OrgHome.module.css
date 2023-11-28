@@ -171,3 +171,28 @@ table{
     padding: 10px;
     color:orange;
 }
+.activepostslots{
+     margin-bottom: 20px;
+    text-align: left !important;
+     width: 100%;
+     color: white;
+     display: flex;
+     justify-content: start;
+     padding-left: 10px;
+     font-weight: 700;
+     font-size: 14px;
+     line-height: 21px;
+   
+}
+.activepostslotsedit{
+    font-family: 'Poppins';
+    line-height: 21px;
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    justify-content: space-around;
+    align-items: end;
+    width: 100%;
+    margin-top: 50px;
+    font-weight: 800;
+}
