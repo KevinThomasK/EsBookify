@@ -180,6 +180,7 @@ function UserTournamentSlotBox(props) {
 
   const TournamentTeams = async () => {
     const tournamentId = props.slotdetails._id;
+    console.log("__id", tournamentId);
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}`);
   };
   //console.log("regteam1", regteam);
@@ -233,18 +234,6 @@ function UserTournamentSlotBox(props) {
           </ul>
 
           <div className={classes.mainslot}>
-            {/* {UserTournamentSlotList.map((item) => {
-            return (
-              <div
-                className={classes.slotbox}
-                onClick={(item) => IconUnlock(item)}
-              >
-                <img src="../src/assets/UnlockIcon.png" />
-                <span className={classes.span}> {item.content}</span>
-              </div>
-            );
-          })} */}
-
             {UserIconList.map((item) => {
               console.log("itemicoon", item);
               return (
@@ -287,11 +276,6 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(UserTournamentSlotBox);
 
 export default connect(
   mapStateToProps,

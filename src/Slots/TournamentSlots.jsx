@@ -20,6 +20,7 @@ const TournamentSlots = (props) => {
   let count = 1;
   const getRegisteredTeams = async () => {
     try {
+      console.log("type", params.tournamentId, typeof params.tournamentId);
       const res = await axios.get(
         `http://localhost:4000/UserTournamentPlayerRegisterForm/${params.tournamentId}`
       );
