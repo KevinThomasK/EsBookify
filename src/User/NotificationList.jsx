@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import { useUser } from "../hooks/useUser";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
 
-
 function NotificationList(props) {
   const navigate = useNavigate();
   const [tournaments, setTournaments] = useState();
@@ -26,11 +25,10 @@ function NotificationList(props) {
   const { isReady, get, del } = useAuthedRequest();
   useEffect(() => {
     console.log("tournament", tournaments);
-
-  }, [tournaments])
+  }, [tournaments]);
 
   useEffect(() => {
-    let NotificationList =[]
+    let NotificationList = [];
     const loadtournament = async () => {
       try {
         const myTournaments = await get(
@@ -38,8 +36,10 @@ function NotificationList(props) {
         );
 
         console.log("myTournaments", myTournaments);
-        const value = myTournaments.tournament.filter((item) => item.createdBy == localStorage.getItem("UID"))
-        NotificationList.push(...value)
+        const value = myTournaments.tournament.filter(
+          (item) => item.createdBy == localStorage.getItem("UID")
+        );
+        NotificationList.push(...value);
         loadscrim();
 
         console.log("value", value);
@@ -47,10 +47,8 @@ function NotificationList(props) {
         console.log(myTournaments);
       } catch (error) {
         console.log(error);
-
       }
     };
-
 
     const loadscrim = async () => {
       try {
@@ -59,19 +57,18 @@ function NotificationList(props) {
         );
 
         console.log("myTournaments_Scrim", myTournaments);
-        const value = myTournaments.tournament.filter((item) => item.createdBy == localStorage.getItem("UID"))
-       NotificationList.push(...value)
+        const value = myTournaments.tournament.filter(
+          (item) => item.createdBy == localStorage.getItem("UID")
+        );
+        NotificationList.push(...value);
         console.log("NotificationList", NotificationList);
         // setTournaments(value);
         loaddailymatch();
         console.log(myTournaments);
       } catch (error) {
         console.log(error);
-
       }
     };
-
-
 
     const loaddailymatch = async () => {
       try {
@@ -80,19 +77,18 @@ function NotificationList(props) {
         );
 
         console.log("myTournaments_Scrim", myTournaments);
-        const value = myTournaments.tournament.filter((item) => item.createdBy == localStorage.getItem("UID"))
-       NotificationList.push(...value)
+        const value = myTournaments.tournament.filter(
+          (item) => item.createdBy == localStorage.getItem("UID")
+        );
+        NotificationList.push(...value);
         console.log("NotificationList", NotificationList);
         // setTournaments(value);
-        loadopenroom ();
+        loadopenroom();
         console.log(myTournaments);
       } catch (error) {
         console.log(error);
-
       }
     };
-
-
 
     const loadopenroom = async () => {
       try {
@@ -101,21 +97,18 @@ function NotificationList(props) {
         );
 
         console.log("myTournaments_Scrim", myTournaments);
-        const value = myTournaments.tournament.filter((item) => item.createdBy == localStorage.getItem("UID"))
-       NotificationList.push(...value)
-       const uniquearray= [...new Set(NotificationList)]
+        const value = myTournaments.tournament.filter(
+          (item) => item.createdBy == localStorage.getItem("UID")
+        );
+        NotificationList.push(...value);
+        const uniquearray = [...new Set(NotificationList)];
         console.log("NotificationList", NotificationList);
         setTournaments(uniquearray);
         console.log(myTournaments);
       } catch (error) {
         console.log(error);
-
       }
     };
-
-
-
-
 
     if (user && isReady) {
       loadtournament();
@@ -124,8 +117,6 @@ function NotificationList(props) {
       // loadopenroom();
     }
   }, [user, get, isReady]);
-
-
 
   function ToRegister(item) {
     // console.log("item", item);
@@ -149,17 +140,16 @@ function NotificationList(props) {
                 return (
                   <li
                     className={classes.listbox}
-                  // onClick={() => {
-                  //   navigate("      ");
-                  // }}
+                    // onClick={() => {
+                    //   navigate("      ");
+                    // }}
                   >
                     <img className={classes.ListLogo} src={imge} />
                     <h3 className="text-2xl text-center mt-2 text-orange-500">
-                    <div>{item.TournamentName}</div>
-                    <div>{item.ScrimName}</div>
-                    <div>{item.DailyMatchName}</div>
-                    <div>{item.OpenRoomName}</div>
-
+                      <div>{item.TournamentName}</div>
+                      <div>{item.ScrimName}</div>
+                      <div>{item.DailyMatchName}</div>
+                      <div>{item.OpenRoomName}</div>
                     </h3>
                     <div className={classes.scrimlistcontet}>
                       <div className={classes.UserScrimListDateandTime}>
