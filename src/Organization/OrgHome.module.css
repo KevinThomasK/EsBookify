@@ -10,10 +10,11 @@
 }
 .ListLogo{
     display: flex;
-    width: 135px;
-    height: 135px;
+    width: 165px;
+    height: 165px;
     align-items: center;
     flex-shrink: 0;
+    margin-top: 20px;
     border-radius: 130.12px;
 border: 1px solid var(--primary-colur, #FF8A01);
 background: url('../src/assets/ListLogo.png'), lightgray 50% / cover no-repeat;
@@ -30,6 +31,9 @@ background: url('../src/assets/ListLogo.png'), lightgray 50% / cover no-repeat;
      margin-left: 20px;
      margin-right: 20px;
 }
+.listbox:hover{
+    border: 1px solid orangered;
+}
 .listboxContent{
     font-family: 'Poppins';
     line-height: 21px;
@@ -39,7 +43,9 @@ background: url('../src/assets/ListLogo.png'), lightgray 50% / cover no-repeat;
     justify-content: space-evenly;
     align-items: end;
     width: 100%;
-    margin-top: 91px;
+    /* margin-top: 40px; */
+    margin-bottom: 20px;
+    margin-top: auto;
     font-weight: 800;
 }
 .price{
@@ -59,6 +65,7 @@ background: url('../src/assets/ListLogo.png'), lightgray 50% / cover no-repeat;
     font-weight: 700;
     font-size: 14px;
     line-height: 21px;
+    padding-top: 20px;
 }
 .edittext{
     color: white;

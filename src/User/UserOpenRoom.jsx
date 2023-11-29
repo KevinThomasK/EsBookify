@@ -23,10 +23,10 @@ function UserOpenRoom(props) {
       .catch((err) => console.log(err));
   }, []);
 
-  function ToRegister (item) {
-    console.log('registerButton');
-    props.storeSlotdetails(item)
-     navigate ("/UserOpenRoomSlotBox")
+  function ToRegister(item) {
+    console.log("registerButton");
+    props.storeSlotdetails(item);
+    navigate("/UserOpenRoomSlotBox");
   }
 
   return (
@@ -43,21 +43,21 @@ function UserOpenRoom(props) {
             {openRoom &&
               openRoom.map((item) => {
                 return (
-                  <li
-                    className={classes.listbox}
-                  >
-                    <img className={classes.ListLogo} src={imge} />
-                    <h3 className="text-2xl text-center mt-2 text-orange-500">
+                  <li key={item._id} className={classes.listbox}>
+                    <img className={classes.ListLogo} src={item.image} />
+                    <h3 className="text-2xl text-center font-semibold mt-2 text-orange-500">
                       <div>{item.name}</div>
                     </h3>
                     <div className={classes.scrimlistcontet}>
                       <div className={classes.UserScrimListDateandTime}>
                         {item.dateOfMatch} {item.idpTime}
                       </div>
-                      <div className=" text-center mt-2 text-orange-500"
-                      onClick={ ()=> ToRegister(item)}>
+                      <button
+                        className=" text-center font-bold mt-2 text-xl text-orange-500"
+                        onClick={() => ToRegister(item)}
+                      >
                         Register
-                      </div>
+                      </button>
                     </div>
                   </li>
                 );
@@ -70,10 +70,12 @@ function UserOpenRoom(props) {
   );
 }
 
-const mapDispatchToProps= (dispatch) => {
-  return { 
-    storeSlotdetails: (s) => {dispatch(storeSlotdetails(s))} 
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    storeSlotdetails: (s) => {
+      dispatch(storeSlotdetails(s));
+    },
+  };
+};
 
-export default connect(null,mapDispatchToProps) (UserOpenRoom); 
+export default connect(null, mapDispatchToProps)(UserOpenRoom);

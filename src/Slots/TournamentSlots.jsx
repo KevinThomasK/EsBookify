@@ -10,10 +10,13 @@ import { connect } from "react-redux";
 import imge from "../assets/ListLogo.png";
 import downloadicon from "../assets/DownloadIcon.svg";
 import shareicon from "../assets/ShareIcon.svg";
+import { format } from "date-fns";
 
 const TournamentSlots = (props) => {
   const [teams, setTeams] = useState("");
+  const [tournament, setTournament] = useState("");
   const params = useParams();
+  const [isVisible, setIsVisible] = useState(false);
   let count = 1;
   const getRegisteredTeams = async () => {
     try {
@@ -21,7 +24,7 @@ const TournamentSlots = (props) => {
         `http://localhost:4000/UserTournamentPlayerRegisterForm/${params.tournamentId}`
       );
       const data = res.data.registeredTeams;
-      //console.log(data);
+      setTournament(res);
       setTeams(data);
     } catch (error) {
       console.log(error);
@@ -31,27 +34,53 @@ const TournamentSlots = (props) => {
     getRegisteredTeams();
   }, []);
 
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
         <div className={classes.tablediv}>
           <div>
             <ul className="list-none mx-auto  flex flex-row flex-wrap  justify-center gap-10 ">
-              <li className={classes.listbox}>
-                <img className={classes.ListLogo} src={imge} />
-                <h3 className="text-2xl text-center mt-2 text-orange-500">
-                  <div>{props.slotdetails.name}</div>
-                </h3>
-                <div className={classes.scrimlistcontet}>
-                  <div className={classes.matchinfo}>
-                    <div>
-                      {` Match Starts At          ${props.slotdetails.idpTime}`}
+              {tournament && (
+                <li className={classes.listbox}>
+                  <img
+                    className={classes.ListLogo}
+                    src={tournament.data.tournament.image}
+                  />
+                  <h3 className="text-2xl font-bold text-center mt-2 text-orange-500">
+                    <div>{tournament.data.tournament.name}</div>
+                  </h3>
+                  <div className={classes.scrimlistcontet}>
+                    <div className={classes.matchinfo}>
+                      <div className="text-lg">
+                        {` ${format(
+                          new Date(tournament.data.tournament.dateOfMatch),
+                          "MMMM dd, yyyy"
+                        )} ,        ${tournament.data.tournament.idpTime}`}
+                      </div>
+                      <button onClick={toggleVisibility} className="text-lg">
+                        Rules
+                      </button>
                     </div>
-                    <div> Rules </div>
                   </div>
-                </div>
-              </li>
+                </li>
+              )}
             </ul>
+            {tournament && (
+              <span
+                className={`${
+                  isVisible ? "block" : "hidden"
+                } mt-4 p-4 text-white px-20`}
+              >
+                <span className="text-lg text-orange-500 pr-4 font-bold">
+                  Rules:
+                </span>{" "}
+                {tournament.data.tournament.rules}
+              </span>
+            )}
           </div>
           <div className={classes.tableheading}>
             <h4> SLOT LIST </h4>

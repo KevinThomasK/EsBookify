@@ -49,9 +49,9 @@ function MyOpenRooms() {
             tournaments.map((item) => {
               return (
                 <>
-                  <li className={classes.listbox}>
-                    <img className={classes.ListLogo} src={imge} />
-                    <h3 className="text-2xl text-center mt-2 text-orange-500">
+                  <li key={item._id} className={classes.listbox}>
+                    <img className={classes.ListLogo} src={item.image} />
+                    <h3 className="text-2xl font-bold text-center mt-10 text-orange-500">
                       <div>{item.name}</div>
                     </h3>
                     <div className={classes.listboxContent}>

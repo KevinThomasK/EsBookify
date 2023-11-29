@@ -22,16 +22,16 @@ function Footer() {
         <div className={classes.importantLinks}>
           <h4>Important Links</h4>
           <li>
-            <a href="#">Tournaments</a>
+            <a href="/usertournaments">Tournaments</a>
           </li>
           <li>
-            <a href="#">Scrims</a>
+            <a href="/UserScrimList">Scrims</a>
           </li>
           <li>
-            <a href="#">Open Rooms</a>
+            <a href="/UserOpenRoom">Open Rooms</a>
           </li>
           <li>
-            <a href="#">Daily Match</a>
+            <a href="/UserDailyMatch">Daily Match</a>
           </li>
           <h5>Copyright&copy; 2023 EsBoofiky</h5>
         </div>
@@ -50,7 +50,10 @@ function Footer() {
             <a href="#">FAQ</a>
           </li>
 
-          <h5 className={classes.h}>Follow us on  <FaFacebook /> <FaInstagram /><FaWhatsapp/></h5>
+          <h5 className={classes.h}>
+            Follow us on <FaFacebook /> <FaInstagram />
+            <FaWhatsapp />
+          </h5>
         </div>
       </div>
     </div>

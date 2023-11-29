@@ -53,38 +53,59 @@ function ScrimsList() {
     navigate(`/updatescrim/${id}`);
   };
 
+  const handleDivClick = (id) => {
+    navigate(`/UserScrimPlayerRegisterForm/${id}`);
+  };
+
   return (
     <section id="matches" className=" mx-auto pb-[100px]">
-      <h2 className="text-4xl text-orange-500 text-center ">SCRIMS</h2>
+      {tournaments.length && (
+        <h2 className="text-4xl text-orange-500 text-center ">SCRIMS</h2>
+      )}
+      {!tournaments.length && (
+        <h4 className="text-4xl text-orange-500 text-center ">NO SCRIMS</h4>
+      )}
       <ul className="list-none mx-auto mt-10 flex flex-row flex-wrap  justify-center gap-10 ">
         {tournaments &&
           tournaments.map((item) => {
             return (
               <>
-                <li className={classes.listbox}>
+                <li
+                  key={item._id}
+                  className={classes.listbox}
+                  onClick={() => handleDivClick(item._id)}
+                >
                   <div className={classes.dateandtime}>
                     {item.dateOfMatch} {item.idpTime}
                   </div>
-                  <img className={classes.ListLogo} src={imge} />
-                  <h3 className="text-2xl text-center mt-2 text-orange-500">
+                  <img className={classes.ListLogo} src={item.image} />
+                  <h3 className="text-2xl font-semibold text-center mt-2 text-orange-500">
                     <div>{item.name}</div>
                   </h3>
                   <div className={classes.listboxContent}>
-                    <div className={classes.price}>${item.prizePool}</div>
-                    <div
-                      className={classes.edittext}
-                      onClick={() => handleEdit(item.id)}
-                    >
-                      {" "}
-                      Edit{" "}
+                    <div className="text-orange-500 text-lg">
+                      <span className="text-xl">$</span>
+                      {item.prizePool}
                     </div>
+                    <button
+                      className="text-center text-white text-xl"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleEdit(item.id);
+                      }}
+                    >
+                      Edit
+                    </button>
 
-                    <div
-                      className=" text-center mt-2 text-orange-500 cursor-pointer"
-                      onClick={() => handleDelete(item.id)}
+                    <button
+                      className=" text-center mt-2 text-lg text-red-500 cursor-pointer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleDelete(item._id);
+                      }}
                     >
                       Delete
-                    </div>
+                    </button>
                   </div>
                 </li>
               </>

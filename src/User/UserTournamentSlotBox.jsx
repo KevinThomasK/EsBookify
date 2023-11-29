@@ -3,166 +3,153 @@ import classes from "../Organization/OrgHome.module.css";
 import Org from "../Organization/OrgHome.module.css";
 import Footer from "../Footer/Footer";
 import imge from "../assets/ListLogo.png";
-import {  UserTournamentSlotList } from "../Constant";
+import { UserTournamentSlotList } from "../Constant";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
 import { useUser } from "../hooks/useUser";
 import { storeSlotCount } from "../Redux/Action";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
-<<<<<<< HEAD
-=======
-import UnlockIcon from "../assets/UnlockIcon.png"
-import LockIcon from "../assets/LockIcon.png"
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
+import UnlockIcon from "../assets/UnlockIcon.png";
+import LockIcon from "../assets/LockIcon.png";
 
 function UserTournamentSlotBox(props) {
   const navigate = useNavigate();
   const { user } = useUser();
-<<<<<<< HEAD
-  const { get } = useAuthedRequest();
-  const [regteam, setregteam] = useState([]);
-=======
   const { get, isReady } = useAuthedRequest();
-  const [regteam, setregteam] = useState([])
-  const [UserIconList, setUserIconList ] =useState([
+  const [regteam, setregteam] = useState([]);
+  const [UserIconList, setUserIconList] = useState([
     {
       content: "1",
       image: "../src/assets/UnlockIcon.png",
-   click: true
-      
+      click: true,
     },
     {
       content: "2",
       image: "../src/assets/UnlockIcon.png",
-   click: true
-      
+      click: true,
     },
     {
       content: "3",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "4",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "5",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "6",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "7",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "8",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "9",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "10",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "11",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "12",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "13",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "14",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "15",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "16",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "17",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "18",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "19",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "20",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "21",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "22",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "23",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "24",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "25",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
-  ]
-  )
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
+  ]);
   //console.log(user.uid);
-  console.log("UserTournamentSlotList", UserTournamentSlotList, UserIconList);
-  
-  
-  
+  //console.log("UserTournamentSlotList", UserTournamentSlotList, UserIconList);
+
   useEffect(() => {
-    console.log("test");
+    //console.log("test");
     const handleslot = async () => {
       try {
         console.log("props.slotdetails._id", props.slotdetails._id);
@@ -170,39 +157,24 @@ function UserTournamentSlotBox(props) {
           `http://localhost:4000/UserTournamentPlayerRegisterForm/${props.slotdetails._id}`,
           {}
         );
-<<<<<<< HEAD
         setregteam(registeredTeam.registeredTeams);
         //console.log("registeredTeam", registeredTeam);
-=======
-        setregteam(registeredTeam.registeredTeams)
-        
-        console.log("registeredTeam", registeredTeam);
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong,Try Again Later");
       }
-<<<<<<< HEAD
     };
-    handleslot();
-  }, [get]);
-=======
+    if (isReady) {
+      handleslot();
     }
-    if (isReady) { handleslot() }
-
-
-  }, [get, isReady])
-
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
+  }, [get, isReady]);
 
   function IconUnlock(item) {
     //console.log(props.slotdetails);
     if (item.click) {
-    const tournamentId = props.slotdetails._id;
-    //console.log("itemcon", item);
-    props.storeSlotCount(item);
-
-    navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}/${user.uid}`);
+      const tournamentId = props.slotdetails._id;
+      props.storeSlotCount(item);
+      navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}/${user.uid}`);
     }
   }
 
@@ -210,144 +182,88 @@ function UserTournamentSlotBox(props) {
     const tournamentId = props.slotdetails._id;
     navigate(`/UserTournamentPlayerRegisterForm/${tournamentId}`);
   };
-<<<<<<< HEAD
-
-=======
-  console.log("regteam1", regteam);
+  //console.log("regteam1", regteam);
 
   const updateImages = () => {
-    let listarray =[...UserIconList]
+    let listarray = [...UserIconList];
     console.log("listarrayy", listarray);
-    regteam.forEach(mainObj => {
+    regteam.forEach((mainObj) => {
       const matchingOtherObj = listarray.find(
-        otherObj => otherObj.content == mainObj.SlotNumber
+        (otherObj) => otherObj.content == mainObj.SlotNumber
       );
-        console.log("matchingOtherObj", matchingOtherObj);
+      console.log("matchingOtherObj", matchingOtherObj);
       // If a matching object is found, update the Image key
       if (matchingOtherObj) {
         matchingOtherObj.image = "../src/assets/LockIcon.png";
-        matchingOtherObj.click= false
+        matchingOtherObj.click = false;
       }
     });
-    setUserIconList (listarray)
-   
-    
-  }
+    setUserIconList(listarray);
+  };
   useEffect(() => {
     console.log("useefect");
     if (regteam.length > 0) {
-      updateImages()
+      updateImages();
     }
-   
-    
-    
-  }, [regteam])
-  
+  }, [regteam]);
+
   console.log("UserIconList", UserIconList);
 
-
-
-  
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
         <div className={classes.MainOrgList}>
-          <div>
-            <ul className="list-none mx-auto  flex flex-row flex-wrap  justify-center gap-10 ">
-              <li
-                className={classes.listbox}
-                onClick={() => TournamentTeams(props.slotdetails._id)}
-              >
-                <img className={classes.ListLogo} src={imge} />
-                <h3 className="text-2xl text-center mt-2 text-orange-500">
-                  <div>{props.slotdetails.name}</div>
-                </h3>
-                <div className={classes.scrimlistcontet}>
-                  <div className={classes.UserScrimListDateandTime}>
-                    <div>{props.slotdetails.dateOfMatch}</div>
-                    <div>{props.slotdetails.idpTime}</div>
-                    <div>{props.slotdetails.prizePool}</div>
-                  </div>
+          <ul className="list-none mx-auto  flex flex-row flex-wrap  justify-center gap-10 ">
+            <li
+              className={classes.listbox}
+              onClick={() => TournamentTeams(props.slotdetails._id)}
+            >
+              <img className={classes.ListLogo} src={imge} />
+              <h3 className="text-2xl text-center mt-2 text-orange-500">
+                <div>{props.slotdetails.name}</div>
+              </h3>
+              <div className={classes.scrimlistcontet}>
+                <div className={classes.UserScrimListDateandTime}>
+                  <div>{props.slotdetails.dateOfMatch}</div>
+                  <div>{props.slotdetails.idpTime}</div>
+                  <div>{props.slotdetails.prizePool}</div>
                 </div>
-              </li>
-            </ul>
-          </div>
+              </div>
+            </li>
+          </ul>
+
           <div className={classes.mainslot}>
-<<<<<<< HEAD
-            {regteam.length &&
-              regteam.map((regitem) => {
-                //console.log("regitem", regitem);
-                UserSlotListDetails.map((item) => {
-                  return (
-                    <div
-                      key={item.content}
-                      className={classes.slotbox}
-                      onClick={() => IconUnlock(item)}
-                    >
-                      <img src="../src/assets/UnlockIcon.png" />
-                      <span
-                        className={`${
-                          regitem.SlotNumber == item.content
-                            ? classes.slotregbox
-                            : classes.span
-                        } `}
-                      >
-                        {" "}
-                        {item.content}
-                      </span>
-                    </div>
-                  );
-                });
-              })}
-            {UserSlotListDetails.map((item) => {
-=======
-            {/* {UserSlotListDetails.map((item) => {
-              console.log("regteam", regteam);
-              let data = regteam.length && regteam.find(regitem => regitem.SlotNumber == item.content)
-              console.log("data", data);
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
+            {/* {UserTournamentSlotList.map((item) => {
+            return (
+              <div
+                className={classes.slotbox}
+                onClick={(item) => IconUnlock(item)}
+              >
+                <img src="../src/assets/UnlockIcon.png" />
+                <span className={classes.span}> {item.content}</span>
+              </div>
+            );
+          })} */}
+
+            {UserIconList.map((item) => {
+              console.log("itemicoon", item);
               return (
                 <div
                   key={item.content}
                   className={classes.slotbox}
                   onClick={() => IconUnlock(item)}
                 >
-<<<<<<< HEAD
-                  <img src="../src/assets/UnlockIcon.png" />
+                  {item.click ? (
+                    <img src={UnlockIcon} />
+                  ) : (
+                    <img src={LockIcon} />
+                  )}
+                  {console.log("itemClick", item.click)}
+
                   <span className={classes.span}> {item.content}</span>
                 </div>
               );
             })}
-=======
-                  <img src={`${regitem.SlotNumber == item.content ? LockIcon : UnlockIcon}`} />
-
-                  <span className={classes.span}> {item.content}</span>
-                </div>
-              );
-            }
-            )
-            } */}
-            {
-
-               UserIconList.map((item) => {
-                console.log("itemicoon", item);
-                return (
-                  <div
-                    key={item.content}
-                    className={classes.slotbox} 
-                    onClick={() => IconUnlock(item)}
-                  >
-                    {item.click ? <img src={UnlockIcon}/> : <img src={LockIcon}/>  }
-                {console.log("itemClick", item.click)}
-
-                    <span className={classes.span}> {item.content}</span>
-                  </div>
-                );
-              }
-              )
-            }
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba
           </div>
         </div>
       </div>
@@ -372,12 +288,12 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-<<<<<<< HEAD
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(UserTournamentSlotBox);
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(UserTournamentSlotBox);
-=======
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserTournamentSlotBox) ;
->>>>>>> 2fa2aacf227f1cca415ee7a3f17d6992bf3abfba

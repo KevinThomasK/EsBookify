@@ -8,11 +8,12 @@ import useFormatDate from "../hooks/useFormatDate";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
 import { useUser } from "../hooks/useUser";
+import axios from "axios";
 
 export default function CreateTournament() {
   const { user } = useUser();
   const { post } = useAuthedRequest();
-
+  const [imageValue, setImageValue] = useState(null);
   const [formData, setFormData] = useState({
     tournamentName: "",
     tournamentDate: "",
@@ -34,6 +35,30 @@ export default function CreateTournament() {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const imageChange = async (e) => {
+    const imageFile = e.target.files[0];
+    const formsData = new FormData();
+    formsData.append("image", imageFile);
+    try {
+      const {
+        data: {
+          image: { src },
+        },
+      } = await axios.post(
+        `http://localhost:4000/openrooms/uploads`,
+        formsData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setImageValue(src);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -64,6 +89,7 @@ export default function CreateTournament() {
           idpTime: formattedTime,
           prizePool: formData.prizePool,
           rules: formData.rules,
+          image: imageValue,
         }
       );
       toast.success("Tournament Created Successfully");
@@ -156,6 +182,14 @@ export default function CreateTournament() {
             value={formData.rules}
             placeholder="Rules"
             onChange={handleChange}
+          />
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            className="bg-gray-800/80 mb-14 px-4 py-2  placeholder:text-[#ff8a01] text-[#ff8a01]"
+            placeholder="select logo image"
+            onChange={imageChange}
           />
           <button
             type="submit"

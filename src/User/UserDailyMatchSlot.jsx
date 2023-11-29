@@ -10,144 +10,141 @@ import { useUser } from "../hooks/useUser";
 import { storeSlotCount } from "../Redux/Action";
 import { toast } from "react-toastify";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
-import UnlockIcon from "../assets/UnlockIcon.png"
-import LockIcon from "../assets/LockIcon.png"
+import UnlockIcon from "../assets/UnlockIcon.png";
+import LockIcon from "../assets/LockIcon.png";
 
 function UserDailyMatchSlotBox(props) {
   const navigate = useNavigate();
   const { user } = useUser();
   const { get, isReady } = useAuthedRequest();
-  const [regteam, setregteam] = useState([])
-  const [UserIconList, setUserIconList ] =useState([
+  const [regteam, setregteam] = useState([]);
+  const [UserIconList, setUserIconList] = useState([
     {
       content: "1",
       image: "../src/assets/UnlockIcon.png",
-   click: true
-      
+      click: true,
     },
     {
       content: "2",
       image: "../src/assets/UnlockIcon.png",
-   click: true
-      
+      click: true,
     },
     {
       content: "3",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "4",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "5",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "6",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "7",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "8",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "9",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "10",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "11",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "12",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "13",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "14",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "15",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "16",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "17",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "18",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "19",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "20",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "21",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "22",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "23",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "24",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
     {
       content: "25",
       image: "../src/assets/UnlockIcon.png",
-   click: true
+      click: true,
     },
-  ]
-  )
+  ]);
 
   useEffect(() => {
     console.log("test");
@@ -158,125 +155,101 @@ function UserDailyMatchSlotBox(props) {
           `http://localhost:4000/UserDailyMatchPlayerRegisterForm/${props.slotdetails._id}`,
           {}
         );
-        setregteam(registeredTeam.registeredTeams)
-        
+        setregteam(registeredTeam.registeredTeams);
+
         console.log("registeredTeam", registeredTeam);
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong,Try Again Later");
       }
+    };
+    if (isReady) {
+      handleslot();
     }
-    if (isReady) { handleslot() }
+  }, [get, isReady]);
 
-
-  }, [get, isReady])
-
-
-  function IconUnlock (item){
+  function IconUnlock(item) {
     if (item.click) {
       const dailymatchId = props.slotdetails._id;
       console.log("itemcon", item);
-      props.storeSlotCount(item)
-   navigate  (`/UserDailyMatchPlayerRegisterForm/${dailymatchId}/${user.uid}`) 
-  }
-}
-const dailymatchteam = async () => {
-  const dailymatchId = props.slotdetails._id;
-  // console.log(tournamentId);
-  navigate(`/UserDailyMatchPlayerRegisterForm/${dailymatchId}`);
-};
-
-
-
-const updateImages = () => {
-  let listarray =[...UserIconList]
-  console.log("listarrayy", listarray);
-  regteam.forEach(mainObj => {
-    const matchingOtherObj = listarray.find(
-      otherObj => otherObj.content == mainObj.SlotNumber
-    );
-      console.log("matchingOtherObj", matchingOtherObj);
-    // If a matching object is found, update the Image key
-    if (matchingOtherObj) {
-      matchingOtherObj.image = "../src/assets/LockIcon.png";
-      matchingOtherObj.click= false
+      props.storeSlotCount(item);
+      navigate(`/UserDailyMatchPlayerRegisterForm/${dailymatchId}/${user.uid}`);
     }
-  });
-  setUserIconList (listarray)
- 
-  
-}
-useEffect(() => {
-  console.log("useefect");
-  if (regteam.length > 0) {
-    updateImages()
   }
- 
-  
-  
-}, [regteam])
+  const dailymatchteam = async () => {
+    const dailymatchId = props.slotdetails._id;
+    // console.log(tournamentId);
+    navigate(`/UserDailyMatchPlayerRegisterForm/${dailymatchId}`);
+  };
 
-console.log("UserIconList", UserIconList);
+  const updateImages = () => {
+    let listarray = [...UserIconList];
+    console.log("listarrayy", listarray);
+    regteam.forEach((mainObj) => {
+      const matchingOtherObj = listarray.find(
+        (otherObj) => otherObj.content == mainObj.SlotNumber
+      );
+      console.log("matchingOtherObj", matchingOtherObj);
+      // If a matching object is found, update the Image key
+      if (matchingOtherObj) {
+        matchingOtherObj.image = "../src/assets/LockIcon.png";
+        matchingOtherObj.click = false;
+      }
+    });
+    setUserIconList(listarray);
+  };
+  useEffect(() => {
+    console.log("useefect");
+    if (regteam.length > 0) {
+      updateImages();
+    }
+  }, [regteam]);
 
+  console.log("UserIconList", UserIconList);
 
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
         <div className={classes.MainOrgList}>
-
-
-
-        <ul className="list-none mx-auto  flex flex-row flex-wrap  justify-center gap-10 ">
-                        
-                        <li  className={classes.listbox} 
-                        onClick={() => dailymatchteam(props.slotdetails._id)}>
-
-                         <img className={classes.ListLogo} src={imge} />
-                          <h3 className="text-2xl text-center mt-2 text-orange-500">
-                            <div>{props.slotdetails.name}</div>
-                          </h3>
-                          <div className={classes.scrimlistcontet}>
-                            <div className={classes.UserScrimListDateandTime}>
-                              <div>
-                              {props.slotdetails.dateOfMatch}
-                              </div>
-                              <div>
-                                 {props.slotdetails.idpTime} 
-                                 </div>
-                                 <div>
-                                  {props.slotdetails.prizePool}
-                                  </div>
-                            </div>
-                            
-                          </div>
-                        </li>
-                     
-                </ul>
-
-
-
-
+          <ul className="list-none mx-auto  flex flex-row flex-wrap  justify-center gap-10 ">
+            <li
+              className={classes.listbox}
+              onClick={() => dailymatchteam(props.slotdetails._id)}
+            >
+              <img className={classes.ListLogo} src={imge} />
+              <h3 className="text-2xl text-center mt-2 text-orange-500">
+                <div>{props.slotdetails.name}</div>
+              </h3>
+              <div className={classes.scrimlistcontet}>
+                <div className={classes.UserScrimListDateandTime}>
+                  <div>{props.slotdetails.dateOfMatch}</div>
+                  <div>{props.slotdetails.idpTime}</div>
+                  <div>{props.slotdetails.prizePool}</div>
+                </div>
+              </div>
+            </li>
+          </ul>
 
           <div className={classes.mainslot}>
-          {
+            {UserIconList.map((item) => {
+              console.log("itemicoon", item);
+              return (
+                <div
+                  key={item.content}
+                  className={classes.slotbox}
+                  onClick={() => IconUnlock(item)}
+                >
+                  {item.click ? (
+                    <img src={UnlockIcon} />
+                  ) : (
+                    <img src={LockIcon} />
+                  )}
+                  {console.log("itemClick", item.click)}
 
-UserIconList.map((item) => {
- console.log("itemicoon", item);
- return (
-   <div
-     key={item.content}
-     className={classes.slotbox} 
-     onClick={() => IconUnlock(item)}
-   >
-     {item.click ? <img src={UnlockIcon}/> : <img src={LockIcon}/>  }
- {console.log("itemClick", item.click)}
-
-     <span className={classes.span}> {item.content}</span>
-   </div>
- );
-}
-)
-}
+                  <span className={classes.span}> {item.content}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -289,9 +262,9 @@ UserIconList.map((item) => {
 const mapStateToProps = (HomeReducer) => {
   console.log("slotdetails", HomeReducer);
   return {
-    slotdetails: HomeReducer.selectedItems.slotdetails
-  }
-}
+    slotdetails: HomeReducer.selectedItems.slotdetails,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -300,4 +273,7 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-export default connect  (mapStateToProps,mapDispatchToProps) (UserDailyMatchSlotBox);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserDailyMatchSlotBox);
