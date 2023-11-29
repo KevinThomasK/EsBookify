@@ -17,6 +17,8 @@ const TournamentSlots = (props) => {
   const [tournament, setTournament] = useState("");
   const params = useParams();
   const [isVisible, setIsVisible] = useState(false);
+  const [Roomdetails, setRoomdetails] = React.useState({});
+  const [ ShowIDP, setShowIDP] = useState (false)
   let count = 1;
   const getRegisteredTeams = async () => {
     try {
@@ -39,6 +41,23 @@ const TournamentSlots = (props) => {
     setIsVisible(!isVisible);
   };
 
+  const handleIDP = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:4000/SendIDP/${params.tournamentId}`
+      );
+      const data = res.data.tournament
+      console.log("idp", data);
+      setShowIDP (true)
+      setRoomdetails(data)
+     
+      // setTeams(data);
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+console.log("teams", teams);
   return (
     <div className={Org.Orgbackground}>
       <div className={classes.gradient}>
@@ -67,6 +86,20 @@ const TournamentSlots = (props) => {
                       </button>
                     </div>
                   </div>
+                  { ShowIDP ? 
+                ( Roomdetails!= null && Roomdetails!= undefined) ? Object.keys(Roomdetails).length>0 ? 
+                <div className={classes.roomdetails}> 
+                  <div>
+                    
+                    Room ID: {Roomdetails.RoomID}
+                  </div>
+                  <div>
+                    Password: {Roomdetails.Password}
+                  </div>
+                </div>
+                : <div className=" text-orange-500"> RoomID Is Not Created </div>
+                : <div className=" text-orange-500" > RoomID Is Not Created</div> : null
+                }
                 </li>
               )}
             </ul>
@@ -84,6 +117,7 @@ const TournamentSlots = (props) => {
             )}
           </div>
           <div className={classes.tableheading}>
+          <h4 onClick={handleIDP}> VIEW IDP</h4>
             <h4> SLOT LIST </h4>
             <img src={downloadicon}></img>
             <img src={shareicon}></img>
