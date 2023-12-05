@@ -16,19 +16,30 @@ import { getFirestore } from "firebase/firestore";
 // };
 
 //my sdk
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBxgoJ5FuFAzS0H1yZPn1f8O-kxe_j0hfU",
+//   authDomain: "esbookify.firebaseapp.com",
+//   projectId: "esbookify",
+//   storageBucket: "esbookify.appspot.com",
+//   messagingSenderId: "883569973998",
+//   appId: "1:883569973998:web:5d60a9b695fd24d118b1ff",
+//   measurementId: "G-2BGZN4N3BW"
+// };
+
+//esbookify sdk
 const firebaseConfig = {
-  apiKey: "AIzaSyBxgoJ5FuFAzS0H1yZPn1f8O-kxe_j0hfU",
-  authDomain: "esbookify.firebaseapp.com",
-  projectId: "esbookify",
-  storageBucket: "esbookify.appspot.com",
-  messagingSenderId: "883569973998",
-  appId: "1:883569973998:web:5d60a9b695fd24d118b1ff",
-  measurementId: "G-2BGZN4N3BW"
+  apiKey: "AIzaSyB5CKEV-I2OEE8KOWgm74o38DqHL86jE74",
+  authDomain: "esbookify-6b1a6.firebaseapp.com",
+  projectId: "esbookify-6b1a6",
+  storageBucket: "esbookify-6b1a6.appspot.com",
+  messagingSenderId: "163646003073",
+  appId: "1:163646003073:web:f1550a0826915ccf403a80",
+  measurementId: "G-J4SVLRKNGT",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
-const provider = new GoogleAuthProvider ()
-export {app,auth,provider}
-export const db  = getFirestore()
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+export { app, auth, provider };
+export const db = getFirestore();

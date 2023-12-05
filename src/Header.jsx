@@ -52,7 +52,7 @@ function Header(props) {
   };
 
   const [query, setQuery] = useState("");
-
+  console.log(query);
   return (
     <div>
       <nav className="bg-black pb-[30px]">
