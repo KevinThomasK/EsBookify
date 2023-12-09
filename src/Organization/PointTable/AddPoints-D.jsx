@@ -187,10 +187,10 @@ const AddPointsD = () => {
           </button>
         </form>
         <StripeCheckout
-          stripeKey="pk_test_51OEwbuSDZdW4e9TCz3Am6wWq7P9ayWumnxWIsBxavzqmNhq9Ii9ShRz4tSfzqkjDl7aKKiOSbW1XwOLd9J5oTgCa00vcovcCdJ"
+          stripeKey="sk_test_51OLJuUSAglcd7FZDtVu76OOof3zqzj93Io57u8xFWyaCSd68fXUOxv9Uvj4mtLwvtOqyzIiUmqRuGCNOxKZtJOCo00HNfMHGj5"
           token={makePayment}
           name="buy react"
-          amount={product.price * 100}
+          amount={product.price * 1}
         >
           <button className="bg-blue-600 p-4 text-slate-200 rounded-md  hover:bg-blue-500">
             UPGRADE TO PRO
