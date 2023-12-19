@@ -10,17 +10,27 @@ import { storeSlotdetails } from "../Redux/Action";
 import { connect } from "react-redux";
 import { useUser } from "../hooks/useUser";
 import { useAuthedRequest } from "../hooks/useAuthedRequest";
+import { useSelector } from "react-redux";
 
 function NotificationList(props) {
   const navigate = useNavigate();
   const [tournaments, setTournaments] = useState();
   const params = useParams();
   console.log("paramss", params);
+  const { notifications } = props;
+  const roomId = notifications?.roomID; // Use the correct case for 'roomID' based on your payload
+  const password = notifications?.password;
+
+  console.log("Notifications", roomId);
   // useEffect(() => {
   //   allTournaments()
   //     .then((data) => setTournaments(data))
   //     .catch((err) => console.log(err));
   // }, []);
+  // const notifications= useSelector((state)=>state.notifications)
+  // const roomId= notifications.roomId
+  // const password= notifications.password
+  // console.log("notification",roomId,password);
   const { user } = useUser();
   const { isReady, get, del } = useAuthedRequest();
   useEffect(() => {
@@ -180,5 +190,12 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
+const mapStateToProps = (state) => {
+  return {
+    notifications: state.selectedItems.notifications,
+  };
+};
 
-export default connect(null, mapDispatchToProps)(NotificationList);
+// export default connect(mapStateToProps)(NotificationList);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationList);

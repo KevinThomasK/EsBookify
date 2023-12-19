@@ -1,9 +1,10 @@
-import { STORE_IDENTIFIER, STORE_SLOTCOUNT, STORE_SLOTDETAILS } from "./Action";
+import { STORE_IDENTIFIER, STORE_SLOTCOUNT, STORE_SLOTDETAILS, STORE_NOTIFICATION } from "./Action";
 
 const initialState = {
     IdentifiedItem: "user" , 
     slotdetails: [],
-    SlotCount:""
+    SlotCount:"",
+    notifications:[]
 }
 const HomeReducer = (state = initialState, action) => {
   // console.log('reducer', action.payload)
@@ -17,6 +18,10 @@ const HomeReducer = (state = initialState, action) => {
       
             case STORE_SLOTCOUNT:
                 return Object.assign ({},state,{SlotCount:action.payload})
+                case STORE_NOTIFICATION:
+                    console.log("payload in reducer", action.payload);
+                    return {...state,notifications:[...state.notifications,action.payload],
+                    }
     default:
         return state;
 }

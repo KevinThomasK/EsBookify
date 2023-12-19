@@ -4,6 +4,7 @@ import googeleimage from "../assets/google-icon-logo-png-transparent.png";
 import OtpVerify from "../Login/OtpVerify";
 import PhoneInput from "react-phone-input-2";
 import { auth, db, provider } from "../firebase";
+import LoginModal from "../Login/LoginModal";
 import {
   RecaptchaVerifier,
   getAuth,
@@ -26,7 +27,7 @@ function UserSignUp(props) {
   const [section, setSection] = useState("user");
   // const [value, setValue] =useState('')
   const [CountryCode, setCountryCode] = useState("");
-  const handleClick = async () => {
+  const handleClick = async (props) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
@@ -43,7 +44,7 @@ function UserSignUp(props) {
           timestamp: serverTimestamp(),
         });
       }
-
+      props.onClose();
       toast.success("Signed In");
     } catch (err) {
       toast.error("something went wrong");
@@ -123,6 +124,7 @@ function UserSignUp(props) {
   };
 
   return (
+    <LoginModal onClose={props.onClose}>
     <div className={classes.loginmainDiv}>
       <div id="recaptcha-container" style={{ display: "none" }}>
         {" "}
@@ -202,6 +204,7 @@ function UserSignUp(props) {
         <OtpVerify phoneNumber={ph} onCloseOTP={props.onCloseOTP} />
       )}
     </div>
+    </LoginModal>
   );
 }
 export default UserSignUp;

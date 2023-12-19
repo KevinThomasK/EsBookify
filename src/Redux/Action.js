@@ -1,6 +1,7 @@
 export const STORE_IDENTIFIER ="STORE_IDENTIFIER"
 export const STORE_SLOTDETAILS ="STORE_SLOTDETAILS"
 export const STORE_SLOTCOUNT ="STORE_SLOTCOUNT"
+export const STORE_NOTIFICATION ="STORE_NOTIFICATION"
 
 
 export function  storeIdentifier(payload){
@@ -23,5 +24,11 @@ export function  storeSlotCount(payload){
     return{
         type: STORE_SLOTCOUNT,
          payload:payload
+    }
+}
+export function storeNotification(payload){
+    return{
+        type: STORE_NOTIFICATION,
+        payload: payload
     }
 }

@@ -73,6 +73,7 @@ function Login(props) {
       window.localStorage.setItem("loginDetails", section);
       props.storeIdentifier(section);
       toast.success("Signed In");
+      props.onClose();
     } catch (err) {
       props.storeIdentifier(section);
     }
@@ -87,7 +88,7 @@ function Login(props) {
         {
           size: "invisible",
           callback: (response) => {
-            // console.log(response);
+            console.log(response);
             onSignup();
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             // ...
@@ -133,10 +134,11 @@ function Login(props) {
             console.log(error, error.code, error.message);
             if (error.code === "auth/invalid-phone-number") {
               setErrorMessage("Invalid Phone Number ");
-            } else {
-              // Handle other Firebase errors
-              setErrorMessage("Other Firebase error:", error.message);
-            }
+            } 
+            // else {
+            //   // Handle other Firebase errors
+            //   setErrorMessage("Other Firebase error:", error.message);
+            // }
             setShowOTP(false);
           }
         });

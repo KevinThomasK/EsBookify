@@ -78,6 +78,7 @@ function OtpVerify(props) {
         window.confirmationResult = confirmationResult; // ...
       })
       .catch((error) => {
+        console.log(error,"error");
         // Error; SMS not sent        // ...
       });
   };

@@ -5,7 +5,23 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
 import { useAuthedRequest } from "../../hooks/useAuthedRequest";
+import downloadicon from "../../assets/DownloadIcon.svg";
+import shareicon from "../../assets/ShareIcon.svg";
 import axios from "axios";
+import jsPDF from 'jspdf';
+import { useReactToPrint } from 'react-to-print';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  InstapaperShareButton,
+  TelegramShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon,
+  InstapaperIcon,
+  TelegramIcon,
+} from 'react-share';
 
 const AddPointsT = () => {
   const params = useParams();
@@ -59,6 +75,39 @@ const AddPointsT = () => {
       console.log(error);
     }
   };
+  const [isShareModalOpen, setShareModalOpen] = useState(false);
+
+  const openShareModal = () => {
+    setShareModalOpen(true);
+  };
+
+  const closeShareModal = () => {
+    setShareModalOpen(false);
+  };
+  const handleOverlayClick = (e) => {
+    // Close the modal if the overlay (black background) is clicked
+    if (e.target === e.currentTarget) {
+      closeShareModal();
+    }
+  };
+  const componentRef = React.useRef()
+  const handleprint = useReactToPrint({
+    content:()=>componentRef.current,
+    documentTitle:"PointTable",
+    onBeforeGetContent: () => {
+      const pdf = new jsPDF();
+  
+      // Set custom styles
+      pdf.setTextColor(255, 99, 71); // Set text color to red
+      pdf.setFontSize(16); // Set font size
+  
+      // Custom styling for the table
+      const tableOptions = {
+        startY: 20, // Adjust the starting position of the table
+      };
+      return pdf;
+    },
+  })
 
   const [teams, setTeams] = useState("");
 
@@ -85,7 +134,49 @@ const AddPointsT = () => {
 
       {/* team lists table */}
       <div className="bg-black pb-24 pt-8 px-24">
-        <table class="table-auto border-slate-50 w-full">
+          <div className="flex w-full justify-center mb-2"><h4 className="text-white mr-5 flex bold"> POINT TABLE </h4>
+          <button className="text-white mr-5 flex" onClick={handleprint}><img src={downloadicon}></img></button>
+          <img src={shareicon} className="text-white mr-5 flex"  onClick={openShareModal}/>
+
+          {isShareModalOpen && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"onClick={handleOverlayClick}>
+          <div className="bg-white p-8 rounded-lg items-center gap-4 flex">
+            <FacebookShareButton
+              url="https://your-website.com"
+              quote="Check out this awesome content!"
+            >
+              <FacebookIcon size={40} round />
+            </FacebookShareButton>
+
+            <TwitterShareButton
+              url="https://your-website.com"
+              title="Check out this awesome content!"
+            >
+              <TwitterIcon size={40} round />
+            </TwitterShareButton>
+
+            <WhatsappShareButton
+              url="https://your-website.com"
+              title="Check out this awesome content!"
+            >
+              <WhatsappIcon size={40} round/>
+            </WhatsappShareButton>
+            <InstapaperShareButton
+              url="https://your-website.com"
+              title="Check out this awesome content!"
+            >
+              <InstapaperIcon size={40} round/>
+            </InstapaperShareButton>
+            <TelegramShareButton
+              url="https://your-website.com"
+              title="Check out this awesome content!"
+            >
+              <TelegramIcon size={40} round/>
+            </TelegramShareButton>
+            </div>
+            </div>
+          )}</div>
+        <table class="table-auto border-slate-50 w-full" ref={componentRef}>
           <thead class="text-slate-50">
             <tr>
               <th className="py-4">#</th>
